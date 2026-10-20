@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#070609">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>KinkSync — Accords, Désirs & Limites</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-obsidian: #070609;
+      --bg-velvet: #110d16;
+      --bg-card: #16121e;
+      --bg-input: #0c0910;
+      --border-subtle: #282034;
+      --border-gold: rgba(212, 175, 55, 0.35);
+      --gold: #d4af37;
+      --gold-light: #f3e5ab;
+      --crimson: #9f1239;
+      --crimson-bright: #e11d48;
+      --text-main: #f5f3f7;
+      --text-muted: #9e93ad;
+      --yes: #10b981;
+      --curious: #f59e0b;
+      --neutral: #64748b;
+      --no: #e11d48;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      background-color: var(--bg-obsidian);
+      background-image: 
+        radial-gradient(circle at 15% 0%, rgba(159, 18, 57, 0.14) 0%, transparent 45%),
+        radial-gradient(circle at 85% 100%, rgba(212, 175, 55, 0.08) 0%, transparent 45%);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      padding-bottom: 90px;
+      line-height: 1.5;
+    }
+
+    h1, h2, h3, .serif-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      letter-spacing: 0.03em;
+    }
+
+    /* En-tête Luxe */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(11, 9, 15, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 10px 16px;
+    }
+    .header-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(145deg, #1a111e, #0d0811);
+      border: 1px solid var(--border-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.12);
+    }
+    .brand-text h1 {
+      font-size: 1.45rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--gold-light), var(--gold), #e899ac);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.1;
+    }
+    .brand-text span {
+      display: block;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn {
+      border: 1px solid transparent;
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: inherit;
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, #d4af37, #aa8010);
+      color: #09070b;
+      box-shadow: 0 2px 12px rgba(212, 175, 55, 0.25);
+    }
+    .btn-gold:hover { filter: brightness(1.1); }
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.03);
+      border-color: var(--border-subtle);
+      color: var(--text-muted);
+    }
+    .btn-ghost:hover {
+      color: var(--text-main);
+      border-color: var(--gold);
+    }
+    .btn-panic {
+      background: rgba(225, 29, 72, 0.12);
+      border-color: rgba(225, 29, 72, 0.35);
+      color: #fda4af;
+      padding: 7px 9px;
+    }
+
+    /* Navigation Onglets */
+    nav {
+      position: sticky;
+      top: 59px;
+      z-index: 40;
+      background: rgba(7, 6, 9, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .nav-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      padding: 0 12px;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 13px 16px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      color: var(--gold-light);
+      border-bottom-color: var(--gold);
+    }
+
+    /* Conteneur Principal */
+    main {
+      max-width: 760px;
+      margin: 18px auto 0;
+      padding: 0 14px;
+    }
+    .view-section { display: none; }
+    .view-section.active { display: block; }
+
+    .card {
+      background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-velvet) 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+    }
+
+    /* Profil et filtres */
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    input[type="text"], select, textarea {
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 10px 12px;
+      border-radius: 9px;
+      font-size: 0.85rem;
+      width: 100%;
+      outline: none;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--gold);
+    }
+
+    .role-default-hint {
+      font-size: 0.72rem;
+      color: var(--gold-light);
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      padding: 7px 11px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    /* Barre Statistiques */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .stat-pill {
+      padding: 8px 6px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .stat-pill:active { transform: scale(0.97); }
+    .stat-yes { background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.35); color: #6ee7b7; }
+    .stat-curious { background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.35); color: #fcd34d; }
+    .stat-neutral { background: rgba(100, 116, 139, 0.12); border-color: rgba(100, 116, 139, 0.3); color: #cbd5e1; }
+    .stat-no { background: rgba(225, 29, 72, 0.12); border-color: rgba(225, 29, 72, 0.35); color: #fda4af; }
+
+    /* Catégories & Pratiques */
+    .cat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .cat-header {
+      background: linear-gradient(90deg, rgba(159, 18, 57, 0.22), rgba(212, 175, 55, 0.06));
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cat-header h3 {
+      font-size: 1.12rem;
+      color: var(--gold-light);
+      font-weight: 700;
+    }
+    .cat-badge {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      background: rgba(0, 0, 0, 0.35);
+      padding: 2px 8px;
+      border-radius: 99px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .practice-row {
+      padding: 11px 14px;
+      border-bottom: 1px solid rgba(40, 32, 52, 0.65);
+      transition: background 0.15s;
+    }
+    .practice-row:last-child { border-bottom: none; }
+    .practice-main {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .practice-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+    .practice-label {
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: var(--text-main);
+    }
+    .rating-group {
+      display: flex;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+    .rate-btn {
+      width: 34px;
+      height: 30px;
+      border-radius: 7px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-input);
+      cursor: pointer;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      opacity: 0.55;
+    }
+    .rate-btn:hover { opacity: 0.9; }
+    .rate-btn.active-yes { background: rgba(16, 185, 129, 0.28); border-color: var(--yes); opacity: 1; transform: scale(1.05); }
+    .rate-btn.active-curious { background: rgba(245, 158, 11, 0.28); border-color: var(--curious); opacity: 1; transform: scale(1.05); }
+    .rate-btn.active-neutral { background: rgba(100, 116, 139, 0.35); border-color: #94a3b8; opacity: 1; }
+    .rate-btn.active-no { background: rgba(225, 29, 72, 0.32); border-color: var(--no); opacity: 1; transform: scale(1.05); }
+
+    /* Sous-sélection Donneur / Receveur / Switch */
+    .practice-nuance {
+      margin-top: 8px;
+      padding-top: 7px;
+      border-top: 1px dashed rgba(212, 175, 55, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .nuance-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .nuance-badge-auto {
+      font-size: 0.62rem;
+      color: var(--gold);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+    .nuance-pills {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+    .nuance-btn {
+      font-size: 0.68rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .nuance-btn.active {
+      background: rgba(212, 175, 55, 0.18);
+      border-color: var(--gold);
+      color: var(--gold-light);
+      font-weight: 600;
+    }
+    .nuance-reset-btn {
+      font-size: 0.65rem;
+      padding: 2px 6px;
+      border-radius: 5px;
+      background: transparent;
+      border: 1px dashed var(--border-subtle);
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .nuance-reset-btn:hover {
+      color: var(--gold-light);
+      border-color: var(--gold);
+    }
+
+    /* Grilles Santé & Sécurité */
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 11px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: 9px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .check-item input { accent-color: var(--gold); }
+
+    /* Comparateur & Jauges */
+    .mode-switch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin: 10px 0;
+    }
+    .mode-btn {
+      padding: 10px;
+      border-radius: 9px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-input);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+    }
+    .mode-btn.active {
+      border-color: var(--gold);
+      background: rgba(212, 175, 55, 0.14);
+      color: var(--gold-light);
+    }
+
+    .score-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(135deg, rgba(159, 18, 57, 0.25), rgba(212, 175, 55, 0.12));
+      border: 1px solid var(--border-gold);
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 14px;
+    }
+    .score-circle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--gold-light);
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .tag {
+      font-size: 0.74rem;
+      padding: 5px 10px;
+      border-radius: 7px;
+      font-weight: 500;
+    }
+    .tag-yes { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #a7f3d0; }
+    .tag-curious { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); color: #fde68a; }
+    .tag-no { background: rgba(225, 29, 72, 0.18); border: 1px solid rgba(225, 29, 72, 0.45); color: #fecdd3; }
+    .tag-synergy { background: rgba(212, 175, 55, 0.18); border: 1px solid var(--gold); color: var(--gold-light); }
+
+    .cat-bar-row {
+      margin-bottom: 8px;
+    }
+    .cat-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.73rem;
+      margin-bottom: 3px;
+      color: var(--text-muted);
+    }
+    .cat-bar-track {
+      height: 6px;
+      background: var(--bg-input);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .cat-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--crimson-bright), var(--gold));
+      border-radius: 99px;
+    }
+
+    /* Modal & Mode Discret (Panic Mode) */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 100;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 16px;
+      max-width: 440px;
+      width: 100%;
+      padding: 20px;
+    }
+
+    /* Écran Camouflage (Liste de courses / Notes) */
+    #camouflage-screen {
+      position: fixed;
+      inset: 0;
+      background: #f8fafc;
+      color: #1e293b;
+      z-index: 9999;
+      display: none;
+      padding: 24px 18px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    #camouflage-screen.active { display: block; }
+
+    @media print {
+      header, nav, .no-print { display: none !important; }
+      body { background: #fff; color: #000; }
+      .card { border: 1px solid #ccc; box-shadow: none; background: #fff; color: #000; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ÉCRAN DE CAMOUFLAGE (PANIC BUTTON) -->
+  <div id="camouflage-screen">
+    <div style="max-width: 520px; margin: 0 auto;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:12px; margin-bottom:16px;">
+        <h2 style="font-family:sans-serif; font-size:1.2rem; color:#0f172a;">📝 Mes Notes & Courses</h2>
+        <span style="font-size:0.75rem; color:#64748b;">Synchronisé</span>
+      </div>
+      <div style="background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px; margin-bottom:14px;">
+        <p style="font-weight:600; font-size:0.9rem; margin-bottom:8px;">Liste magasin :</p>
+        <ul style="font-size:0.85rem; color:#334155; padding-left:18px; line-height:1.8;">
+          <li>Café en grains / Filtres</li>
+          <li>Huile d'olive & gros sel</li>
+          <li>Légumes grillés (courgettes, poivrons)</li>
+          <li>Piles AA & ampoules LED</li>
+          <li>Pain complet</li>
+        </ul>
+      </div>
+      <p style="font-size:0.75rem; color:#94a3b8; text-align:center; margin-top:40px; cursor:pointer;" onclick="togglePanicMode()">
+        Double-cliquez ici pour fermer l'aide-mémoire
+      </p>
+    </div>
+  </div>
+
+  <!-- EN-TÊTE -->
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <!-- Logo Vectoriel KinkSync : Nœud Shibari & Serrure Dorée -->
+        <div class="brand-logo" title="KinkSync">
+          <svg width="26" height="26" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 3L31 16L18 29L5 16L18 3Z" stroke="#d4af37" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M11 10L25 24M25 10L11 24" stroke="#9f1239" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="18" cy="15" r="3.2" fill="#d4af37"/>
+            <path d="M16.5 17.5L15.5 23H20.5L19.5 17.5" fill="#d4af37"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>KinkSync</h1>
+          <span>Accords, Désirs & Limites</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn btn-panic" onclick="togglePanicMode()" title="Mode Discret Immédiat (Touche Échap)">
+          👁️ Discret
+        </button>
+        <button class="btn btn-ghost" onclick="resetAll()" title="Effacer mes réponses">
+          ↺
+        </button>
+        <button class="btn btn-gold" onclick="openShareModal()">
+          ✦ Partager
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="nav-inner">
+      <button class="tab-btn active" id="tab-practices" onclick="switchTab('practices')">
+        ❖ Matrice des Pratiques (46)
+      </button>
+      <button class="tab-btn" id="tab-safety" onclick="switchTab('safety')">
+        ⚕️ Santé, Safewords & Cadre
+      </button>
+      <button class="tab-btn" id="tab-compare" onclick="switchTab('compare')">
+        ⚡ Comparateur & Contrat
+      </button>
+    </div>
+  </nav>
+
+  <!-- CONTENU PRINCIPAL -->
+  <main>
+
+    <!-- ONGLET 1 : PRATIQUES -->
+    <section id="view-practices" class="view-section active">
+      <div class="card">
+        <div class="profile-grid">
+          <input type="text" id="user-pseudo" placeholder="Pseudonyme ou initiale (ex: S.)" oninput="updateProfile()">
+          <select id="user-role" onchange="handleRoleChange()">
+            <option value="Dominant(e)">Dominant(e) / Maître(sse)</option>
+            <option value="Soumis(e)">Soumis(e) / Sub</option>
+            <option value="Switch" selected>Switch</option>
+            <option value="Curieux(se)">En exploration</option>
+          </select>
+        </div>
+
+        <!-- Indicateur d'orientation automatique liée au rôle -->
+        <div class="role-default-hint">
+          <span id="role-orientation-summary">
+            Orientation par défaut des pratiques : <strong>🔄 Switch</strong> (modifiable sur chaque pratique)
+          </span>
+          <button class="btn btn-ghost" style="padding:3px 8px; font-size:0.68rem;" onclick="applyRoleOrientationToAll()">
+            Tout aligner sur mon rôle
+          </button>
+        </div>
+
+        <div style="display:flex; gap:8px; align-items:center;">
+          <input type="text" id="search-input" placeholder="Filtrer une pratique (ex: shibari, uro, fisting, cage...)" oninput="renderPractices()">
+          <button class="btn btn-ghost" id="btn-filter-selected" onclick="toggleCustomQuestionnaireMode()" title="Mode sélection Dominant : choisir uniquement certaines pratiques à envoyer">
+            🎯 Cibler
+          </button>
+        </div>
+        <div id="custom-mode-banner" style="display:none; margin-top:10px; padding:8px 12px; background:rgba(212,175,55,0.1); border:1px solid var(--border-gold); border-radius:8px; font-size:0.76rem; color:var(--gold-light);">
+          <strong>Mode Questionnaire Ciblé activé :</strong> Coche les cases à gauche des pratiques que tu souhaites soumettre à ton/ta partenaire. (<span id="selected-count">0</span> sélectionnées)
+        </div>
+      </div>
+
+      <!-- Compteurs & Légende -->
+      <div class="stats-bar">
+        <div class="stat-pill stat-yes" onclick="filterByRating('yes')">🟢 Oui (<span id="count-yes">0</span>)</div>
+        <div class="stat-pill stat-curious" onclick="filterByRating('curious')">🟡 Curieux (<span id="count-curious">0</span>)</div>
+        <div class="stat-pill stat-neutral" onclick="filterByRating('neutral')">⚪ Neutre (<span id="count-neutral">0</span>)</div>
+        <div class="stat-pill stat-no" onclick="filterByRating('no')">🔴 Hard Limit (<span id="count-no">0</span>)</div>
+      </div>
+
+      <div id="categories-container"></div>
+    </section>
+
+    <!-- ONGLET 2 : SANTÉ & SÉCURITÉ -->
+    <section id="view-safety" class="view-section">
+      <div class="card">
+        <div class="section-title">🚦 Safewords (Mots de sécurité)</div>
+        <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:12px;">
+          Le respect immédiat du Safeword est la règle absolue de toute séance.
+        </p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:10px; margin-bottom:12px;">
+          <div>
+            <label style="font-size:0.72rem; color:#6ee7b7; font-weight:600;">Feu Vert (Continuer)</label>
+            <input type="text" id="safe-green" value="Vert" oninput="saveSafety()">
+          </div>
+          <div>
+            <label style="font-size:0.72rem; color:#fcd34d; font-weight:600;">Feu Orange (Ralentir / Pause)</label>
+            <input type="text" id="safe-orange" value="Orange" oninput="saveSafety()">
+          </div>
+          <div>
+            <label style="font-size:0.72rem; color:#fda4af; font-weight:600;">Feu Rouge (Arrêt Immédiat)</label>
+            <input type="text" id="safe-red" value="Rouge" oninput="saveSafety()">
+          </div>
+        </div>
+        <div>
+          <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:4px;">
+            🔔 Signal Non-Verbal (obligatoire si bâillon, masque ou bouche entravée)
+          </label>
+          <input type="text" id="safe-nonverbal" placeholder="Ex: Lâcher une clochette tenue en main, taper 3 fois de suite..." oninput="saveSafety()">
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">⚠️ Allergies & Intolérances Matérielles</div>
+        <div id="allergies-grid" class="check-grid"></div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">🩺 Fragilités Physiques & Points de Vigilance</div>
+        <div id="medical-grid" class="check-grid"></div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">🕯️ Besoins d'Aftercare (Retour au calme après séance)</div>
+        <div id="aftercare-grid" class="check-grid"></div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">🖋️ Observations, Triggers & Limites Spécifiques</div>
+        <textarea id="safety-notes" rows="3" placeholder="Précise ici toute phobie, zone du corps intouchable, passif ou besoin particulier..." oninput="saveSafety()"></textarea>
+      </div>
+    </section>
+
+    <!-- ONGLET 3 : COMPARATEUR -->
+    <section id="view-compare" class="view-section">
+      <div class="card no-print">
+        <div class="section-title">⚡ Croiser deux profils</div>
+        <p style="font-size:0.78rem; color:var(--text-muted);">
+          Choisis la nature de votre échange puis colle le lien ou code transmis par ton/ta partenaire.
+        </p>
+
+        <div class="mode-switch">
+          <button class="mode-btn active" id="btn-mode-duo" onclick="setCompareMode('duo')">
+            🥂 Mode Duo (Double Aveugle)
+          </button>
+          <button class="mode-btn" id="btn-mode-ds" onclick="setCompareMode('ds')">
+            ⛓️ Mode Protocole D/s (Complet)
+          </button>
+        </div>
+        <p id="mode-desc" style="font-size:0.73rem; color:var(--gold-light); margin-bottom:12px; font-style:italic;">
+          En mode Duo, seules vos envies communes (Oui & Curieux) sont révélées. Les refus restent strictement secrets.
+        </p>
+
+        <textarea id="partner-code-input" rows="2" placeholder="Colle ici le lien ou code KinkSync de ton/ta partenaire..." style="font-family:monospace; font-size:0.75rem; margin-bottom:10px;"></textarea>
+        
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="btn btn-gold" style="flex:1; justify-content:center;" onclick="runComparison()">
+            Analyser les affinités
+          </button>
+          <button class="btn btn-ghost" onclick="loadDemoPartner()">
+            Charger un profil test
+          </button>
+        </div>
+      </div>
+
+      <div id="comparison-output"></div>
+    </section>
+
+  </main>
+
+  <!-- MODAL DE PARTAGE -->
+  <div class="modal-backdrop" id="share-modal">
+    <div class="modal-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <h3 style="font-size:1.3rem; color:var(--gold-light);">Partager mon profil</h3>
+        <button class="btn btn-ghost" onclick="closeShareModal()">✕</button>
+      </div>
+      <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:12px;">
+        Aucune donnée n'est envoyée sur un serveur : tout est chiffré dans ce lien unique. Envoie-le à la personne de ton choix.
+      </p>
+      <input type="text" id="share-url-output" readonly style="font-family:monospace; font-size:0.74rem; margin-bottom:12px;">
+      <div style="display:flex; gap:8px;">
+        <button class="btn btn-gold" style="flex:1; justify-content:center;" id="btn-copy-link" onclick="copyShareLink()">
+          Copier le lien complet
+        </button>
+        <button class="btn btn-ghost" onclick="copyRawCode()">
+          Copier code seul
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. RÉFÉRENTIEL COMPLET DES 46 PRATIQUES (7 CATÉGORIES)
+    // =========================================================================
+    const KINK_CATEGORIES = [
+      {
+        id: "cat_ds",
+        title: "1. Dynamiques Relationnelles & Contrôle Mental",
+        items: [
+          { id: "collier_laisse", label: "Collier et laisse" },
+          { id: "discipline", label: "Discipline & Règles strictes" },
+          { id: "postures", label: "Positions et attitudes imposées" },
+          { id: "esclave", label: "Dynamique Maître(sse) / Esclave" },
+          { id: "frustration", label: "Frustration sexuelle" },
+          { id: "cocufication", label: "Cocufication (Cuckolding / Cuckquean)" },
+          { id: "gay_impose", label: "Gay imposé / Initiation bi guidée" }
+        ]
+      },
+      {
+        id: "cat_bondage",
+        title: "2. Entraves, Attaches & Privation",
+        items: [
+          { id: "bondage", label: "Bondage (menottes, sangles, liens)" },
+          { id: "shibari", label: "Shibari (cordes japonaises)" },
+          { id: "ties_denial", label: "Ties and denial (attaché(e) & privé(e))" },
+          { id: "privations_sensorielles", label: "Privations sensorielles (yeux bandés, casque...)" },
+          { id: "enfermement", label: "Enfermement (cage, pièce, sac)" }
+        ]
+      },
+      {
+        id: "cat_sex_control",
+        title: "3. Contrôle Sexuel, Pénétration & Sextoys",
+        items: [
+          { id: "chastete", label: "Chasteté imposée (cage / ceinture)" },
+          { id: "privation_orgasme", label: "Privation d'orgasme ( Denial )" },
+          { id: "controle_orgasme", label: "Contrôle de l'orgasme / Edging sous ordre" },
+          { id: "sextoys_vaginal", label: "Godes / Sextoys (Vaginal)" },
+          { id: "sextoys_anal", label: "Godes / Sextoys (Anal)" },
+          { id: "dilatation_vaginale", label: "Dilatation (Vaginale)" },
+          { id: "dilatation_anale", label: "Dilatation (Anale)" },
+          { id: "fisting_vaginal", label: "Fisting (Vaginal)" },
+          { id: "fisting_anal", label: "Fisting (Anal)" }
+        ]
+      },
+      {
+        id: "cat_impact",
+        title: "4. Sensations, Impact & Supplices",
+        items: [
+          { id: "fessees", label: "Fessées (Spanking)" },
+          { id: "fouet_cravache", label: "Fouet, cravache, martinet" },
+          { id: "chatiments", label: "Châtiments corporels marqués" },
+          { id: "bougies", label: "Bougies / Cire chaude basse température" },
+          { id: "electro", label: "Électro-stimulation" },
+          { id: "torture_seins", label: "Tortures des seins (pinces, serrage...)" },
+          { id: "torture_genitales", label: "Tortures des parties génitales (CBT / BBT)" }
+        ]
+      },
+      {
+        id: "cat_oral_fluids",
+        title: "5. Domination Orale, Visage & Fluides",
+        items: [
+          { id: "facesitting", label: "Facesitting (assise sur le visage)" },
+          { id: "face_fuck", label: "Face fucking / Gorge profonde imposée" },
+          { id: "manger_sperme", label: "Manger sperme / Avaler (Cum eating)" },
+          { id: "crachat", label: "Crachat" },
+          { id: "uro", label: "Uro (Ondinisme / Douche dorée)" },
+          { id: "scato", label: "Scato" }
+        ]
+      },
+      {
+        id: "cat_roles_fetish",
+        title: "6. Jeux de Rôles, Esthétique & Fétichismes",
+        items: [
+          { id: "jeux_de_roles", label: "Jeux de Rôles" },
+          { id: "mises_en_scene", label: "Mises en scène scénarisées" },
+          { id: "tenues_imposees", label: "Tenues imposées" },
+          { id: "cuir_latex", label: "Cuir, latex & vinyle" },
+          { id: "uniformes", label: "Uniformes" },
+          { id: "pony_play", label: "Pony-play" },
+          { id: "puppy_play", label: "Puppy-play / Pet-play" },
+          { id: "travestissement", label: "Travestissement / Féminisation" },
+          { id: "fetichisme", label: "Fétichisme (pieds, bottes, lingerie...)" }
+        ]
+      },
+      {
+        id: "cat_taboo_group",
+        title: "7. Humiliation, Tabous, Médical & Groupe",
+        items: [
+          { id: "humiliations", label: "Humiliations verbales ou psychologiques" },
+          { id: "jeux_medicaux", label: "Jeux médicaux (examen, spéculum, lavement...)" },
+          { id: "marquage_temp", label: "Marquage ou perçage temporaire (aiguilles...)" },
+          { id: "marquage_perm", label: "Marquage ou perçage permanent" },
+          { id: "photo_video", label: "Être photographié(e) / Filmé(e)" },
+          { id: "exhibition", label: "Exhibition" },
+          { id: "voyeurisme", label: "Voyeurisme (regarder / observer)" },
+          { id: "echangisme", label: "Échangisme" },
+          { id: "sexe_groupe", label: "Sexualité de groupe ou orgie" }
+        ]
+      }
+    ];
+
+    const ALLERGIES_LIST = ["Latex", "Silicone", "Cuir / Tannins", "Nickel / Métaux", "Cire / Parfums", "Huiles d'amande/arachide"];
+    const MEDICAL_LIST = ["Épaules sensibles", "Poignets / Canal carpien", "Genoux fragiles", "Lombaires / Dos", "Asthme / Souffle", "Troubles circulatoires", "Peau marquant très vite", "Claustrophobie"];
+    const AFTERCARE_LIST = ["Câlins & contact peau", "Couverture chaude", "Eau / Boisson sucrée", "Silence & calme", "Mots rassurants (Praise)", "Débriefing à froid"];
+
+    // =========================================================================
+    // 2. ÉTAT DE L'APPLICATION & ORIENTATION PAR RÔLE
+    // =========================================================================
+    // Mapping entre le rôle général du profil et l'orientation par défaut des pratiques
+    function getDefaultDirectionForRole(role) {
+      if (role === "Dominant(e)") return "give";    // 👑 Donneur / Dom
+      if (role === "Soumis(e)") return "receive";   // ⛓️ Receveur / Sub
+      return "switch";                              // 🔄 Switch (pour Switch et En exploration)
+    }
+
+    function getDirectionLabel(dir) {
+      if (dir === "give") return "👑 Donneur / Dom";
+      if (dir === "receive") return "⛓️ Receveur / Sub";
+      return "🔄 Switch";
+    }
+
+    let state = {
+      pseudo: "",
+      role: "Switch",
+      ratings: {},          // { id: 'yes' | 'curious' | 'neutral' | 'no' }
+      directions: {},       // { id: 'give' | 'receive' | 'switch' }
+      customDirections: {}, // { id: true } -> Indique si l'utilisateur a forcé manuellement une autre orientation que son rôle
+      selectedSubset: [],   // Pour le mode Questionnaire Ciblé
+      safety: {
+        green: "Vert",
+        orange: "Orange",
+        red: "Rouge",
+        nonverbal: "",
+        allergies: [],
+        medical: [],
+        aftercare: [],
+        notes: ""
+      }
+    };
+
+    let activeRatingFilter = null;
+    let customQuestionnaireMode = false;
+    let compareMode = "duo";
+
+    // =========================================================================
+    // 3. INITIALISATION
+    // =========================================================================
+    window.addEventListener("DOMContentLoaded", () => {
+      loadState();
+      updateRoleHintBanner();
+      renderPractices();
+      renderSafetyGrids();
+      checkHashImport();
+
+      // Double Échap pour activer le Panic Mode au clavier
+      let lastEsc = 0;
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          const now = Date.now();
+          if (now - lastEsc < 500) togglePanicMode();
+          lastEsc = now;
+        }
+      });
+    });
+
+    // Quand l'utilisateur change son rôle général en haut de la page :
+    // Toutes les pratiques qui n'ont pas été verrouillées manuellement suivent le nouveau rôle
+    function handleRoleChange() {
+      const newRole = document.getElementById("user-role").value;
+      state.role = newRole;
+      const defaultDir = getDefaultDirectionForRole(newRole);
+
+      KINK_CATEGORIES.forEach(cat => {
+        cat.items.forEach(item => {
+          if (!state.customDirections[item.id]) {
+            state.directions[item.id] = defaultDir;
+          }
+        });
+      });
+
+      updateRoleHintBanner();
+      saveState();
+      renderPractices();
+    }
+
+    // Bouton "Tout aligner sur mon rôle" : réinitialise toutes les exceptions manuelles
+    function applyRoleOrientationToAll() {
+      const defaultDir = getDefaultDirectionForRole(state.role);
+      state.customDirections = {};
+      KINK_CATEGORIES.forEach(cat => {
+        cat.items.forEach(item => {
+          state.directions[item.id] = defaultDir;
+        });
+      });
+      saveState();
+      renderPractices();
+    }
+
+    function updateRoleHintBanner() {
+      const defaultDir = getDefaultDirectionForRole(state.role);
+      const summaryEl = document.getElementById("role-orientation-summary");
+      if (summaryEl) {
+        summaryEl.innerHTML = `Orientation par défaut (${state.role}) : <strong>${getDirectionLabel(defaultDir)}</strong>`;
+      }
+    }
+
+    // =========================================================================
+    // 4. RENDU DE LA MATRICE DES PRATIQUES
+    // =========================================================================
+    function renderPractices() {
+      const container = document.getElementById("categories-container");
+      const query = (document.getElementById("search-input")?.value || "").toLowerCase().trim();
+      container.innerHTML = "";
+
+      let counts = { yes: 0, curious: 0, neutral: 0, no: 0 };
+      const defaultRoleDir = getDefaultDirectionForRole(state.role);
+
+      KINK_CATEGORIES.forEach(cat => {
+        cat.items.forEach(item => {
+          const r = state.ratings[item.id] || "neutral";
+          counts[r]++;
+        });
+
+        const visibleItems = cat.items.filter(item => {
+          const matchesSearch = item.label.toLowerCase().includes(query);
+          const r = state.ratings[item.id] || "neutral";
+          const matchesFilter = !activeRatingFilter || r === activeRatingFilter;
+          return matchesSearch && matchesFilter;
+        });
+
+        if (visibleItems.length === 0) return;
+
+        const card = document.createElement("div");
+        card.className = "cat-card";
+
+        const rowsHtml = visibleItems.map(item => {
+          const r = state.ratings[item.id] || "neutral";
+          // Si aucune direction enregistrée, on prend automatiquement celle correspondant au rôle du profil
+          const dir = state.directions[item.id] || defaultRoleDir;
+          const isCustom = !!state.customDirections[item.id];
+          const isChecked = state.selectedSubset.includes(item.id);
+
+          return `
+            <div class="practice-row">
+              <div class="practice-main">
+                <div class="practice-title-wrap">
+                  ${customQuestionnaireMode ? `
+                    <input type="checkbox" ${isChecked ? "checked" : ""} onchange="toggleSubsetItem('${item.id}')" style="accent-color:var(--gold); width:16px; height:16px; cursor:pointer;">
+                  ` : ""}
+                  <span class="practice-label">${item.label}</span>
+                </div>
+                <div class="rating-group">
+                  <button class="rate-btn ${r === 'yes' ? 'active-yes' : ''}" onclick="setRating('${item.id}', 'yes')" title="Oui / J'aime">🟢</button>
+                  <button class="rate-btn ${r === 'curious' ? 'active-curious' : ''}" onclick="setRating('${item.id}', 'curious')" title="Curieux / À découvrir">🟡</button>
+                  <button class="rate-btn ${r === 'neutral' ? 'active-neutral' : ''}" onclick="setRating('${item.id}', 'neutral')" title="Neutre / À discuter">⚪</button>
+                  <button class="rate-btn ${r === 'no' ? 'active-no' : ''}" onclick="setRating('${item.id}', 'no')" title="Non / Hard Limit">🔴</button>
+                </div>
+              </div>
+              ${(r === "yes" || r === "curious") ? `
+                <div class="practice-nuance">
+                  <span class="nuance-label">
+                    Orientation :
+                    ${!isCustom ? `<span class="nuance-badge-auto">Auto (${state.role})</span>` : `<span class="nuance-badge-auto" style="color:#fda4af; border-color:rgba(253,164,175,0.4);">Personnalisé</span>`}
+                  </span>
+                  <div class="nuance-pills">
+                    <button class="nuance-btn ${dir === 'give' ? 'active' : ''}" onclick="setDirection('${item.id}', 'give')">👑 Donneur / Dom</button>
+                    <button class="nuance-btn ${dir === 'receive' ? 'active' : ''}" onclick="setDirection('${item.id}', 'receive')">⛓️ Receveur / Sub</button>
+                    <button class="nuance-btn ${dir === 'switch' ? 'active' : ''}" onclick="setDirection('${item.id}', 'switch')">🔄 Switch</button>
+                    ${isCustom ? `<button class="nuance-reset-btn" onclick="resetDirectionToRole('${item.id}')" title="Revenir au rôle du profil">↺ Auto</button>` : ""}
+                  </div>
+                </div>
+              ` : ""}
+            </div>
+          `;
+        }).join("");
+
+        card.innerHTML = `
+          <div class="cat-header">
+            <h3>${cat.title}</h3>
+            <span class="cat-badge">${visibleItems.length} pratiques</span>
+          </div>
+          <div>${rowsHtml}</div>
+        `;
+        container.appendChild(card);
+      });
+
+      document.getElementById("count-yes").textContent = counts.yes;
+      document.getElementById("count-curious").textContent = counts.curious;
+      document.getElementById("count-neutral").textContent = counts.neutral;
+      document.getElementById("count-no").textContent = counts.no;
+      document.getElementById("selected-count").textContent = state.selectedSubset.length;
+    }
+
+    function setRating(itemId, rating) {
+      state.ratings[itemId] = rating;
+      // Si l'utilisateur coche Oui ou Curieux et qu'il n'avait pas personnalisé l'orientation, on applique celle du rôle
+      if ((rating === "yes" || rating === "curious") && !state.customDirections[itemId]) {
+        state.directions[itemId] = getDefaultDirectionForRole(state.role);
+      }
+      saveState();
+      renderPractices();
+    }
+
+    function setDirection(itemId, dir) {
+      state.directions[itemId] = dir;
+      const defaultDir = getDefaultDirectionForRole(state.role);
+      // Si la direction choisie diffère du rôle par défaut, on marque l'exception manuelle
+      if (dir !== defaultDir) {
+        state.customDirections[itemId] = true;
+      } else {
+        delete state.customDirections[itemId];
+      }
+      saveState();
+      renderPractices();
+    }
+
+    function resetDirectionToRole(itemId) {
+      delete state.customDirections[itemId];
+      state.directions[itemId] = getDefaultDirectionForRole(state.role);
+      saveState();
+      renderPractices();
+    }
+
+    function filterByRating(rating) {
+      activeRatingFilter = (activeRatingFilter === rating) ? null : rating;
+      renderPractices();
+    }
+
+    function toggleCustomQuestionnaireMode() {
+      customQuestionnaireMode = !customQuestionnaireMode;
+      document.getElementById("custom-mode-banner").style.display = customQuestionnaireMode ? "block" : "none";
+      renderPractices();
+    }
+
+    function toggleSubsetItem(id) {
+      const idx = state.selectedSubset.indexOf(id);
+      if (idx > -1) state.selectedSubset.splice(idx, 1);
+      else state.selectedSubset.push(id);
+      saveState();
+      document.getElementById("selected-count").textContent = state.selectedSubset.length;
+    }
+
+    // =========================================================================
+    // 5. SANTÉ, SÉCURITÉ & AFTERCARE
+    // =========================================================================
+    function renderSafetyGrids() {
+      const makeGrid = (elId, list, key) => {
+        const el = document.getElementById(elId);
+        el.innerHTML = list.map(item => {
+          const checked = state.safety[key].includes(item) ? "checked" : "";
+          return `
+            <label class="check-item">
+              <input type="checkbox" ${checked} onchange="toggleSafetyArray('${key}', '${item}')">
+              <span>${item}</span>
+            </label>
+          `;
+        }).join("");
+      };
+      makeGrid("allergies-grid", ALLERGIES_LIST, "allergies");
+      makeGrid("medical-grid", MEDICAL_LIST, "medical");
+      makeGrid("aftercare-grid", AFTERCARE_LIST, "aftercare");
+    }
+
+    function toggleSafetyArray(key, val) {
+      const arr = state.safety[key];
+      const idx = arr.indexOf(val);
+      if (idx > -1) arr.splice(idx, 1);
+      else arr.push(val);
+      saveState();
+    }
+
+    function updateProfile() {
+      state.pseudo = document.getElementById("user-pseudo").value;
+      saveState();
+    }
+
+    function saveSafety() {
+      state.safety.green = document.getElementById("safe-green").value;
+      state.safety.orange = document.getElementById("safe-orange").value;
+      state.safety.red = document.getElementById("safe-red").value;
+      state.safety.nonverbal = document.getElementById("safe-nonverbal").value;
+      state.safety.notes = document.getElementById("safety-notes").value;
+      saveState();
+    }
+
+    // =========================================================================
+    // 6. COMPARATEUR AVANCÉ & SYNERGIES D/S
+    // =========================================================================
+    function setCompareMode(mode) {
+      compareMode = mode;
+      document.getElementById("btn-mode-duo").classList.toggle("active", mode === "duo");
+      document.getElementById("btn-mode-ds").classList.toggle("active", mode === "ds");
+      document.getElementById("mode-desc").textContent = mode === "duo"
+        ? "En mode Duo, seules vos envies communes (Oui & Curieux) sont révélées. Les refus restent strictement secrets."
+        : "En mode Protocole D/s, la fiche intégrale du/de la partenaire (incluant ses Hard Limits et sa santé) est affichée pour préparer la séance en sécurité.";
+    }
+
+    function runComparison() {
+      const rawInput = document.getElementById("partner-code-input").value.trim();
+      if (!rawInput) return alert("Colle d'abord le lien ou le code de ton/ta partenaire.");
+
+      let partner = null;
+      try {
+        const clean = rawInput.includes("#profile=") ? rawInput.split("#profile=")[1] : rawInput;
+        partner = JSON.parse(decodeURIComponent(atob(clean)));
+      } catch (e) {
+        return alert("Ce code ou lien est invalide ou incomplet.");
+      }
+
+      const myName = state.pseudo || "Moi";
+      const pName = partner.pseudo || "Partenaire";
+      const myDefaultDir = getDefaultDirectionForRole(state.role);
+      const pDefaultDir = getDefaultDirectionForRole(partner.role || "Switch");
+
+      let mutualYes = [];
+      let mutualExplore = [];
+      let synergies = [];
+      let pHardLimits = [];
+      let catScores = [];
+      let totalEvaluated = 0;
+      let totalCompatible = 0;
+
+      KINK_CATEGORIES.forEach(cat => {
+        let catCompat = 0;
+        let catActive = 0;
+
+        cat.items.forEach(item => {
+          const uR = state.ratings[item.id] || "neutral";
+          const pR = (partner.ratings && partner.ratings[item.id]) || "neutral";
+          const uD = (state.directions && state.directions[item.id]) || myDefaultDir;
+          const pD = (partner.directions && partner.directions[item.id]) || pDefaultDir;
+
+          if (uR !== "neutral" || pR !== "neutral") {
+            totalEvaluated++;
+            catActive++;
+          }
+
+          if (uR === "yes" && pR === "yes") {
+            mutualYes.push(item.label);
+            totalCompatible++;
+            catCompat++;
+            if ((uD === "give" && pD === "receive") || (uD === "receive" && pD === "give")) {
+              synergies.push(`${item.label} (${uD === 'give' ? myName + ' Dom ➔ ' + pName + ' Sub' : pName + ' Dom ➔ ' + myName + ' Sub'})`);
+            }
+          } else if ((uR === "yes" || uR === "curious") && (pR === "yes" || pR === "curious")) {
+            mutualExplore.push(item.label);
+            totalCompatible += 0.75;
+            catCompat += 0.75;
+          }
+
+          if (pR === "no") {
+            pHardLimits.push(item.label);
+          }
+        });
+
+        const pct = catActive > 0 ? Math.round((catCompat / catActive) * 100) : 0;
+        catScores.push({ title: cat.title.replace(/^\d+\.\s*/, ""), pct });
+      });
+
+      // Synergie spéciale Exhibition / Voyeurisme
+      const uEx = state.ratings["exhibition"], pVoy = partner.ratings?.["voyeurisme"];
+      const pEx = partner.ratings?.["exhibition"], uVoy = state.ratings["voyeurisme"];
+      if ((uEx === "yes" || uEx === "curious") && (pVoy === "yes" || pVoy === "curious")) {
+        synergies.push(`Exhibition (${myName}) ✦ Voyeurisme (${pName})`);
+      }
+      if ((pEx === "yes" || pEx === "curious") && (uVoy === "yes" || uVoy === "curious")) {
+        synergies.push(`Exhibition (${pName}) ✦ Voyeurisme (${myName})`);
+      }
+
+      const globalScore = totalEvaluated > 0 ? Math.min(100, Math.round((totalCompatible / totalEvaluated) * 100)) : 0;
+
+      const out = document.getElementById("comparison-output");
+      out.innerHTML = `
+        <div class="card">
+          <div class="score-banner">
+            <div>
+              <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--gold);">Indice d'Harmonie KinkSync</div>
+              <div style="font-size:1.15rem; font-weight:700; margin-top:2px;">${myName} (${state.role}) ✦ ${pName} (${partner.role || 'Switch'})</div>
+              <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Mode : ${compareMode === 'duo' ? 'Duo (Double Aveugle)' : 'Protocole D/s (Complet)'}</div>
+            </div>
+            <div class="score-circle">${globalScore}%</div>
+          </div>
+
+          <!-- Radar par catégorie -->
+          <div style="margin-bottom:16px;">
+            <div style="font-size:0.8rem; font-weight:600; color:var(--gold-light); margin-bottom:8px;">Affinités par Sphère :</div>
+            ${catScores.map(c => `
+              <div class="cat-bar-row">
+                <div class="cat-bar-label"><span>${c.title}</span><span>${c.pct}%</span></div>
+                <div class="cat-bar-track"><div class="cat-bar-fill" style="width:${c.pct}%"></div></div>
+              </div>
+            `).join("")}
+          </div>
+
+          <!-- Matchs Parfaits -->
+          <div style="margin-bottom:14px;">
+            <div style="font-size:0.85rem; font-weight:700; color:#6ee7b7;">🟢 Pratiques Validées à Deux (${mutualYes.length})</div>
+            ${mutualYes.length ? `<div class="tag-list">${mutualYes.map(t => `<span class="tag tag-yes">${t}</span>`).join("")}</div>` : `<p style="font-size:0.76rem; color:var(--text-muted); margin-top:4px;">Aucun "Oui" mutuel pour l'instant.</p>`}
+          </div>
+
+          <!-- Synergies Dom/Sub -->
+          ${synergies.length ? `
+            <div style="margin-bottom:14px;">
+              <div style="font-size:0.85rem; font-weight:700; color:var(--gold-light);">⚡ Complémentarités Donneur / Receveur (${synergies.length})</div>
+              <div class="tag-list">${synergies.map(s => `<span class="tag tag-synergy">${s}</span>`).join("")}</div>
+            </div>
+          ` : ""}
+
+          <!-- Terrains d'exploration -->
+          <div style="margin-bottom:14px;">
+            <div style="font-size:0.85rem; font-weight:700; color:#fcd34d;">🟡 Terrains de Curiosité Partagée (${mutualExplore.length})</div>
+            ${mutualExplore.length ? `<div class="tag-list">${mutualExplore.map(t => `<span class="tag tag-curious">${t}</span>`).join("")}</div>` : `<p style="font-size:0.76rem; color:var(--text-muted); margin-top:4px;">Aucune pratique en exploration croisée.</p>`}
+          </div>
+
+          ${compareMode === "ds" ? `
+            <hr style="border:none; border-top:1px solid var(--border-subtle); margin:16px 0;">
+            <div style="margin-bottom:14px;">
+              <div style="font-size:0.85rem; font-weight:700; color:#fda4af;">🔴 Hard Limits Absolues de ${pName} (${pHardLimits.length})</div>
+              ${pHardLimits.length ? `<div class="tag-list">${pHardLimits.map(t => `<span class="tag tag-no">${t}</span>`).join("")}</div>` : `<p style="font-size:0.76rem; color:var(--text-muted); margin-top:4px;">Aucune Hard Limit cochée.</p>`}
+            </div>
+
+            <div style="background:var(--bg-input); border:1px solid var(--border-subtle); border-radius:10px; padding:12px; font-size:0.78rem; line-height:1.7;">
+              <div style="font-weight:700; color:var(--gold-light); margin-bottom:4px;">📋 Fiche Sécurité & Santé de ${pName}</div>
+              <div><strong>Safewords :</strong> Vert = "${partner.safety?.green || 'Vert'}" | Orange = "${partner.safety?.orange || 'Orange'}" | Rouge = "${partner.safety?.red || 'Rouge'}"</div>
+              <div><strong>Signal Non-Verbal :</strong> ${partner.safety?.nonverbal || 'Non précisé'}</div>
+              <div><strong>Allergies :</strong> ${(partner.safety?.allergies || []).join(", ") || 'Aucune signalée'}</div>
+              <div><strong>Vigilances Physiques :</strong> ${(partner.safety?.medical || []).join(", ") || 'Aucune signalée'}</div>
+              <div><strong>Aftercare souhaité :</strong> ${(partner.safety?.aftercare || []).join(", ") || 'Non précisé'}</div>
+              ${partner.safety?.notes ? `<div style="margin-top:6px; font-style:italic; color:var(--gold-light);">" ${partner.safety.notes} "</div>` : ""}
+            </div>
+
+            <div style="margin-top:14px; text-align:right;" class="no-print">
+              <button class="btn btn-ghost" onclick="window.print()">🖨️ Imprimer / Exporter le Protocole PDF</button>
+            </div>
+          ` : ""}
+        </div>
+      `;
+    }
+
+    function loadDemoPartner() {
+      const demo = {
+        pseudo: "Elena",
+        role: "Soumis(e)",
+        ratings: {
+          collier_laisse: "yes", discipline: "yes", postures: "yes", privation_orgasme: "curious",
+          bondage: "yes", shibari: "yes", ties_denial: "curious", privations_sensorielles: "yes",
+          chastete: "curious", controle_orgasme: "yes", sextoys_vaginal: "yes", sextoys_anal: "curious",
+          fessees: "yes", fouet_cravache: "yes", bougies: "yes", facesitting: "curious",
+          manger_sperme: "yes", tenues_imposees: "yes", cuir_latex: "yes", exhibition: "curious",
+          scato: "no", marquage_perm: "no", fisting_anal: "no"
+        },
+        directions: {
+          collier_laisse: "receive", bondage: "receive", shibari: "receive", fessees: "receive", controle_orgasme: "receive"
+        },
+        safety: {
+          green: "Vert", orange: "Orange", red: "Rouge",
+          nonverbal: "Lâcher la balle ou taper 3 fois de la main",
+          allergies: ["Latex"],
+          medical: ["Poignets / Canal carpien"],
+          aftercare: ["Câlins & contact peau", "Couverture chaude", "Eau / Boisson sucrée"],
+          notes: "Attention aux attaches trop serrées sur le poignet gauche."
+        }
+      };
+      const encoded = btoa(encodeURIComponent(JSON.stringify(demo)));
+      document.getElementById("partner-code-input").value = encoded;
+      runComparison();
+    }
+
+    // =========================================================================
+    // 7. PARTAGE, STOCKAGE & PANIC MODE
+    // =========================================================================
+    function switchTab(tab) {
+      document.querySelectorAll(".view-section").forEach(s => s.classList.remove("active"));
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      document.getElementById(`view-${tab}`).classList.add("active");
+      document.getElementById(`tab-${tab}`).classList.add("active");
+    }
+
+    function openShareModal() {
+      const payload = btoa(encodeURIComponent(JSON.stringify(state)));
+      const url = `${window.location.origin}${window.location.pathname}#profile=${payload}`;
+      document.getElementById("share-url-output").value = url;
+      document.getElementById("share-modal").classList.add("open");
+    }
+
+    function closeShareModal() {
+      document.getElementById("share-modal").classList.remove("open");
+    }
+
+    function copyShareLink() {
+      const input = document.getElementById("share-url-output");
+      input.select();
+      navigator.clipboard.writeText(input.value);
+      const btn = document.getElementById("btn-copy-link");
+      btn.textContent = "✓ Lien copié !";
+      setTimeout(() => btn.textContent = "Copier le lien complet", 2000);
+    }
+
+    function copyRawCode() {
+      const payload = btoa(encodeURIComponent(JSON.stringify(state)));
+      navigator.clipboard.writeText(payload);
+      alert("Code brut copié dans le presse-papier !");
+    }
+
+    function checkHashImport() {
+      if (window.location.hash.startsWith("#profile=")) {
+        const code = window.location.hash.replace("#profile=", "");
+        document.getElementById("partner-code-input").value = code;
+        switchTab("compare");
+        runComparison();
+      }
+    }
+
+    function togglePanicMode() {
+      const cam = document.getElementById("camouflage-screen");
+      cam.classList.toggle("active");
+      document.title = cam.classList.contains("active") ? "Mes Notes & Courses" : "KinkSync — Accords, Désirs & Limites";
+    }
+
+    function saveState() {
+      localStorage.setItem("kinksync_boudoir_v3", JSON.stringify(state));
+    }
+
+    function loadState() {
+      const raw = localStorage.getItem("kinksync_boudoir_v3");
+      if (raw) {
+        try {
+          const parsed = JSON.parse(raw);
+          state = Object.assign(state, parsed);
+          state.customDirections = state.customDirections || {};
+          document.getElementById("user-pseudo").value = state.pseudo || "";
+          document.getElementById("user-role").value = state.role || "Switch";
+          document.getElementById("safe-green").value = state.safety?.green || "Vert";
+          document.getElementById("safe-orange").value = state.safety?.orange || "Orange";
+          document.getElementById("safe-red").value = state.safety?.red || "Rouge";
+          document.getElementById("safe-nonverbal").value = state.safety?.nonverbal || "";
+          document.getElementById("safety-notes").value = state.safety?.notes || "";
+        } catch (e) { console.error(e); }
+      }
+    }
+
+    function resetAll() {
+      if (confirm("Effacer toutes tes réponses enregistrées sur cet appareil ?")) {
+        localStorage.removeItem("kinksync_boudoir_v3");
+        window.location.hash = "";
+        location.reload();
+      }
+    }
+  </script>
+</body>
+</html>
