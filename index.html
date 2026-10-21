@@ -2,221 +2,285 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>KinkSync</title>
 <style>
-:root{--bg:#FAF7F5;--card:#FFF;--soft:#F3ECE7;--inp:#F9F6F4;--bdr:#E6DCD5;--burg:#7A1C32;--txt:#231B20;--mut:#73656C;--yes:#0D9488;--cur:#D97706;--no:#E11D48}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding-bottom:60px}
-header{background:#FFF;border-bottom:1px solid var(--bdr);padding:12px 16px;position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center}
-h1{font-size:1.35rem;color:var(--burg);font-weight:800;letter-spacing:-0.02em}
-.sub{font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--mut);display:block}
-.btn{border:1px solid transparent;border-radius:9px;padding:8px 12px;font-size:0.76rem;font-weight:600;cursor:pointer;background:var(--burg);color:#FFF}
-.btn-g{background:var(--soft);border-color:var(--bdr);color:var(--txt)}
-.tabs{display:grid;grid-template-columns:repeat(3,1fr);background:var(--soft);padding:4px;border-radius:11px;border:1px solid var(--bdr);margin:12px 14px;gap:4px}
-.tbtn{background:transparent;border:none;color:var(--mut);padding:9px 2px;font-size:0.75rem;font-weight:600;border-radius:8px;cursor:pointer}
-.tbtn.act{background:#FFF;color:var(--burg);box-shadow:0 2px 5px rgba(0,0,0,0.06);font-weight:700}
-main{max-width:600px;margin:0 auto;padding:0 14px}
-.sec{display:none}.sec.act{display:block}
-.card{background:#FFF;border:1px solid var(--bdr);border-radius:14px;padding:14px;margin-bottom:14px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-label.lbl{display:block;font-size:0.68rem;font-weight:700;color:var(--mut);margin-bottom:4px;text-transform:uppercase}
-input[type=text],select,textarea{background:var(--inp);border:1px solid var(--bdr);color:var(--txt);padding:9px;border-radius:8px;font-size:0.84rem;width:100%}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px;text-align:center}
-.sp{background:#FFF;border:1px solid var(--bdr);border-radius:10px;padding:7px 2px;font-size:0.7rem;font-weight:600;cursor:pointer}
-.sp b{display:block;font-size:0.88rem;margin-top:2px}
-.cat{background:#FFF;border:1px solid var(--bdr);border-radius:14px;overflow:hidden;margin-bottom:14px}
-.cat-h{background:#F7EFEA;padding:11px 14px;border-bottom:1px solid var(--bdr);font-weight:700;color:var(--burg);font-size:0.95rem}
-.row{padding:11px 14px;border-bottom:1px solid #F1EAE4}
-.row:last-child{border-bottom:none}
-.rmain{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.rname{font-size:0.84rem;font-weight:500}
-.rbtns{display:flex;gap:4px;flex-shrink:0}
-.rb{width:32px;height:32px;border-radius:8px;border:1px solid var(--bdr);background:var(--inp);cursor:pointer;font-size:0.78rem;opacity:0.35}
-.rb.on-yes{background:#E6F7F5;border-color:var(--yes);opacity:1}
-.rb.on-cur{background:#FEF3C7;border-color:var(--cur);opacity:1}
-.rb.on-neu{background:#F1F5F9;border-color:#64748B;opacity:1}
-.rb.on-no{background:#FFE4E6;border-color:var(--no);opacity:1}
-.pos{margin-top:8px;padding-top:6px;border-top:1px dashed var(--bdr);display:none;justify-content:space-between;align-items:center;font-size:0.7rem;color:var(--mut)}
-.pos.show{display:flex}
-.pb{font-size:0.68rem;padding:3px 8px;border-radius:6px;border:1px solid var(--bdr);background:var(--inp);color:var(--mut);cursor:pointer;margin-left:3px}
-.pb.on{background:var(--burg);color:#FFF;border-color:var(--burg);font-weight:600}
-.chk-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
-.chk{display:flex;align-items:center;gap:6px;padding:8px;background:var(--inp);border:1px solid var(--bdr);border-radius:8px;font-size:0.76rem}
-.tag{display:inline-block;font-size:0.73rem;padding:4px 8px;border-radius:6px;margin:2px;font-weight:600}
-.t-yes{background:#E6F7F5;color:#0F766E}.t-cur{background:#FEF3C7;color:#92400E}.t-no{background:#FFE4E6;color:#9F1239}.t-syn{background:#FDF4F6;border:1px solid var(--burg);color:var(--burg)}
+  body { background:#FAF7F5; color:#231B20; font-family:sans-serif; margin:0; padding:0 0 60px 0; }
+  header { background:#FFF; border-bottom:1px solid #E6DCD5; padding:12px 16px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:10; }
+  h1 { font-size:1.3rem; color:#7A1C32; margin:0; }
+  .sub { font-size:0.65rem; color:#73656C; text-transform:uppercase; }
+  .btn { background:#7A1C32; color:#FFF; border:none; border-radius:8px; padding:8px 12px; font-weight:bold; font-size:0.8rem; cursor:pointer; }
+  .wrap { max-width:600px; margin:0 auto; padding:12px; }
+  
+  /* Système d'onglets en pur CSS (fonctionne même si le JS est bloqué !) */
+  input[name="tab"] { display:none; }
+  .tabs { display:grid; grid-template-columns:repeat(3,1fr); background:#F3ECE7; padding:4px; border-radius:10px; margin-bottom:14px; text-align:center; gap:4px; }
+  .tabs label { padding:9px 4px; font-size:0.8rem; font-weight:bold; color:#73656C; border-radius:8px; cursor:pointer; display:block; }
+  #t1:checked ~ .tabs label[for="t1"],
+  #t2:checked ~ .tabs label[for="t2"],
+  #t3:checked ~ .tabs label[for="t3"] { background:#FFF; color:#7A1C32; box-shadow:0 2px 4px rgba(0,0,0,0.08); }
+  .sec { display:none; }
+  #t1:checked ~ #s1, #t2:checked ~ #s2, #t3:checked ~ #s3 { display:block; }
+
+  .card { background:#FFF; border:1px solid #E6DCD5; border-radius:12px; padding:12px; margin-bottom:12px; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .lbl { font-size:0.7rem; font-weight:bold; color:#73656C; text-transform:uppercase; display:block; margin-bottom:4px; }
+  input[type="text"], select, textarea { width:100%; padding:8px; border:1px solid #E6DCD5; border-radius:8px; background:#F9F6F4; box-sizing:border-box; font-size:0.85rem; }
+  
+  .cat { background:#FFF; border:1px solid #E6DCD5; border-radius:12px; overflow:hidden; margin-bottom:14px; }
+  .cat-h { background:#F7EFEA; color:#7A1C32; font-weight:bold; padding:10px 12px; font-size:0.95rem; border-bottom:1px solid #E6DCD5; }
+  .row { display:flex; justify-content:space-between; align-items:center; padding:10px 12px; border-bottom:1px solid #F1EAE4; gap:8px; }
+  .row:last-child { border-bottom:none; }
+  .rname { font-size:0.85rem; font-weight:500; flex:1; }
+  .sel-ans { width:auto; padding:6px; font-size:0.8rem; font-weight:bold; border-radius:6px; background:#F9F6F4; }
+  .sel-pos { width:auto; padding:6px; font-size:0.75rem; border-radius:6px; background:#FDF4F6; color:#7A1C32; border-color:#E6DCD5; }
+  .chk-g { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:6px; font-size:0.8rem; }
+  .chk-g label { background:#F9F6F4; padding:8px; border-radius:6px; border:1px solid #E6DCD5; display:flex; align-items:center; gap:6px; }
+  .tag { display:inline-block; padding:4px 8px; border-radius:6px; font-size:0.75rem; font-weight:bold; margin:2px; }
 </style>
 </head>
 <body>
+
 <header>
-  <div><h1>KinkSync</h1><span class="sub">Accords, Désirs & Limites</span></div>
-  <div style="display:flex;gap:6px">
-    <button class="btn btn-g" onclick="resetApp()">↺</button>
-    <button class="btn" onclick="shareApp()">Partager</button>
+  <div>
+    <h1>KinkSync</h1>
+    <span class="sub">Accords, Désirs & Limites</span>
   </div>
+  <button class="btn" onclick="partager()">Partager</button>
 </header>
-<div class="tabs">
-  <button class="tbtn act" id="tb-1" onclick="goTab(1)">1. Pratiques</button>
-  <button class="tbtn" id="tb-2" onclick="goTab(2)">2. Sécurité</button>
-  <button class="tbtn" id="tb-3" onclick="goTab(3)">3. Comparer</button>
+
+<div class="wrap">
+  <!-- Boutons radio CSS pour changer d'onglet sans JS -->
+  <input type="radio" name="tab" id="t1" checked>
+  <input type="radio" name="tab" id="t2">
+  <input type="radio" name="tab" id="t3">
+
+  <div class="tabs">
+    <label for="t1">1. Pratiques</label>
+    <label for="t2">2. Sécurité</label>
+    <label for="t3">3. Comparer</label>
+  </div>
+
+  <!-- ONGLET 1 : PRATIQUES (ÉCRITES EN DUR EN HTML) -->
+  <div id="s1" class="sec">
+    <div class="card grid2">
+      <div>
+        <span class="lbl">Mon Pseudo</span>
+        <input type="text" id="pseudo" placeholder="Ex: S.">
+      </div>
+      <div>
+        <span class="lbl">Mon Rôle par défaut</span>
+        <select id="role" onchange="majRole()">
+          <option value="Switch">Switch</option>
+          <option value="Dom">Dominant(e)</option>
+          <option value="Sub">Soumis(e)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Catégorie 1 -->
+    <div class="cat">
+      <div class="cat-h">1. Dynamiques & Contrôle Mental</div>
+      <div class="row"><span class="rname">Collier et laisse</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Discipline & Règles</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Positions imposées</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Maître(sse) / Esclave</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Frustration sexuelle</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Cocufication (Cuckold)</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Gay imposé / Initiation bi</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+    </div>
+
+    <!-- Catégorie 2 -->
+    <div class="cat">
+      <div class="cat-h">2. Entraves, Attaches & Privation</div>
+      <div class="row"><span class="rname">Bondage (liens, menottes)</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Shibari (cordes)</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Ties and denial (attaché/privé)</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Privations sensorielles</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Enfermement (cage, pièce)</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+    </div>
+
+    <!-- Catégorie 3 -->
+    <div class="cat">
+      <div class="cat-h">3. Contrôle Sexuel & Sextoys</div>
+      <div class="row"><span class="rname">Chasteté imposée (cage)</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Privation d'orgasme</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Contrôle d'orgasme / Edging</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Godes / Sextoys (Vaginal)</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Godes / Sextoys (Anal)</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Dilatation (Vaginale)</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Dilatation (Anale)</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Fisting (Vaginal)</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Fisting (Anal)</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+    </div>
+
+    <!-- Catégorie 4 -->
+    <div class="cat">
+      <div class="cat-h">4. Sensations, Impact & Supplices</div>
+      <div class="row"><span class="rname">Fessées (Spanking)</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Fouet, cravache, martinet</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Châtiments corporels</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Bougies / Cire chaude</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Électro-stimulation</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Tortures des seins</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Tortures parties génitales</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+    </div>
+
+    <!-- Catégorie 5 -->
+    <div class="cat">
+      <div class="cat-h">5. Domination Orale & Fluides</div>
+      <div class="row"><span class="rname">Facesitting</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Face fucking / Gorge profonde</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Manger sperme / Avaler</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Crachat</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Uro (Douche dorée)</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Scato</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+    </div>
+
+    <!-- Catégorie 6 -->
+    <div class="cat">
+      <div class="cat-h">6. Jeux de Rôles & Fétichismes</div>
+      <div class="row"><span class="rname">Jeux de Rôles</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Mises en scène</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Tenues imposées</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Cuir, latex & vinyle</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Uniformes</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Pony-play</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Puppy-play / Pet-play</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Travestissement</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Fétichisme (pieds, lingerie)</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+    </div>
+
+    <!-- Catégorie 7 -->
+    <div class="cat">
+      <div class="cat-h">7. Humiliation, Médical & Groupe</div>
+      <div class="row"><span class="rname">Humiliations</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Jeux médicaux</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Marquage / perçage temporaire</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Marquage / perçage permanent</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Être photographié(e) / Filmé(e)</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Exhibition</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Voyeurisme (regarder)</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Échangisme</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+      <div class="row"><span class="rname">Sexualité de groupe / Orgie</span><select class="sel-ans"><option value="0">⚪ Neutre</option><option value="2">🟢 Oui</option><option value="1">🟡 Curieux</option><option value="-1">🔴 Limit</option></select><select class="sel-pos"><option value="Switch">Switch</option><option value="Dom">Donneur</option><option value="Sub">Receveur</option></select></div>
+    </div>
+  </div>
+
+  <!-- ONGLET 2 : SÉCURITÉ (ÉCRIT EN DUR EN HTML) -->
+  <div id="s2" class="sec">
+    <div class="card">
+      <div class="lbl">Safewords (Mots d'arrêt)</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px">
+        <input type="text" id="sw1" value="Vert">
+        <input type="text" id="sw2" value="Orange">
+        <input type="text" id="sw3" value="Rouge">
+      </div>
+      <span class="lbl">Signal Non-Verbal (si bâillon)</span>
+      <input type="text" id="swnv" placeholder="Ex: Taper 3 fois, lâcher objet...">
+    </div>
+
+    <div class="card">
+      <span class="lbl">Allergies & Fragilités</span>
+      <div class="chk-g">
+        <label><input type="checkbox" class="chk-s" value="Latex"> Latex</label>
+        <label><input type="checkbox" class="chk-s" value="Cuir"> Cuir</label>
+        <label><input type="checkbox" class="chk-s" value="Métaux"> Métaux</label>
+        <label><input type="checkbox" class="chk-s" value="Cire/Parfums"> Cire/Parfums</label>
+        <label><input type="checkbox" class="chk-s" value="Épaules"> Épaules</label>
+        <label><input type="checkbox" class="chk-s" value="Poignets"> Poignets</label>
+        <label><input type="checkbox" class="chk-s" value="Dos/Genoux"> Dos/Genoux</label>
+        <label><input type="checkbox" class="chk-s" value="Asthme"> Asthme</label>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="lbl">Observations & Aftercare souhaité</span>
+      <textarea id="notes" rows="3" placeholder="Câlins, couverture chaude, eau sucrée, phobies..."></textarea>
+    </div>
+  </div>
+
+  <!-- ONGLET 3 : COMPARATEUR -->
+  <div id="s3" class="sec">
+    <div class="card">
+      <span class="lbl">Mode d'affichage</span>
+      <select id="cmode" style="margin-bottom:10px">
+        <option value="duo">Mode Duo (Uniquement nos points communs)</option>
+        <option value="ds">Mode Protocole D/s (Voir aussi ses Hard Limits & Santé)</option>
+      </select>
+      <span class="lbl">Code reçu du partenaire</span>
+      <textarea id="pcode" rows="2" placeholder="Colle ici le code ou lien partagé..." style="margin-bottom:10px"></textarea>
+      <button class="btn" style="width:100%" onclick="comparer()">Comparer nos réponses</button>
+    </div>
+    <div id="res"></div>
+  </div>
 </div>
-<main>
-  <div id="sec-1" class="sec act">
-    <div class="card">
-      <div class="grid2">
-        <div><label class="lbl">Mon Pseudo</label><input type="text" id="pseudo" placeholder="Ex: S." oninput="save()"></div>
-        <div>
-          <label class="lbl">Mon Rôle</label>
-          <select id="role" onchange="changeRole()">
-            <option value="Dominant(e)">Dominant(e)</option>
-            <option value="Soumis(e)">Soumis(e)</option>
-            <option value="Switch" selected>Switch</option>
-            <option value="Exploration">En exploration</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="stats">
-      <div class="sp" onclick="flt('yes')">🟢 Oui <b id="c-yes">0</b></div>
-      <div class="sp" onclick="flt('cur')">🟡 Curieux <b id="c-cur">0</b></div>
-      <div class="sp" onclick="flt('neu')">⚪ Neutre <b id="c-neu">46</b></div>
-      <div class="sp" onclick="flt('no')">🔴 Limit <b id="c-no">0</b></div>
-    </div>
-    <div id="list-box"></div>
-  </div>
-  <div id="sec-2" class="sec">
-    <div class="card">
-      <div style="font-weight:700;color:var(--burg);margin-bottom:8px">Safewords (Mots d'arrêt)</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px">
-        <div><label class="lbl">Vert</label><input type="text" id="sw-g" value="Vert" oninput="save()"></div>
-        <div><label class="lbl">Orange</label><input type="text" id="sw-o" value="Orange" oninput="save()"></div>
-        <div><label class="lbl">Rouge</label><input type="text" id="sw-r" value="Rouge" oninput="save()"></div>
-      </div>
-      <label class="lbl">Signal Non-Verbal (si bâillon)</label>
-      <input type="text" id="sw-nv" placeholder="Ex: Lâcher un objet, taper 3 fois..." oninput="save()">
-    </div>
-    <div class="card"><div style="font-weight:700;color:var(--burg)">Allergies</div><div id="g-all" class="chk-grid"></div></div>
-    <div class="card"><div style="font-weight:700;color:var(--burg)">Fragilités Physiques</div><div id="g-med" class="chk-grid"></div></div>
-    <div class="card"><div style="font-weight:700;color:var(--burg)">Aftercare souhaité</div><div id="g-aft" class="chk-grid"></div></div>
-    <div class="card"><div style="font-weight:700;color:var(--burg);margin-bottom:6px">Observations & Limites</div><textarea id="notes" rows="3" placeholder="Précisions, phobies, santé..." oninput="save()"></textarea></div>
-  </div>
-  <div id="sec-3" class="sec">
-    <div class="card">
-      <div style="font-weight:700;color:var(--burg);margin-bottom:8px">Mode de comparaison</div>
-      <div class="grid2" style="margin-bottom:10px">
-        <button class="tbtn act" id="m-duo" style="border:1px solid var(--bdr)" onclick="setM('duo')">Duo (Affinités)</button>
-        <button class="tbtn" id="m-ds" style="border:1px solid var(--bdr)" onclick="setM('ds')">Protocole D/s (Tout)</button>
-      </div>
-      <textarea id="p-code" rows="2" placeholder="Colle ici le lien ou code reçu du partenaire..." style="margin-bottom:10px;font-family:monospace;font-size:0.75rem"></textarea>
-      <div style="display:flex;gap:8px">
-        <button class="btn" style="flex:1" onclick="compare()">Comparer</button>
-        <button class="btn btn-g" onclick="demo()">Test Démo</button>
-      </div>
-    </div>
-    <div id="comp-res"></div>
-  </div>
-</main>
+
 <script>
-const CATS=[
-  ["1. Dynamiques & Contrôle Mental",["Collier et laisse","Discipline & Règles strictes","Positions et attitudes imposées","Dynamique Maître(sse) / Esclave","Frustration sexuelle","Cocufication (Cuckolding)","Gay imposé / Initiation bi"]],
-  ["2. Entraves, Attaches & Privation",["Bondage (menottes, sangles, liens)","Shibari (cordes japonaises)","Ties and denial (attaché & privé)","Privations sensorielles","Enfermement (cage, pièce)"]],
-  ["3. Contrôle Sexuel & Sextoys",["Chasteté imposée (cage)","Privation d'orgasme","Contrôle de l'orgasme / Edging","Godes / Sextoys (Vaginal)","Godes / Sextoys (Anal)","Dilatation (Vaginale)","Dilatation (Anale)","Fisting (Vaginal)","Fisting (Anal)"]],
-  ["4. Sensations, Impact & Supplices",["Fessées (Spanking)","Fouet, cravache, martinet","Châtiments corporels","Bougies / Cire chaude","Électro-stimulation","Tortures des seins","Tortures des parties génitales"]],
-  ["5. Domination Orale & Fluides",["Facesitting","Face fucking / Gorge profonde","Manger sperme / Avaler","Crachat","Uro (Douche dorée)","Scato"]],
-  ["6. Jeux de Rôles & Fétichismes",["Jeux de Rôles","Mises en scène","Tenues imposées","Cuir, latex & vinyle","Uniformes","Pony-play","Puppy-play / Pet-play","Travestissement","Fétichisme (pieds, lingerie...)"]],
-  ["7. Humiliation, Médical & Groupe",["Humiliations","Jeux médicaux","Marquage / perçage temporaire","Marquage / perçage permanent","Être photographié(e) / Filmé(e)","Exhibition","Voyeurisme (regarder)","Échangisme","Sexualité de groupe ou orgie"]]
-];
-const ALL=["Latex","Silicone","Cuir","Nickel / Métaux","Cire / Parfums","Huiles"];
-const MED=["Épaules sensibles","Poignets fragiles","Genoux fragiles","Dos / Lombaires","Asthme","Peau sensible","Claustrophobie"];
-const AFT=["Câlins & contact","Couverture chaude","Boisson sucrée","Silence & calme","Mots rassurants","Débriefing"];
-let S={p:"",r:"Switch",ans:{},dir:{},cdir:{},sw:["Vert","Orange","Rouge",""],all:[],med:[],aft:[],n:""};
-let curFlt=null,mode="duo";
-function defDir(r){return r==="Dominant(e)"?"Dom":r==="Soumis(e)"?"Sub":"Switch";}
-function goTab(n){[1,2,3].forEach(i=>{document.getElementById("sec-"+i).className=i===n?"sec act":"sec";document.getElementById("tb-"+i).className=i===n?"tbtn act":"tbtn";});}
-function changeRole(){S.r=document.getElementById("role").value;const d=defDir(S.r);CATS.forEach((c,ci)=>c[1].forEach((_,ii)=>{const k=ci+"_"+ii;if(!S.cdir[k])S.dir[k]=d;}));save();draw();}
-function setAns(k,v){S.ans[k]=v;if((v==="yes"||v==="cur")&&!S.cdir[k])S.dir[k]=defDir(S.r);save();draw();}
-function setPos(k,p){S.dir[k]=p;if(p!==defDir(S.r))S.cdir[k]=1;else delete S.cdir[k];save();draw();}
-function flt(f){curFlt=curFlt===f?null:f;draw();}
-function draw(){
-  let cnt={yes:0,cur:0,neu:0,no:0},html="",dDef=defDir(S.r);
-  CATS.forEach((c,ci)=>{
-    let rows="";
-    c[1].forEach((name,ii)=>{
-      const k=ci+"_"+ii,v=S.ans[k]||"neu",d=S.dir[k]||dDef;
-      cnt[v]++;
-      if(curFlt&&v!==curFlt)return;
-      const showPos=(v==="yes"||v==="cur")?"pos show":"pos";
-      rows+=`<div class="row"><div class="rmain"><span class="rname">${name}</span><div class="rbtns"><button class="rb ${v==='yes'?'on-yes':''}" onclick="setAns('${k}','yes')">🟢</button><button class="rb ${v==='cur'?'on-cur':''}" onclick="setAns('${k}','cur')">🟡</button><button class="rb ${v==='neu'?'on-neu':''}" onclick="setAns('${k}','neu')">⚪</button><button class="rb ${v==='no'?'on-no':''}" onclick="setAns('${k}','no')">🔴</button></div></div><div class="${showPos}"><span>Position :</span><div><button class="pb ${d==='Dom'?'on':''}" onclick="setPos('${k}','Dom')">Donneur</button><button class="pb ${d==='Sub'?'on':''}" onclick="setPos('${k}','Sub')">Receveur</button><button class="pb ${d==='Switch'?'on':''}" onclick="setPos('${k}','Switch')">Switch</button></div></div></div>`;
-    });
-    if(rows)html+=`<div class="cat"><div class="cat-h">${c[0]}</div>${rows}</div>`;
-  });
-  document.getElementById("list-box").innerHTML=html||"<div class='card'>Aucune pratique dans ce filtre.</div>";
-  ["yes","cur","neu","no"].forEach(x=>document.getElementById("c-"+x).textContent=cnt[x]);
+function majRole(){
+  var r = document.getElementById("role").value;
+  var pos = document.querySelectorAll(".sel-pos");
+  for(var i=0; i<pos.length; i++){ pos[i].value = r; }
 }
-function drawChecks(){
-  const mk=(id,arr,key)=>{document.getElementById(id).innerHTML=arr.map(x=>`<label class="chk"><input type="checkbox" ${S[key].includes(x)?"checked":""} onchange="tgChk('${key}','${x}')"><span>${x}</span></label>`).join("");};
-  mk("g-all",ALL,"all");mk("g-med",MED,"med");mk("g-aft",AFT,"aft");
+
+function collecter(){
+  var a=[], p=[], c=[];
+  var ans = document.querySelectorAll(".sel-ans");
+  var pos = document.querySelectorAll(".sel-pos");
+  var chks = document.querySelectorAll(".chk-s");
+  for(var i=0; i<ans.length; i++){ a.push(ans[i].value); p.push(pos[i].value); }
+  for(var j=0; j<chks.length; j++){ if(chks[j].checked) c.push(chks[j].value); }
+  return {
+    n: document.getElementById("pseudo").value || "Partenaire",
+    r: document.getElementById("role").value,
+    a: a, p: p, c: c,
+    sw: document.getElementById("sw1").value+"/"+document.getElementById("sw2").value+"/"+document.getElementById("sw3").value,
+    nv: document.getElementById("swnv").value,
+    nt: document.getElementById("notes").value
+  };
 }
-function tgChk(key,val){const i=S[key].indexOf(val);if(i>-1)S[key].splice(i,1);else S[key].push(val);save();}
-function save(){
-  S.p=document.getElementById("pseudo").value;
-  S.sw=[document.getElementById("sw-g").value,document.getElementById("sw-o").value,document.getElementById("sw-r").value,document.getElementById("sw-nv").value];
-  S.n=document.getElementById("notes").value;
-  localStorage.setItem("ks_v6",JSON.stringify(S));
+
+function partager(){
+  var code = btoa(encodeURIComponent(JSON.stringify(collecter())));
+  var url = location.href.split("#")[0] + "#" + code;
+  prompt("Copie ce lien ou ce code pour ton/ta partenaire :", url);
 }
-function load(){
-  try{
-    const r=localStorage.getItem("ks_v6");
-    if(r){
-      S=Object.assign(S,JSON.parse(r));
-      document.getElementById("pseudo").value=S.p||"";
-      document.getElementById("role").value=S.r||"Switch";
-      document.getElementById("sw-g").value=S.sw[0]||"Vert";
-      document.getElementById("sw-o").value=S.sw[1]||"Orange";
-      document.getElementById("sw-r").value=S.sw[2]||"Rouge";
-      document.getElementById("sw-nv").value=S.sw[3]||"";
-      document.getElementById("notes").value=S.n||"";
+
+function comparer(){
+  var raw = document.getElementById("pcode").value.trim();
+  if(!raw) return alert("Colle d'abord le lien ou code de ton partenaire.");
+  try {
+    var clean = raw.indexOf("#") > -1 ? raw.split("#")[1] : raw;
+    var P = JSON.parse(decodeURIComponent(atob(clean)));
+    var M = collecter();
+    var names = document.querySelectorAll(".rname");
+    var oui=[], cur=[], syn=[], lim=[];
+    for(var i=0; i<names.length; i++){
+      var nom = names[i].textContent;
+      var ma = M.a[i], pa = P.a[i];
+      if(ma=="2" && pa=="2") oui.push(nom);
+      else if((ma=="2"||ma=="1") && (pa=="2"||pa=="1")) cur.push(nom);
+      if((ma=="2"||ma=="1") && (pa=="2"||pa=="1") && ((M.p[i]=="Dom"&&P.p[i]=="Sub")||(M.p[i]=="Sub"&&P.p[i]=="Dom"))){
+        syn.push(nom + " (" + (M.p[i]=="Dom" ? M.n+" Dom" : P.n+" Dom") + ")");
+      }
+      if(pa=="-1") lim.push(nom);
     }
-  }catch(e){}
+    var h = "<div class='card'><b>" + (M.n||"Moi") + " & " + P.n + "</b><hr style='margin:8px 0;border:0;border-top:1px solid #eee'>";
+    h += "<p><b>🟢 Oui en commun ("+oui.length+") :</b><br>" + (oui.join(", ")||"Aucun") + "</p>";
+    if(syn.length) h += "<p><b>⚡ Synergies Donneur/Receveur :</b><br>" + syn.join(", ") + "</p>";
+    h += "<p><b>🟡 À explorer ensemble ("+cur.length+") :</b><br>" + (cur.join(", ")||"Aucun") + "</p>";
+    if(document.getElementById("cmode").value == "ds"){
+      h += "<hr><p><b>🔴 Hard Limits de "+P.n+" :</b><br>" + (lim.join(", ")||"Aucune") + "</p>";
+      h += "<p style='font-size:0.8rem'><b>Safewords :</b> "+P.sw+" | <b>Non-verbal :</b> "+(P.nv||"-")+"<br><b>Santé/Allergies :</b> "+(P.c.join(", ")||"RAS")+"<br><b>Notes :</b> "+(P.nt||"-")+"</p>";
+    }
+    document.getElementById("res").innerHTML = h + "</div>";
+  } catch(e) { alert("Code invalide ou incomplet."); }
 }
-function shareApp(){
-  const code=btoa(encodeURIComponent(JSON.stringify(S)));
-  const url=location.origin+location.pathname+"#p="+code;
-  if(navigator.clipboard)navigator.clipboard.writeText(url);
-  prompt("Copie ce lien de partage pour ton/ta partenaire :",url);
+
+if(location.hash.length > 2){
+  document.getElementById("t3").checked = true;
+  document.getElementById("pcode").value = location.hash.substring(1);
+  comparer();
 }
-function setM(m){
-  mode=m;
-  document.getElementById("m-duo").className=m==="duo"?"tbtn act":"tbtn";
-  document.getElementById("m-ds").className=m==="ds"?"tbtn act":"tbtn";
-}
-function compare(){
-  const raw=document.getElementById("p-code").value.trim();
-  if(!raw)return alert("Colle d'abord le lien ou code reçu.");
-  let P;
-  try{P=JSON.parse(decodeURIComponent(atob(raw.includes("#p=")?raw.split("#p=")[1]:raw)));}
-  catch(e){return alert("Lien ou code invalide.");}
-  let yes=[],cur=[],syn=[],no=[];
-  const myN=S.p||"Moi",pN=P.p||"Partenaire",myD=defDir(S.r),pD=defDir(P.r||"Switch");
-  CATS.forEach((c,ci)=>c[1].forEach((name,ii)=>{
-    const k=ci+"_"+ii,uV=S.ans[k]||"neu",pV=(P.ans&&P.ans[k])||"neu";
-    const uP=S.dir[k]||myD,pP=(P.dir&&P.dir[k])||pD;
-    if(uV==="yes"&&pV==="yes"){
-      yes.push(name);
-      if((uP==="Dom"&&pP==="Sub")||(uP==="Sub"&&pP==="Dom"))syn.push(name+" ("+(uP==="Dom"?myN+" Dom":pN+" Dom")+")");
-    }else if((uV==="yes"||uV==="cur")&&(pV==="yes"||pV==="cur"))cur.push(name);
-    if(pV==="no")no.push(name);
-  }));
-  document.getElementById("comp-res").innerHTML=`<div class="card"><div style="font-weight:800;color:var(--burg);margin-bottom:10px">${myN} (${S.r}) ✦ ${pN} (${P.r||'Switch'})</div><div style="margin-bottom:10px"><div style="font-size:0.8rem;font-weight:700;color:var(--yes)">🟢 Oui en commun (${yes.length})</div><div>${yes.map(x=>`<span class="tag t-yes">\${x}</span>`).join("")||"Aucun"}</div></div>${syn.length?`<div style="margin-bottom:10px"><div style="font-size:0.8rem;font-weight:700;color:var(--burg)">⚡ Synergies Donneur/Receveur (${syn.length})</div><div>${syn.map(x=>`<span class="tag t-syn">${x}</span>`).join("")}</div></div>`:""}<div style="margin-bottom:10px"><div style="font-size:0.8rem;font-weight:700;color:var(--cur)">🟡 À explorer ensemble (${cur.length})</div><div>${cur.map(x=>`<span class="tag t-cur">\${x}</span>`).join("")||"Aucun"}</div></div>${mode==="ds"?`<hr style="margin:12px 0;border:none;border-top:1px solid var(--bdr)"><div style="margin-bottom:10px"><div style="font-size:0.8rem;font-weight:700;color:var(--no)">🔴 Hard Limits de \${pN} (${no.length})</div><div>${no.map(x=>`<span class="tag t-no">${x}</span>`).join("")||"Aucune"}</div></div><div style="font-size:0.78rem;background:var(--inp);padding:10px;border-radius:8px;line-height:1.6"><b>Safewords :</b> ${(P.sw\vert{}\vert{}[]).slice(0,3).join(" / ")}<br><b>Non-Verbal :</b> ${(P.sw&&P.sw[3])||"Non précisé"}<br><b>Allergies :</b> ${(P.all\vert{}\vert{}[]).join(", ")\vert{}\vert{}"Aucune"}<br><b>Fragilités :</b> ${(P.med||[]).join(", ")||"Aucune"}<br><b>Aftercare :</b> ${(P.aft\vert{}\vert{}[]).join(", ")\vert{}\vert{}"Non précisé"}<br>${P.n?`<i>"${P.n}"</i>`:""}</div>`:""}</div>`;
-}
-function demo(){
-  const d={p:"Elena",r:"Soumis(e)",ans:{"0_0":"yes","0_1":"yes","1_0":"yes","1_1":"yes","3_0":"yes","3_3":"cur","4_5":"no"},dir:{"0_0":"Sub","1_0":"Sub"},sw:["Vert","Orange","Rouge","Taper 3 fois"],all:["Latex"],med:["Poignets fragiles"],aft:["Câlins & contact"],n:"Attention poignet gauche"};
-  document.getElementById("p-code").value=btoa(encodeURIComponent(JSON.stringify(d)));
-  compare();
-}
-function resetApp(){if(confirm("Tout effacer ?")){localStorage.removeItem("ks_v6");location.hash="";location.reload();}}
-load();draw();drawChecks();
-if(location.hash.startsWith("#p=")){document.getElementById("p-code").value=location.hash.replace("#p=","");goTab(3);compare();}
 </script>
 </body>
 </html>
