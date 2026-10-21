@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>KinkSync</title>
 <style>
-:root{--bg:#faf6f3;--card:#fff;--ink:#2a1f25;--mut:#7d6e76;--line:#eadfd9;--soft:#f4ece7;--acc:#8a1f3d;--onacc:#fff;--shadow:0 6px 20px rgba(60,20,35,.08);
---l0:#c0392b;--l1:#e5805c;--l2:#a69ca2;--l3:#e0a82e;--l4:#35a860;
+:root{--bg:#f4eeea;--card:#fff;--ink:#1d1316;--mut:#7a6a70;--line:#e2d3cc;--soft:#f1e7e2;--acc:#7a1128;--btn:#7a1128;--onbtn:#f8ece4;--shadow:0 6px 22px rgba(40,10,20,.10);
+--l0:#c4162f;--l1:#d2693f;--l2:#8a7f84;--l3:#d9a431;--l4:#2fa35a;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#150f18;--card:#211a26;--ink:#f4ecf0;--mut:#a899a2;--line:#33293a;--soft:#2a2130;--acc:#e8708f;--onacc:#1a0f15;--shadow:0 6px 20px rgba(0,0,0,.35)}}
-:root[data-theme="dark"]{--bg:#150f18;--card:#211a26;--ink:#f4ecf0;--mut:#a899a2;--line:#33293a;--soft:#2a2130;--acc:#e8708f;--onacc:#1a0f15;--shadow:0 6px 20px rgba(0,0,0,.35)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b0708;--card:#161011;--ink:#efe5df;--mut:#a1918b;--line:#2d1e21;--soft:#1f1517;--acc:#c9a45c;--btn:#7a1128;--onbtn:#f8ece4;--shadow:0 8px 26px rgba(0,0,0,.55)}}
+:root[data-theme="dark"]{--bg:#0b0708;--card:#161011;--ink:#efe5df;--mut:#a1918b;--line:#2d1e21;--soft:#1f1517;--acc:#c9a45c;--btn:#7a1128;--onbtn:#f8ece4;--shadow:0 8px 26px rgba(0,0,0,.55)}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding-bottom:84px}
@@ -19,34 +19,36 @@ h1{font:italic 700 1.7rem Georgia,"Times New Roman",serif;margin:0;color:var(--a
 .tag{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
 main{max-width:620px;margin:0 auto;padding:4px 14px}
 .sec{display:none}.sec.on{display:block}
-.card{background:var(--card);border-radius:20px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .lbl{display:block;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
 input[type=text],textarea{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:14px;background:var(--soft);color:var(--ink);font:inherit;font-size:1rem}
 input:focus,textarea:focus{outline:none;border-color:var(--acc)}
 .prog{height:6px;border-radius:6px;background:var(--soft);overflow:hidden;margin-top:12px}
 .prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--l0),var(--l3),var(--l4));transition:width .3s}
 .pm{font-size:.8rem;color:var(--mut);margin-top:6px}
-.legend{display:flex;justify-content:space-between;font-size:.66rem;color:var(--mut);padding:0 4px 8px}
+.legend{display:grid;grid-template-columns:repeat(5,1fr);text-align:center;font-size:.64rem;color:var(--mut);padding:0 16px 8px}
 .cat{margin-bottom:16px}
 .cat h2{margin:0;padding:6px 6px 10px;font:italic 700 1.15rem Georgia,serif;color:var(--acc)}
-.cat .box{background:var(--card);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+.cat .box{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
 .row{padding:14px 16px 12px;border-bottom:1px solid var(--line)}
 .row:last-child{border-bottom:0}
 .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
 .nm{font-size:.95rem;font-weight:600}
+.desc{font-size:.76rem;color:var(--mut);line-height:1.35;margin-top:2px}
+.top{align-items:flex-start}
 .pill{font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:99px;color:#fff;white-space:nowrap;transition:background .2s}
-input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:30px;background:transparent;margin:0;touch-action:pan-y}
-input[type=range]::-webkit-slider-runnable-track{height:10px;border-radius:10px;background:linear-gradient(90deg,var(--l0),var(--l1) 25%,var(--l2) 50%,var(--l3) 75%,var(--l4))}
-input[type=range]::-moz-range-track{height:10px;border-radius:10px;background:linear-gradient(90deg,var(--l0),var(--l1) 25%,var(--l2) 50%,var(--l3) 75%,var(--l4))}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;margin-top:-9px;border-radius:50%;background:#fff;border:4px solid var(--c,var(--l2));box-shadow:0 2px 6px rgba(0,0,0,.3)}
-input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:4px solid var(--c,var(--l2));box-shadow:0 2px 6px rgba(0,0,0,.3)}
-input[type=range].un{opacity:.55}
+.dots{display:flex;gap:8px;margin-top:10px}
+.dots button{flex:1;height:46px;border-radius:14px;border:1.5px solid var(--line);background:var(--soft);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.dots button::after{content:"";width:20px;height:20px;border-radius:50%;background:var(--c);opacity:.3;transition:.15s}
+.dots button.on{border-color:var(--c);background:var(--card)}
+.dots button.on::after{opacity:1;box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 28%,transparent),0 0 14px var(--c)}
 .sw3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .chk{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .chk label{display:flex;align-items:center;gap:8px;padding:12px;border-radius:14px;background:var(--soft);border:1.5px solid transparent;font-size:.92rem;cursor:pointer}
 .chk input{accent-color:var(--acc);width:18px;height:18px}
 .chk label:has(input:checked){border-color:var(--acc)}
-.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:15px;border:0;border-radius:16px;background:var(--acc);color:var(--onacc);font:inherit;font-weight:700;font-size:1rem;cursor:pointer;margin-top:10px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:15px;border:0;border-radius:16px;background:var(--btn);color:var(--onbtn);font:inherit;font-weight:700;font-size:1rem;cursor:pointer;margin-top:10px;letter-spacing:.02em}
 .btn.alt{background:var(--soft);color:var(--ink)}
 .btn:active{transform:scale(.98)}
 .seg{display:grid;grid-template-columns:1fr 1fr;background:var(--soft);border-radius:14px;padding:4px;gap:4px;margin-bottom:12px}
@@ -79,12 +81,14 @@ nav button.on{color:var(--acc)}
 <main>
   <section class="sec on" id="s0">
     <div class="card">
-      <span class="lbl">Mon pseudo</span>
-      <input type="text" id="pseudo" placeholder="Ex : S." autocomplete="off">
+      <div class="g2">
+        <div><span class="lbl">Mon pseudo</span><input type="text" id="pseudo" placeholder="Ex : S." autocomplete="off"></div>
+        <div><span class="lbl">Lieu / ville</span><input type="text" id="lieu" placeholder="Ex : Toulouse" autocomplete="off"></div>
+      </div>
       <div class="prog"><i id="pb"></i></div>
       <div class="pm" id="pm"></div>
     </div>
-    <div class="legend"><span>🔴 Limite</span><span>Non</span><span>Neutre</span><span>Curieux</span><span>Oui 🟢</span></div>
+    <div class="legend"><span>🟢 Très</span><span>Curieux</span><span>Ne sait pas</span><span>Peu</span><span>Limite 🔴</span></div>
     <div id="cats"></div>
   </section>
 
@@ -149,26 +153,27 @@ var CATS=[
 ["Humiliation, médical & groupe",["Humiliations","Jeux médicaux","Marquage / perçage temporaire","Marquage / perçage permanent","Être photographié(e) / filmé(e)","Exhibition","Voyeurisme (regarder)","Échangisme","Sexualité de groupe / orgie"]]
 ];
 var ALL=[];CATS.forEach(function(c){c[1].forEach(function(n){ALL.push(n)})});
-var LV=[["Limite","var(--l0)","🔴"],["Pas intéressé(e)","var(--l1)","🟠"],["Neutre","var(--l2)","⚪"],["Curieux(se)","var(--l3)","🟡"],["Oui","var(--l4)","🟢"]];
+var LV=[["Limite","var(--l0)","🔴"],["Peu intéressé(e)","var(--l1)","🟠"],["Ne sait pas","var(--l2)","⚪"],["Curieux(se)","var(--l3)","🟡"],["Très intéressé(e)","var(--l4)","🟢"]];
+var DESC={"Collier et laisse":"Symbole d’appartenance, porté en jeu ou au quotidien.","Discipline & règles":"Règles à suivre, avec sanctions convenues à l’avance.","Positions imposées":"Tenir une posture demandée par le/la partenaire.","Maître(sse) / esclave":"Relation d’autorité très marquée, négociée en amont.","Frustration sexuelle":"Faire monter le désir sans satisfaction immédiate.","Cocufication (cuckold)":"L’un(e) regarde ou sait que l’autre est avec quelqu’un d’autre.","Gay imposé / initiation bi":"Scénario d’initiation à des rapports avec le même sexe.","Shibari (cordes)":"Art japonais du cordage, esthétique et sensoriel.","Ties and denial (attaché/privé)":"Attaché(e) et privé(e) de contact ou d’orgasme.","Privations sensorielles":"Bandeau, casque, bâillon : couper la vue, l’ouïe ou la parole.","Enfermement (cage, pièce)":"Cage ou espace fermé, avec accord et surveillance.","Chasteté imposée (cage)":"Dispositif empêchant l’érection ou l’accès au sexe.","Privation d’orgasme":"Interdire ou refuser le plaisir final.","Contrôle d’orgasme / edging":"Amener au bord de l’orgasme, puis retenir ou autoriser.","Dilatation (vaginale)":"Élargir progressivement avec des toys ou les doigts.","Dilatation (anale)":"Élargir progressivement avec des toys ou les doigts.","Fisting (vaginal)":"Pénétration par la main, très progressive.","Fisting (anal)":"Pénétration par la main, très progressive.","Fessées (spanking)":"Frappes à la main, intensité variable.","Fouet, cravache, martinet":"Outils d’impact, du léger au cuisant.","Châtiments corporels":"Punitions physiques convenues, liées à des règles.","Bougies / cire chaude":"Cire basse température versée sur la peau.","Électro-stimulation":"Courant faible avec du matériel dédié.","Tortures des seins":"Pinces, pincements, tiraillements.","Tortures des parties génitales":"Pinces, tiraillements, jeux sur zones très sensibles.","Facesitting":"S’asseoir sur le visage du/de la partenaire.","Face fucking / gorge profonde":"Rapport oral profond et dirigé.","Crachat":"Geste de mépris ou de marquage symbolique.","Uro (douche dorée)":"Jeux avec l’urine.","Scato":"Jeux avec les matières fécales.","Mises en scène":"Scénarios préparés, décors et costumes.","Tenues imposées":"Vêtements choisis par l’autre.","Pony-play":"Incarner un cheval, avec harnais et accessoires.","Puppy-play / pet-play":"Incarner un animal, avec accessoires.","Travestissement":"Porter des vêtements du sexe opposé, choisis ou imposés.","Humiliations":"Verbales ou symboliques, dans un cadre convenu.","Jeux médicaux":"Examens, instruments, scénario clinique.","Marquage / perçage temporaire":"Feutre, cire, pinces, piercings non permanents.","Marquage / perçage permanent":"Tatouage, piercing, branding.","Exhibition":"Se montrer ou être exposé(e) à autrui.","Échangisme":"Échanger les partenaires avec d’autres couples."};
 var ALG=["Latex","Cuir","Métaux","Cire/parfums","Épaules","Poignets","Dos/genoux","Asthme"];
 var $=function(i){return document.getElementById(i)};
 var S={v:ALL.map(function(){return -1}),c:[]};
 
 function toast(t){var e=$("toast");e.textContent=t;e.className="on";clearTimeout(toast.t);toast.t=setTimeout(function(){e.className=""},2200)}
-function save(){try{localStorage.setItem("ks1",JSON.stringify({v:S.v,p:$("pseudo").value,sw:[$("sw1").value,$("sw2").value,$("sw3").value],nv:$("nv").value,nt:$("nt").value,c:S.c}))}catch(e){}}
-function load(){try{var d=JSON.parse(localStorage.getItem("ks1")||"null");if(!d)return;S.v=d.v||S.v;S.c=d.c||[];$("pseudo").value=d.p||"";if(d.sw){$("sw1").value=d.sw[0];$("sw2").value=d.sw[1];$("sw3").value=d.sw[2]}$("nv").value=d.nv||"";$("nt").value=d.nt||""}catch(e){}}
+function save(){try{localStorage.setItem("ks1",JSON.stringify({v:S.v,p:$("pseudo").value,l:$("lieu").value,sw:[$("sw1").value,$("sw2").value,$("sw3").value],nv:$("nv").value,nt:$("nt").value,c:S.c}))}catch(e){}}
+function load(){try{var d=JSON.parse(localStorage.getItem("ks1")||"null");if(!d)return;S.v=d.v||S.v;S.c=d.c||[];$("pseudo").value=d.p||"";$("lieu").value=d.l||"";if(d.sw){$("sw1").value=d.sw[0];$("sw2").value=d.sw[1];$("sw3").value=d.sw[2]}$("nv").value=d.nv||"";$("nt").value=d.nt||""}catch(e){}}
 function val(i){return S.v[i]<0?2:S.v[i]}
 
-function paint(r,i){var v=val(i),L=LV[v],p=r.querySelector(".pill");
-  r.querySelector("input").style.setProperty("--c",L[1]);r.querySelector("input").className=S.v[i]<0?"un":"";
-  p.textContent=L[0];p.style.background=S.v[i]<0?"var(--mut)":L[1]}
+function paint(r,i){var p=r.querySelector(".pill"),L=LV[val(i)];
+  [].forEach.call(r.querySelectorAll(".dots button"),function(b){b.classList.toggle("on",+b.dataset.v===S.v[i])});
+  p.textContent=S.v[i]<0?"—":L[0];p.style.background=S.v[i]<0?"var(--line)":L[1]}
 function build(){var h="",k=0;
   CATS.forEach(function(c){h+='<div class="cat"><h2>'+c[0]+'</h2><div class="box">';
-    c[1].forEach(function(n){h+='<div class="row" data-i="'+k+'"><div class="top"><span class="nm">'+n+'</span><span class="pill"></span></div><input type="range" min="0" max="4" step="1" value="'+val(k)+'" aria-label="'+n+'"></div>';k++});
+    c[1].forEach(function(n){h+='<div class="row" data-i="'+k+'"><div class="top"><div><div class="nm">'+n+'</div>'+(DESC[n]?'<div class="desc">'+DESC[n]+'</div>':'')+'</div><span class="pill"></span></div><div class="dots">'+[4,3,2,1,0].map(function(v){return '<button data-v="'+v+'" style="--c:'+LV[v][1]+'" aria-label="'+LV[v][0]+'"></button>'}).join("")+'</div></div>';k++});
     h+="</div></div>"});
   $("cats").innerHTML=h;
   [].forEach.call(document.querySelectorAll(".row"),function(r){var i=+r.dataset.i;paint(r,i);
-    r.querySelector("input").addEventListener("input",function(e){S.v[i]=+e.target.value;paint(r,i);upd()})});
+    [].forEach.call(r.querySelectorAll(".dots button"),function(b){b.onclick=function(){S.v[i]=S.v[i]===+b.dataset.v?-1:+b.dataset.v;paint(r,i);upd()}})});
   $("chk").innerHTML=ALG.map(function(a){return '<label><input type="checkbox" value="'+a+'"'+(S.c.indexOf(a)>-1?" checked":"")+'> '+a+"</label>"}).join("");
   $("chk").onchange=function(){S.c=[].map.call($("chk").querySelectorAll("input:checked"),function(x){return x.value});upd()}}
 
@@ -177,17 +182,17 @@ function by(v,vals){return ALL.filter(function(n,i){return vals.indexOf(val(i))>
 function lists(){var g={4:[],3:[],1:[],0:[]};ALL.forEach(function(n,i){if(S.v[i]>-1&&g[S.v[i]])g[S.v[i]].push(n)});return g}
 function chips(a,c){return a.length?'<div class="chips">'+a.map(function(n){return '<span class="chip" style="--c:'+c+'">'+n+"</span>"}).join("")+"</div>":'<p class="note">Aucune</p>'}
 
-function payload(){return{n:name(),a:ALL.map(function(n,i){return val(i)}).join(""),sw:[$("sw1").value,$("sw2").value,$("sw3").value],nv:$("nv").value,c:S.c,nt:$("nt").value}}
+function payload(){return{n:name(),l:$("lieu").value,a:ALL.map(function(n,i){return val(i)}).join(""),sw:[$("sw1").value,$("sw2").value,$("sw3").value],nv:$("nv").value,c:S.c,nt:$("nt").value}}
 function enc(o){var b=new TextEncoder().encode(JSON.stringify(o)),s="";b.forEach(function(x){s+=String.fromCharCode(x)});return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")}
 function dec(t){t=t.replace(/-/g,"+").replace(/_/g,"/");while(t.length%4)t+="=";var s=atob(t),b=new Uint8Array(s.length);for(var i=0;i<s.length;i++)b[i]=s.charCodeAt(i);return JSON.parse(new TextDecoder().decode(b))}
 function link(){var c=enc(payload());try{if(window.self===window.top)return location.href.split("#")[0]+"#"+c}catch(e){}return c}
 function summary(){var g=lists(),f=function(a){return a.join(", ")||"—"};
-  return "💞 KinkSync — profil de "+name()+"\n\n🟢 Oui : "+f(g[4])+"\n🟡 Curieux(se) : "+f(g[3])+"\n🟠 Pas intéressé(e) : "+f(g[1])+"\n🔴 Limites : "+f(g[0])+"\n\n🛡️ Mots d’arrêt : "+[$("sw1").value,$("sw2").value,$("sw3").value].join(" / ")+(S.c.length?"\n⚠️ Santé : "+S.c.join(", "):"")+($("nt").value?"\n📝 "+$("nt").value:"")+"\n\nCode à coller dans KinkSync (onglet Comparer) :\n"+link()}
+  return "💞 KinkSync — profil de "+name()+($("lieu").value?" ("+$("lieu").value+")":"")+"\n\n🟢 Très intéressé(e) : "+f(g[4])+"\n🟡 Curieux(se) : "+f(g[3])+"\n🟠 Peu intéressé(e) : "+f(g[1])+"\n🔴 Limites : "+f(g[0])+"\n\n🛡️ Mots d’arrêt : "+[$("sw1").value,$("sw2").value,$("sw3").value].join(" / ")+(S.c.length?"\n⚠️ Santé : "+S.c.join(", "):"")+($("nt").value?"\n📝 "+$("nt").value:"")+"\n\nCode à coller dans KinkSync (onglet Comparer) :\n"+link()}
 
 function upd(){var n=S.v.filter(function(x){return x>-1}).length,g=lists();
   $("pb").style.width=(n/ALL.length*100)+"%";$("pm").textContent=n+" / "+ALL.length+" pratiques renseignées";
-  $("stats").innerHTML=[[4,g[4]],[3,g[3]],[1,g[1]],[0,g[0]]].map(function(x){return "<div><b>"+x[1].length+"</b><span>"+LV[x[0]][2]+" "+LV[x[0]][0].split(" ")[0]+"</span></div>"}).join("");
-  $("mine").innerHTML='<div class="gh">🟢 Oui</div>'+chips(g[4],"var(--l4)")+'<div class="gh">🟡 Curieux(se)</div>'+chips(g[3],"var(--l3)")+'<div class="gh">🔴 Limites</div>'+chips(g[0],"var(--l0)");
+  $("stats").innerHTML=[[4,g[4]],[3,g[3]],[1,g[1]],[0,g[0]]].map(function(x){return "<div><b>"+x[1].length+"</b><span>"+LV[x[0]][2]+" "+["Limite","Peu","","Curieux","Très"][x[0]]+"</span></div>"}).join("");
+  $("mine").innerHTML='<div class="gh">🟢 Très intéressé(e)</div>'+chips(g[4],"var(--l4)")+'<div class="gh">🟡 Curieux(se)</div>'+chips(g[3],"var(--l3)")+'<div class="gh">🔴 Limites</div>'+chips(g[0],"var(--l0)");
   $("code").textContent=enc(payload());save()}
 
 function share(text){if(navigator.share){navigator.share({title:"KinkSync",text:text}).catch(function(){})}else copy(text)}
@@ -203,8 +208,8 @@ function compare(){var raw=$("pcode").value.trim();if(!raw)return toast("Colle d
     else if((a>=3&&b==2)||(b>=3&&a==2))talk.push(n);
     if((b<=1&&a>=3)||(a<=1&&b>=3))lim.push([n,b<=1?P.n:M.n]);
   });
-  var tot=yes.length+cur.length,h='<div class="card"><div class="big"><b>'+tot+'</b>pratique'+(tot>1?"s":"")+" en commun avec "+P.n+"</div>";
-  h+='<div class="gh">🟢 Oui tous les deux ('+yes.length+")</div>"+chips(yes,"var(--l4)");
+  var tot=yes.length+cur.length,h='<div class="card"><div class="big"><b>'+tot+'</b>pratique'+(tot>1?"s":"")+" en commun avec "+P.n+(P.l?" ("+P.l+")":"")+"</div>";
+  h+='<div class="gh">🟢 Très intéressés tous les deux ('+yes.length+")</div>"+chips(yes,"var(--l4)");
   h+='<div class="gh">🟡 À explorer ensemble ('+cur.length+")</div>"+chips(cur,"var(--l3)");
   if(talk.length)h+='<div class="gh">💬 À en discuter ('+talk.length+")</div>"+chips(talk,"var(--l2)");
   h+="</div>";
@@ -214,14 +219,14 @@ function compare(){var raw=$("pcode").value.trim();if(!raw)return toast("Colle d
   h='<div class="seg"><button data-m="0"'+(full?"":' class="on"')+'>Duo (points communs)</button><button data-m="1"'+(full?' class="on"':"")+'>Complet (limites + santé)</button></div>'+h+extra+
     '<button class="btn" id="shRes">📤 Envoyer ce résumé</button>';
   $("res").innerHTML=h;
-  lastTxt="💞 KinkSync — "+M.n+" & "+P.n+"\n\n🟢 Oui tous les deux : "+(yes.join(", ")||"—")+"\n🟡 À explorer : "+(cur.join(", ")||"—")+(talk.length?"\n💬 À en discuter : "+talk.join(", "):"");
+  lastTxt="💞 KinkSync — "+M.n+" & "+P.n+"\n\n🟢 Très intéressés tous les deux : "+(yes.join(", ")||"—")+"\n🟡 À explorer : "+(cur.join(", ")||"—")+(talk.length?"\n💬 À en discuter : "+talk.join(", "):"");
   $("shRes").onclick=function(){share(lastTxt)};
   [].forEach.call($("res").querySelectorAll(".seg button"),function(b){b.onclick=function(){full=b.dataset.m=="1";compare()}})}
 
 function tab(t){[].forEach.call(document.querySelectorAll(".sec"),function(s,i){s.classList.toggle("on",i==t)});
   [].forEach.call(document.querySelectorAll("nav button"),function(b){b.classList.toggle("on",b.dataset.t==t)});window.scrollTo(0,0)}
 [].forEach.call(document.querySelectorAll("nav button"),function(b){b.onclick=function(){tab(b.dataset.t)}});
-["pseudo","sw1","sw2","sw3","nv","nt"].forEach(function(i){$(i).addEventListener("input",upd)});
+["pseudo","lieu","sw1","sw2","sw3","nv","nt"].forEach(function(i){$(i).addEventListener("input",upd)});
 $("shareBtn").onclick=function(){share(summary())};
 $("copyTxt").onclick=function(){copy(summary())};
 $("copyCode").onclick=function(){copy(link())};
