@@ -1,240 +1,1339 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>KinkSync</title>
-<style>
-:root{--bg:#f4eeea;--card:#fff;--ink:#1d1316;--mut:#7a6a70;--line:#e2d3cc;--soft:#f1e7e2;--acc:#7a1128;--btn:#7a1128;--onbtn:#f8ece4;--shadow:0 6px 22px rgba(40,10,20,.10);
---l0:#c4162f;--l1:#d2693f;--l2:#8a7f84;--l3:#d9a431;--l4:#2fa35a;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b0708;--card:#161011;--ink:#efe5df;--mut:#a1918b;--line:#2d1e21;--soft:#1f1517;--acc:#c9a45c;--btn:#7a1128;--onbtn:#f8ece4;--shadow:0 8px 26px rgba(0,0,0,.55)}}
-:root[data-theme="dark"]{--bg:#0b0708;--card:#161011;--ink:#efe5df;--mut:#a1918b;--line:#2d1e21;--soft:#1f1517;--acc:#c9a45c;--btn:#7a1128;--onbtn:#f8ece4;--shadow:0 8px 26px rgba(0,0,0,.55)}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding-bottom:84px}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);padding:14px 18px 10px;display:flex;align-items:center;justify-content:space-between}
-h1{font:italic 700 1.7rem Georgia,"Times New Roman",serif;margin:0;color:var(--acc);letter-spacing:.2px}
-.tag{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
-main{max-width:620px;margin:0 auto;padding:4px 14px}
-.sec{display:none}.sec.on{display:block}
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.lbl{display:block;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
-input[type=text],textarea{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:14px;background:var(--soft);color:var(--ink);font:inherit;font-size:1rem}
-input:focus,textarea:focus{outline:none;border-color:var(--acc)}
-.prog{height:6px;border-radius:6px;background:var(--soft);overflow:hidden;margin-top:12px}
-.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--l0),var(--l3),var(--l4));transition:width .3s}
-.pm{font-size:.8rem;color:var(--mut);margin-top:6px}
-.legend{display:grid;grid-template-columns:repeat(5,1fr);text-align:center;font-size:.64rem;color:var(--mut);padding:0 16px 8px}
-.cat{margin-bottom:16px}
-.cat h2{margin:0;padding:6px 6px 10px;font:italic 700 1.15rem Georgia,serif;color:var(--acc)}
-.cat .box{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
-.row{padding:14px 16px 12px;border-bottom:1px solid var(--line)}
-.row:last-child{border-bottom:0}
-.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
-.nm{font-size:.95rem;font-weight:600}
-.desc{font-size:.76rem;color:var(--mut);line-height:1.35;margin-top:2px}
-.top{align-items:flex-start}
-.pill{font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:99px;color:#fff;white-space:nowrap;transition:background .2s}
-.dots{display:flex;gap:8px;margin-top:10px}
-.dots button{flex:1;height:46px;border-radius:14px;border:1.5px solid var(--line);background:var(--soft);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
-.dots button::after{content:"";width:20px;height:20px;border-radius:50%;background:var(--c);opacity:.3;transition:.15s}
-.dots button.on{border-color:var(--c);background:var(--card)}
-.dots button.on::after{opacity:1;box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 28%,transparent),0 0 14px var(--c)}
-.sw3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.chk{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.chk label{display:flex;align-items:center;gap:8px;padding:12px;border-radius:14px;background:var(--soft);border:1.5px solid transparent;font-size:.92rem;cursor:pointer}
-.chk input{accent-color:var(--acc);width:18px;height:18px}
-.chk label:has(input:checked){border-color:var(--acc)}
-.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:15px;border:0;border-radius:16px;background:var(--btn);color:var(--onbtn);font:inherit;font-weight:700;font-size:1rem;cursor:pointer;margin-top:10px;letter-spacing:.02em}
-.btn.alt{background:var(--soft);color:var(--ink)}
-.btn:active{transform:scale(.98)}
-.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--soft);border-radius:14px;padding:4px;gap:4px;margin-bottom:12px}
-.seg button{border:0;background:transparent;color:var(--mut);font:inherit;font-size:.85rem;font-weight:600;padding:10px 6px;border-radius:11px;cursor:pointer}
-.seg button.on{background:var(--card);color:var(--acc);box-shadow:0 1px 4px rgba(0,0,0,.15)}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center}
-.stats div{background:var(--soft);border-radius:14px;padding:10px 2px}
-.stats b{display:block;font-size:1.3rem}
-.stats span{font-size:.64rem;color:var(--mut)}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.chip{font-size:.8rem;padding:6px 11px;border-radius:99px;background:var(--soft);border-left:4px solid var(--c)}
-.gh{display:flex;align-items:center;gap:8px;font-weight:700;margin-top:16px}
-.big{text-align:center;padding:8px 0 4px}
-.big b{font:italic 700 3rem Georgia,serif;color:var(--acc);display:block;line-height:1}
-.code{font-family:ui-monospace,Menlo,monospace;font-size:.72rem;word-break:break-all;background:var(--soft);border-radius:12px;padding:10px;color:var(--mut);max-height:76px;overflow:auto}
-nav{position:fixed;left:0;right:0;bottom:0;z-index:25;background:var(--card);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
-nav button{border:0;background:none;color:var(--mut);font:inherit;font-size:.68rem;font-weight:600;padding:6px 2px;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer}
-nav button span{font-size:1.35rem;line-height:1.2}
-nav button.on{color:var(--acc)}
-#toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:99px;font-size:.88rem;opacity:0;pointer-events:none;transition:.25s;z-index:40;max-width:90%}
-#toast.on{opacity:1;transform:translate(-50%,0)}
-.note{font-size:.8rem;color:var(--mut);line-height:1.45;margin:6px 2px 0}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#121117">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>KinkSync — Accords, Désirs & Limites</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       1. VARIABLES DE COULEURS — THÈME SOMBRE (DÉFAUT) & THÈME CLAIR HARMONIEUX
+       ========================================================================== */
+    :root {
+      /* Mode Sombre : Velours Nocturne & Champagne Doux */
+      --bg-main: #121117;
+      --bg-secondary: #1a1822;
+      --bg-card: rgba(28, 25, 36, 0.92);
+      --bg-input: #14121a;
+      --bg-header: rgba(18, 17, 23, 0.92);
+      --bg-btn-idle: #17151f;
+
+      --accent-light: #f3e5c8;
+      --accent: #d6b87c;
+      --accent-dark: #a68545;
+      --border-subtle: rgba(214, 184, 124, 0.2);
+      --border-strong: rgba(214, 184, 124, 0.45);
+
+      --text-main: #f4f1ea;
+      --text-secondary: #d5cfc4;
+      --text-muted: #968f9e;
+
+      /* Palette harmonieuse pour les 5 statuts */
+      --yes-color: #2eb886;
+      --yes-bg: rgba(46, 184, 134, 0.14);
+      --yes-border: rgba(46, 184, 134, 0.4);
+      --yes-text: #6ee7b7;
+
+      --curious-color: #df9b28;
+      --curious-bg: rgba(223, 155, 40, 0.14);
+      --curious-border: rgba(223, 155, 40, 0.4);
+      --curious-text: #fcd34d;
+
+      --discuss-color: #6482ad;
+      --discuss-bg: rgba(100, 130, 173, 0.14);
+      --discuss-border: rgba(100, 130, 173, 0.4);
+      --discuss-text: #b8c7de;
+
+      --low-color: #9b728f;
+      --low-bg: rgba(155, 114, 143, 0.14);
+      --low-border: rgba(155, 114, 143, 0.4);
+      --low-text: #d8b4ce;
+
+      --limit-color: #e05263;
+      --limit-bg: rgba(224, 82, 99, 0.15);
+      --limit-border: rgba(224, 82, 99, 0.45);
+      --limit-text: #fda4af;
+
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+
+    /* Mode Clair : Ivoire Soyeux & Bronze Doré */
+    [data-theme="light"] {
+      --bg-main: #f7f4ef;
+      --bg-secondary: #efeae2;
+      --bg-card: rgba(255, 255, 255, 0.95);
+      --bg-input: #f9f7f3;
+      --bg-header: rgba(247, 244, 239, 0.94);
+      --bg-btn-idle: #f1ede6;
+
+      --accent-light: #7c5c24;
+      --accent: #a67c37;
+      --accent-dark: #75541b;
+      --border-subtle: rgba(166, 124, 55, 0.22);
+      --border-strong: rgba(166, 124, 55, 0.5);
+
+      --text-main: #26222a;
+      --text-secondary: #4a4352;
+      --text-muted: #787082;
+
+      --yes-color: #169c6c;
+      --yes-bg: rgba(22, 156, 108, 0.1);
+      --yes-border: rgba(22, 156, 108, 0.35);
+      --yes-text: #0f6e4c;
+
+      --curious-color: #c98212;
+      --curious-bg: rgba(201, 130, 18, 0.12);
+      --curious-border: rgba(201, 130, 18, 0.38);
+      --curious-text: #945d06;
+
+      --discuss-color: #526d94;
+      --discuss-bg: rgba(82, 109, 148, 0.1);
+      --discuss-border: rgba(82, 109, 148, 0.32);
+      --discuss-text: #395070;
+
+      --low-color: #875d7b;
+      --low-bg: rgba(135, 93, 123, 0.1);
+      --low-border: rgba(135, 93, 123, 0.32);
+      --low-text: #68425d;
+
+      --limit-color: #d13d4f;
+      --limit-bg: rgba(209, 61, 79, 0.1);
+      --limit-border: rgba(209, 61, 79, 0.35);
+      --limit-text: #a32232;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      padding-bottom: 70px;
+      line-height: 1.45;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    /* ==========================================================================
+       2. EN-TÊTE ET BARRE D'ONGLETS COMPACTE
+       ========================================================================== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--bg-header);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 10px 14px;
+    }
+
+    .header-inner {
+      max-width: 820px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .logo-svg {
+      width: 34px;
+      height: 34px;
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--accent-light);
+      line-height: 1;
+    }
+
+    .brand-sub {
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 1.6px;
+      color: var(--text-muted);
+      display: block;
+      margin-top: 2px;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    button {
+      font-family: var(--font-sans);
+      cursor: pointer;
+      border: none;
+      outline: none;
+      transition: all 0.18s ease;
+    }
+
+    .btn-icon {
+      background: var(--bg-btn-idle);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+    }
+    .btn-icon:hover {
+      border-color: var(--accent);
+      color: var(--accent-light);
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.78rem;
+      padding: 8px 13px;
+      border-radius: var(--radius-sm);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 0.76rem;
+      padding: 7px 12px;
+      border-radius: var(--radius-sm);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent-light);
+    }
+
+    nav.tabs-nav {
+      position: sticky;
+      top: 57px;
+      z-index: 40;
+      background: var(--bg-header);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .tabs-container {
+      max-width: 820px;
+      margin: 0 auto;
+      display: flex;
+    }
+
+    .tab-item {
+      flex: 1;
+      padding: 11px 8px;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border-bottom: 2px solid transparent;
+      text-align: center;
+    }
+    .tab-item.active {
+      color: var(--accent-light);
+      border-bottom-color: var(--accent);
+    }
+
+    /* ==========================================================================
+       3. CARTES, COMPTEURS ET LISTE DES PRATIQUES (OPTIMISÉ MOBILE)
+       ========================================================================== */
+    main {
+      max-width: 820px;
+      margin: 16px auto;
+      padding: 0 12px;
+    }
+
+    .view-section { display: none; }
+    .view-section.active { display: block; }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 15px;
+      margin-bottom: 14px;
+    }
+
+    .section-heading {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent-light);
+      margin-bottom: 4px;
+    }
+
+    .section-subtitle {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .input-field {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 9px 11px;
+      color: var(--text-main);
+      font-size: 0.84rem;
+      font-family: var(--font-sans);
+    }
+    .input-field:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    /* Ruban des 5 compteurs (sert aussi de filtre rapide au toucher) */
+    .stats-ribbon {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .stat-box {
+      padding: 8px 4px;
+      border-radius: var(--radius-sm);
+      text-align: center;
+      border: 1px solid transparent;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .stat-box.yes { background: var(--yes-bg); border-color: var(--yes-border); color: var(--yes-text); }
+    .stat-box.curious { background: var(--curious-bg); border-color: var(--curious-border); color: var(--curious-text); }
+    .stat-box.discuss { background: var(--discuss-bg); border-color: var(--discuss-border); color: var(--discuss-text); }
+    .stat-box.low { background: var(--low-bg); border-color: var(--low-border); color: var(--low-text); }
+    .stat-box.limit { background: var(--limit-bg); border-color: var(--limit-border); color: var(--limit-text); }
+
+    .stat-num { font-family: var(--font-serif); font-size: 1.25rem; font-weight: 700; line-height: 1; }
+    .stat-lbl { font-size: 0.62rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* Blocs de catégories */
+    .cat-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .cat-header {
+      background: var(--bg-secondary);
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .cat-title {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent-light);
+    }
+
+    .cat-badge {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      background: var(--bg-btn-idle);
+      padding: 2px 8px;
+      border-radius: 99px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .practice-item {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .practice-item:last-child { border-bottom: none; }
+
+    .practice-title {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    /* Grille de 5 boutons ultra-lisible sur mobile */
+    .rating-group {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+      width: 100%;
+    }
+
+    .rate-btn {
+      padding: 7px 2px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      border-radius: 6px;
+      background: var(--bg-btn-idle);
+      color: var(--text-muted);
+      border: 1px solid var(--border-subtle);
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .rate-btn.active-yes {
+      background: var(--yes-color);
+      color: #fff;
+      border-color: var(--yes-color);
+      font-weight: 700;
+    }
+    .rate-btn.active-curious {
+      background: var(--curious-color);
+      color: #fff;
+      border-color: var(--curious-color);
+      font-weight: 700;
+    }
+    .rate-btn.active-discuss {
+      background: var(--discuss-color);
+      color: #fff;
+      border-color: var(--discuss-color);
+      font-weight: 700;
+    }
+    .rate-btn.active-low {
+      background: var(--low-color);
+      color: #fff;
+      border-color: var(--low-color);
+      font-weight: 700;
+    }
+    .rate-btn.active-limit {
+      background: var(--limit-color);
+      color: #fff;
+      border-color: var(--limit-color);
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       4. SANTÉ, SAFEWORDS & COMPARATEUR
+       ========================================================================== */
+    .safeword-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+      gap: 7px;
+      margin-bottom: 14px;
+    }
+
+    .lux-checkbox {
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+    .lux-checkbox input {
+      accent-color: var(--accent);
+      width: 15px;
+      height: 15px;
+    }
+
+    .mode-selector-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .mode-card-btn {
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      text-align: left;
+    }
+    .mode-card-btn.active {
+      background: var(--bg-secondary);
+      border-color: var(--accent);
+      color: var(--text-main);
+    }
+    .mode-card-title {
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: var(--accent-light);
+      display: block;
+      margin-bottom: 2px;
+    }
+    .mode-card-desc {
+      font-size: 0.68rem;
+      line-height: 1.3;
+    }
+
+    .score-hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px;
+      border-radius: var(--radius-md);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-strong);
+      margin-bottom: 14px;
+    }
+
+    .score-circle {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent-light);
+      line-height: 1;
+    }
+
+    .cat-bar-row { margin-bottom: 7px; }
+    .cat-bar-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.73rem;
+      color: var(--text-secondary);
+      margin-bottom: 3px;
+    }
+    .cat-bar-track {
+      height: 6px;
+      background: var(--bg-input);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .cat-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-dark), var(--accent));
+      border-radius: 99px;
+    }
+
+    .badge-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 9px;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      margin: 3px;
+      font-weight: 500;
+    }
+    .chip-yes { background: var(--yes-bg); border: 1px solid var(--yes-border); color: var(--yes-text); }
+    .chip-curious { background: var(--curious-bg); border: 1px solid var(--curious-border); color: var(--curious-text); }
+    .chip-discuss { background: var(--discuss-bg); border: 1px solid var(--discuss-border); color: var(--discuss-text); }
+    .chip-low { background: var(--low-bg); border: 1px solid var(--low-border); color: var(--low-text); }
+    .chip-limit { background: var(--limit-bg); border: 1px solid var(--limit-border); color: var(--limit-text); font-weight: 600; }
+
+    /* ==========================================================================
+       5. MODALS
+       ========================================================================== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(5px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal-dialog {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 460px;
+      padding: 18px;
+    }
+
+    @media (min-width: 640px) {
+      .practice-item {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .rating-group {
+        width: auto;
+        min-width: 390px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .profile-grid, .safeword-grid, .mode-selector-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-<header>
-  <div><h1>KinkSync</h1><div class="tag">Désirs · Limites · Accords</div></div>
-  <button class="btn alt" style="width:auto;margin:0;padding:9px 13px;font-size:.85rem" id="thm" aria-label="Thème">🌗</button>
-</header>
-<main>
-  <section class="sec on" id="s0">
-    <div class="card">
-      <div class="g2">
-        <div><span class="lbl">Mon pseudo</span><input type="text" id="pseudo" placeholder="Ex : S." autocomplete="off"></div>
-        <div><span class="lbl">Lieu / ville</span><input type="text" id="lieu" placeholder="Ex : Toulouse" autocomplete="off"></div>
+
+  <!-- ========================================================================
+       EN-TÊTE AVEC BOUTON THÈME CLAIR / SOMBRE
+       ======================================================================== -->
+  <header>
+    <div class="header-inner">
+      <div class="brand-wrap" onclick="switchTab('practices')">
+        <svg class="logo-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="32,5 59,32 32,59 5,32" stroke="var(--accent)" stroke-width="2.4" fill="rgba(214, 184, 124, 0.1)"/>
+          <polygon points="32,14 50,32 32,50 14,32" stroke="var(--accent)" stroke-width="1.3" stroke-dasharray="3 2" fill="none"/>
+          <circle cx="32" cy="29" r="5.5" fill="var(--accent)"/>
+          <path d="M29.5 33 L28 43 H36 L34.5 33" fill="var(--accent)"/>
+        </svg>
+        <div>
+          <span class="brand-name">KinkSync</span>
+          <span class="brand-sub">Désirs & Limites</span>
+        </div>
       </div>
-      <div class="prog"><i id="pb"></i></div>
-      <div class="pm" id="pm"></div>
+
+      <div class="header-controls">
+        <!-- Bascule Mode Clair / Sombre -->
+        <button onclick="toggleTheme()" id="btn-theme" class="btn-icon" title="Changer le thème (Clair / Sombre)">
+          ☀️
+        </button>
+
+        <!-- Réinitialiser -->
+        <button onclick="openResetConfirm()" class="btn-icon" title="Effacer mes réponses">
+          ↺
+        </button>
+
+        <!-- Partager -->
+        <button onclick="openShareModal()" class="btn-gold">
+          <span>Partager</span>
+        </button>
+      </div>
     </div>
-    <div class="legend"><span>🟢 Très</span><span>Curieux</span><span>Ne sait pas</span><span>Peu</span><span>Limite 🔴</span></div>
-    <div id="cats"></div>
-  </section>
+  </header>
 
-  <section class="sec" id="s1">
-    <div class="card">
-      <span class="lbl">Mots d’arrêt</span>
-      <div class="sw3"><input type="text" id="sw1" value="Vert"><input type="text" id="sw2" value="Orange"><input type="text" id="sw3" value="Rouge"></div>
-      <span class="lbl" style="margin-top:14px">Signal non verbal (si bâillon)</span>
-      <input type="text" id="nv" placeholder="Ex : taper 3 fois, lâcher un objet…">
+  <!-- ========================================================================
+       BARRE D'ONGLETS
+       ======================================================================== -->
+  <nav class="tabs-nav">
+    <div class="tabs-container">
+      <button class="tab-item active" id="tab-btn-practices" onclick="switchTab('practices')">
+        Pratiques (52)
+      </button>
+      <button class="tab-item" id="tab-btn-safety" onclick="switchTab('safety')">
+        Sécurité & Safewords
+      </button>
+      <button class="tab-item" id="tab-btn-compare" onclick="switchTab('compare')">
+        Comparateur
+      </button>
     </div>
-    <div class="card">
-      <span class="lbl">Allergies &amp; fragilités</span>
-      <div class="chk" id="chk"></div>
+  </nav>
+
+  <!-- ========================================================================
+       CONTENU PRINCIPAL
+       ======================================================================== -->
+  <main>
+
+    <!-- ONGLET 1 : LISTE DES PRATIQUES -->
+    <section id="view-practices" class="view-section active">
+      
+      <!-- Profil Minimaliste -->
+      <div class="card">
+        <div class="profile-grid">
+          <input type="text" id="user-pseudo" class="input-field" placeholder="Prénom ou Pseudo (facultatif)">
+          <select id="user-role" class="input-field">
+            <option value="Switch">Rôle : Switch</option>
+            <option value="Dominant(e)">Rôle : Dominant(e) / Maître(sse)</option>
+            <option value="Soumis(e)">Rôle : Soumis(e) / Sub</option>
+            <option value="Explorateur">Rôle : Curieux / Explorateur</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Ruban des 5 Compteurs -->
+      <div class="stats-ribbon">
+        <div class="stat-box yes">
+          <span class="stat-num" id="stat-yes">0</span>
+          <span class="stat-lbl">Oui</span>
+        </div>
+        <div class="stat-box curious">
+          <span class="stat-num" id="stat-curious">0</span>
+          <span class="stat-lbl">Curieux</span>
+        </div>
+        <div class="stat-box discuss">
+          <span class="stat-num" id="stat-discuss">52</span>
+          <span class="stat-lbl">À discuter</span>
+        </div>
+        <div class="stat-box low">
+          <span class="stat-num" id="stat-low">0</span>
+          <span class="stat-lbl">Peu intéressé</span>
+        </div>
+        <div class="stat-box limit">
+          <span class="stat-num" id="stat-limit">0</span>
+          <span class="stat-lbl">Limite</span>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; margin-bottom:8px;">
+        <button onclick="toggleAllCategories()" class="btn-outline" style="padding:4px 10px; font-size:0.7rem;">
+          Plier / Déplier tout
+        </button>
+      </div>
+
+      <!-- Conteneur des 7 catégories -->
+      <div id="categories-root"></div>
+    </section>
+
+    <!-- ONGLET 2 : SÉCURITÉ & SAFEWORDS -->
+    <section id="view-safety" class="view-section">
+      <div class="card">
+        <h2 class="section-heading">Safewords (Mots de sécurité)</h2>
+        <p class="section-subtitle">Indispensables pour communiquer clairement pendant une session.</p>
+
+        <div class="safeword-grid">
+          <div>
+            <label style="font-size:0.72rem; color:var(--yes-text); font-weight:700; display:block; margin-bottom:4px;">Feu Vert (OK)</label>
+            <input type="text" id="safe-green" class="input-field" value="Vert">
+          </div>
+          <div>
+            <label style="font-size:0.72rem; color:var(--curious-text); font-weight:700; display:block; margin-bottom:4px;">Feu Orange (Ralentir)</label>
+            <input type="text" id="safe-orange" class="input-field" value="Orange">
+          </div>
+          <div>
+            <label style="font-size:0.72rem; color:var(--limit-text); font-weight:700; display:block; margin-bottom:4px;">Feu Rouge (Stop)</label>
+            <input type="text" id="safe-red" class="input-field" value="Rouge">
+          </div>
+        </div>
+
+        <div>
+          <label style="font-size:0.75rem; color:var(--text-secondary); font-weight:600; display:block; margin-bottom:4px;">
+            Signal non-verbal (si bâillon ou impossibilité de parler)
+          </label>
+          <input type="text" id="safe-nonverbal" class="input-field" placeholder="Ex : Lâcher un objet, taper 3 fois de la main...">
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="section-heading">Santé, Vigilances & Aftercare</h2>
+        <p class="section-subtitle">Précautions physiques et besoins après la séance.</p>
+        
+        <div style="font-size:0.75rem; font-weight:700; color:var(--accent-light); margin-bottom:6px;">Allergies & Matières</div>
+        <div id="allergies-root" class="check-grid"></div>
+
+        <div style="font-size:0.75rem; font-weight:700; color:var(--accent-light); margin-bottom:6px;">Fragilités Physiques</div>
+        <div id="medical-root" class="check-grid"></div>
+
+        <div style="font-size:0.75rem; font-weight:700; color:var(--accent-light); margin-bottom:6px;">Aftercare (Retour au calme)</div>
+        <div id="aftercare-root" class="check-grid"></div>
+
+        <div>
+          <label style="font-size:0.75rem; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:5px;">Notes ou précisions particulières</label>
+          <textarea id="free-observations" class="input-field" rows="3" placeholder="Précisions libres..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- ONGLET 3 : COMPARATEUR ANONYME -->
+    <section id="view-compare" class="view-section">
+      <div class="card">
+        <h2 class="section-heading">Comparer avec un(e) partenaire</h2>
+        <p class="section-subtitle">Colle le lien ou le code reçu pour découvrir vos affinités.</p>
+
+        <div class="mode-selector-grid">
+          <button id="mode-btn-duo" class="mode-card-btn active" onclick="setComparisonMode('duo')">
+            <span class="mode-card-title">Mode Affinités (Doux)</span>
+            <span class="mode-card-desc">Affiche uniquement vos envies et curiosités communes.</span>
+          </button>
+          <button id="mode-btn-ds" class="mode-card-btn" onclick="setComparisonMode('ds')">
+            <span class="mode-card-title">Mode Complet</span>
+            <span class="mode-card-desc">Affiche aussi les limites, les « à discuter » et la fiche sécurité.</span>
+          </button>
+        </div>
+
+        <textarea id="partner-code-input" class="input-field" rows="3" placeholder="Colle ici le lien ou le code KinkSync de ton/ta partenaire..." style="font-family:monospace; font-size:0.75rem; margin-bottom:10px;"></textarea>
+
+        <div style="display:flex; gap:8px;">
+          <button onclick="runComparison()" class="btn-gold" style="flex:1; justify-content:center; padding:10px;">
+            Comparer nos réponses
+          </button>
+        </div>
+      </div>
+
+      <div id="comparison-output" style="display:none;"></div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       MODAL DE PARTAGE ANONYME
+       ======================================================================== -->
+  <div id="share-modal" class="modal-overlay">
+    <div class="modal-dialog">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <h3 class="section-heading" style="margin:0;">Partager mes réponses</h3>
+        <button onclick="closeShareModal()" class="btn-icon" style="width:28px; height:28px;">✕</button>
+      </div>
+
+      <p style="font-size:0.76rem; color:var(--text-muted); margin-bottom:12px;">
+        100 % anonyme : aucune donnée n'est envoyée sur Internet. Tout est encodé dans ce lien.
+      </p>
+
+      <label style="font-size:0.72rem; color:var(--accent-light); font-weight:600; display:block; margin-bottom:4px;">Lien direct (WhatsApp, SMS, Signal...) :</label>
+      <input type="text" id="share-link-box" class="input-field" readonly style="font-family:monospace; font-size:0.72rem; margin-bottom:10px;">
+      
+      <div style="display:flex; gap:8px;">
+        <button onclick="copySharePayload('link')" id="btn-copy-link" class="btn-gold" style="flex:1; justify-content:center; padding:10px;">
+          Copier le Lien
+        </button>
+        <button onclick="copySharePayload('code')" id="btn-copy-raw" class="btn-outline" style="justify-content:center;">
+          Copier Code seul
+        </button>
+      </div>
     </div>
-    <div class="card">
-      <span class="lbl">Observations &amp; aftercare souhaité</span>
-      <textarea id="nt" rows="4" placeholder="Câlins, couverture chaude, eau sucrée, phobies…"></textarea>
+  </div>
+
+  <!-- MODAL CONFIRMATION RESET -->
+  <div id="reset-modal" class="modal-overlay">
+    <div class="modal-dialog" style="max-width:340px; text-align:center;">
+      <h3 class="section-heading">Réinitialiser ?</h3>
+      <p style="font-size:0.78rem; color:var(--text-muted); margin:8px 0 16px;">
+        Toutes tes réponses seront remises sur « À discuter ».
+      </p>
+      <div style="display:flex; gap:8px;">
+        <button onclick="closeResetModal()" class="btn-outline" style="flex:1; justify-content:center;">Annuler</button>
+        <button onclick="confirmResetAll()" class="btn-gold" style="flex:1; justify-content:center; background:var(--limit-color);">Effacer</button>
+      </div>
     </div>
-  </section>
+  </div>
 
-  <section class="sec" id="s2">
-    <div class="card">
-      <div class="stats" id="stats"></div>
-    </div>
-    <div class="card">
-      <span class="lbl">Mon résumé</span>
-      <div id="mine"></div>
-    </div>
-    <button class="btn" id="shareBtn">📤 Partager mon profil</button>
-    <button class="btn alt" id="copyTxt">📋 Copier le résumé</button>
-    <button class="btn alt" id="copyCode">🔗 Copier mon code</button>
-    <p class="note">Le code contient tes réponses : ton/ta partenaire le colle dans l’onglet « Comparer » pour voir vos points communs. Rien n’est envoyé sur un serveur.</p>
-    <div class="code" id="code" style="margin-top:12px"></div>
-  </section>
+  <!-- ========================================================================
+       SCRIPT JAVASCRIPT
+       ======================================================================== -->
+  <script>
+    // 1. TA LISTE EXACTE DES PRATIQUES
+    const RAW_PRACTICES = [
+      ["Dynamiques & contrôle mental", ["Collier et laisse", "Discipline & règles", "Positions imposées", "Maître(sse) / esclave", "Frustration sexuelle", "Cocufication (cuckold)", "Gay imposé / initiation bi"]],
+      ["Entraves, attaches & privation", ["Bondage (liens, menottes)", "Shibari (cordes)", "Ties and denial (attaché/privé)", "Privations sensorielles", "Enfermement (cage, pièce)"]],
+      ["Contrôle sexuel & sextoys", ["Chasteté imposée (cage)", "Privation d’orgasme", "Contrôle d’orgasme / edging", "Godes / sextoys (vaginal)", "Godes / sextoys (anal)", "Dilatation (vaginale)", "Dilatation (anale)", "Fisting (vaginal)", "Fisting (anal)"]],
+      ["Sensations, impact & supplices", ["Fessées (spanking)", "Fouet, cravache, martinet", "Châtiments corporels", "Bougies / cire chaude", "Électro-stimulation", "Tortures des seins", "Tortures des parties génitales"]],
+      ["Domination orale & fluides", ["Facesitting", "Face fucking / gorge profonde", "Manger le sperme / avaler", "Crachat", "Uro (douche dorée)", "Scato"]],
+      ["Jeux de rôles & fétichismes", ["Jeux de rôles", "Mises en scène", "Tenues imposées", "Cuir, latex & vinyle", "Uniformes", "Pony-play", "Puppy-play / pet-play", "Travestissement", "Fétichisme (pieds, lingerie)"]],
+      ["Humiliation, médical & groupe", ["Humiliations", "Jeux médicaux", "Marquage / perçage temporaire", "Marquage / perçage permanent", "Être photographié(e) / filmé(e)", "Exhibition", "Voyeurisme (regarder)", "Échangisme", "Sexualité de groupe / orgie"]]
+    ];
 
-  <section class="sec" id="s3">
-    <div class="card">
-      <span class="lbl">Code reçu du partenaire</span>
-      <textarea id="pcode" rows="3" placeholder="Colle ici le code ou le lien partagé…"></textarea>
-      <button class="btn" id="cmp">✨ Comparer nos réponses</button>
-    </div>
-    <div id="res"></div>
-  </section>
-</main>
+    // Transformation automatique en objets structurés avec identifiants stables
+    const KINK_CATEGORIES = RAW_PRACTICES.map((cat, cIdx) => ({
+      id: `cat_${cIdx + 1}`,
+      title: `${cIdx + 1}. ${cat[0]}`,
+      items: cat[1].map((label, iIdx) => ({
+        id: `p_${cIdx}_${iIdx}`,
+        label: label
+      }))
+    }));
 
-<nav>
-  <button data-t="0" class="on"><span>🎚️</span>Pratiques</button>
-  <button data-t="1"><span>🛡️</span>Sécurité</button>
-  <button data-t="2"><span>📤</span>Partager</button>
-  <button data-t="3"><span>💞</span>Comparer</button>
-</nav>
-<div id="toast"></div>
+    const ALLERGIES_OPTIONS = ["Latex", "Silicone", "Cuir", "Nickel / Métaux", "Cire / Parfums", "Lubrifiants"];
+    const MEDICAL_OPTIONS = ["Épaules", "Poignets", "Respiration / Asthme", "Dos / Lombaires", "Marques faciles", "Claustrophobie"];
+    const AFTERCARE_OPTIONS = ["Câlins & Contact", "Couverture chaude", "Eau / Sucre", "Mots rassurants", "Calme & Silence", "Débriefing"];
 
-<script>
-var CATS=[
-["Dynamiques & contrôle mental",["Collier et laisse","Discipline & règles","Positions imposées","Maître(sse) / esclave","Frustration sexuelle","Cocufication (cuckold)","Gay imposé / initiation bi"]],
-["Entraves, attaches & privation",["Bondage (liens, menottes)","Shibari (cordes)","Ties and denial (attaché/privé)","Privations sensorielles","Enfermement (cage, pièce)"]],
-["Contrôle sexuel & sextoys",["Chasteté imposée (cage)","Privation d’orgasme","Contrôle d’orgasme / edging","Godes / sextoys (vaginal)","Godes / sextoys (anal)","Dilatation (vaginale)","Dilatation (anale)","Fisting (vaginal)","Fisting (anal)"]],
-["Sensations, impact & supplices",["Fessées (spanking)","Fouet, cravache, martinet","Châtiments corporels","Bougies / cire chaude","Électro-stimulation","Tortures des seins","Tortures des parties génitales"]],
-["Domination orale & fluides",["Facesitting","Face fucking / gorge profonde","Manger le sperme / avaler","Crachat","Uro (douche dorée)","Scato"]],
-["Jeux de rôles & fétichismes",["Jeux de rôles","Mises en scène","Tenues imposées","Cuir, latex & vinyle","Uniformes","Pony-play","Puppy-play / pet-play","Travestissement","Fétichisme (pieds, lingerie)"]],
-["Humiliation, médical & groupe",["Humiliations","Jeux médicaux","Marquage / perçage temporaire","Marquage / perçage permanent","Être photographié(e) / filmé(e)","Exhibition","Voyeurisme (regarder)","Échangisme","Sexualité de groupe / orgie"]]
-];
-var ALL=[];CATS.forEach(function(c){c[1].forEach(function(n){ALL.push(n)})});
-var LV=[["Limite","var(--l0)","🔴"],["Peu intéressé(e)","var(--l1)","🟠"],["Ne sait pas","var(--l2)","⚪"],["Curieux(se)","var(--l3)","🟡"],["Très intéressé(e)","var(--l4)","🟢"]];
-var DESC={"Collier et laisse":"Symbole d’appartenance, porté en jeu ou au quotidien.","Discipline & règles":"Règles à suivre, avec sanctions convenues à l’avance.","Positions imposées":"Tenir une posture demandée par le/la partenaire.","Maître(sse) / esclave":"Relation d’autorité très marquée, négociée en amont.","Frustration sexuelle":"Faire monter le désir sans satisfaction immédiate.","Cocufication (cuckold)":"L’un(e) regarde ou sait que l’autre est avec quelqu’un d’autre.","Gay imposé / initiation bi":"Scénario d’initiation à des rapports avec le même sexe.","Shibari (cordes)":"Art japonais du cordage, esthétique et sensoriel.","Ties and denial (attaché/privé)":"Attaché(e) et privé(e) de contact ou d’orgasme.","Privations sensorielles":"Bandeau, casque, bâillon : couper la vue, l’ouïe ou la parole.","Enfermement (cage, pièce)":"Cage ou espace fermé, avec accord et surveillance.","Chasteté imposée (cage)":"Dispositif empêchant l’érection ou l’accès au sexe.","Privation d’orgasme":"Interdire ou refuser le plaisir final.","Contrôle d’orgasme / edging":"Amener au bord de l’orgasme, puis retenir ou autoriser.","Dilatation (vaginale)":"Élargir progressivement avec des toys ou les doigts.","Dilatation (anale)":"Élargir progressivement avec des toys ou les doigts.","Fisting (vaginal)":"Pénétration par la main, très progressive.","Fisting (anal)":"Pénétration par la main, très progressive.","Fessées (spanking)":"Frappes à la main, intensité variable.","Fouet, cravache, martinet":"Outils d’impact, du léger au cuisant.","Châtiments corporels":"Punitions physiques convenues, liées à des règles.","Bougies / cire chaude":"Cire basse température versée sur la peau.","Électro-stimulation":"Courant faible avec du matériel dédié.","Tortures des seins":"Pinces, pincements, tiraillements.","Tortures des parties génitales":"Pinces, tiraillements, jeux sur zones très sensibles.","Facesitting":"S’asseoir sur le visage du/de la partenaire.","Face fucking / gorge profonde":"Rapport oral profond et dirigé.","Crachat":"Geste de mépris ou de marquage symbolique.","Uro (douche dorée)":"Jeux avec l’urine.","Scato":"Jeux avec les matières fécales.","Mises en scène":"Scénarios préparés, décors et costumes.","Tenues imposées":"Vêtements choisis par l’autre.","Pony-play":"Incarner un cheval, avec harnais et accessoires.","Puppy-play / pet-play":"Incarner un animal, avec accessoires.","Travestissement":"Porter des vêtements du sexe opposé, choisis ou imposés.","Humiliations":"Verbales ou symboliques, dans un cadre convenu.","Jeux médicaux":"Examens, instruments, scénario clinique.","Marquage / perçage temporaire":"Feutre, cire, pinces, piercings non permanents.","Marquage / perçage permanent":"Tatouage, piercing, branding.","Exhibition":"Se montrer ou être exposé(e) à autrui.","Échangisme":"Échanger les partenaires avec d’autres couples."};
-var ALG=["Latex","Cuir","Métaux","Cire/parfums","Épaules","Poignets","Dos/genoux","Asthme"];
-var $=function(i){return document.getElementById(i)};
-var S={v:ALL.map(function(){return -1}),c:[]};
+    // 2. ÉTAT DE L'APPLICATION
+    let state = {
+      theme: "dark",
+      pseudo: "",
+      role: "Switch",
+      ratings: {}, // 'yes' | 'curious' | 'discuss' | 'low' | 'limit'
+      safety: {
+        safeGreen: "Vert",
+        safeOrange: "Orange",
+        safeRed: "Rouge",
+        nonVerbal: "",
+        allergies: [],
+        medical: [],
+        aftercare: [],
+        notes: ""
+      }
+    };
 
-function toast(t){var e=$("toast");e.textContent=t;e.className="on";clearTimeout(toast.t);toast.t=setTimeout(function(){e.className=""},2200)}
-function save(){try{localStorage.setItem("ks1",JSON.stringify({v:S.v,p:$("pseudo").value,l:$("lieu").value,sw:[$("sw1").value,$("sw2").value,$("sw3").value],nv:$("nv").value,nt:$("nt").value,c:S.c}))}catch(e){}}
-function load(){try{var d=JSON.parse(localStorage.getItem("ks1")||"null");if(!d)return;S.v=d.v||S.v;S.c=d.c||[];$("pseudo").value=d.p||"";$("lieu").value=d.l||"";if(d.sw){$("sw1").value=d.sw[0];$("sw2").value=d.sw[1];$("sw3").value=d.sw[2]}$("nv").value=d.nv||"";$("nt").value=d.nt||""}catch(e){}}
-function val(i){return S.v[i]<0?2:S.v[i]}
+    let collapsedCats = {};
+    let comparisonMode = 'duo';
+    let lastRawShareCode = "";
 
-function paint(r,i){var p=r.querySelector(".pill"),L=LV[val(i)];
-  [].forEach.call(r.querySelectorAll(".dots button"),function(b){b.classList.toggle("on",+b.dataset.v===S.v[i])});
-  p.textContent=S.v[i]<0?"—":L[0];p.style.background=S.v[i]<0?"var(--line)":L[1]}
-function build(){var h="",k=0;
-  CATS.forEach(function(c){h+='<div class="cat"><h2>'+c[0]+'</h2><div class="box">';
-    c[1].forEach(function(n){h+='<div class="row" data-i="'+k+'"><div class="top"><div><div class="nm">'+n+'</div>'+(DESC[n]?'<div class="desc">'+DESC[n]+'</div>':'')+'</div><span class="pill"></span></div><div class="dots">'+[4,3,2,1,0].map(function(v){return '<button data-v="'+v+'" style="--c:'+LV[v][1]+'" aria-label="'+LV[v][0]+'"></button>'}).join("")+'</div></div>';k++});
-    h+="</div></div>"});
-  $("cats").innerHTML=h;
-  [].forEach.call(document.querySelectorAll(".row"),function(r){var i=+r.dataset.i;paint(r,i);
-    [].forEach.call(r.querySelectorAll(".dots button"),function(b){b.onclick=function(){S.v[i]=S.v[i]===+b.dataset.v?-1:+b.dataset.v;paint(r,i);upd()}})});
-  $("chk").innerHTML=ALG.map(function(a){return '<label><input type="checkbox" value="'+a+'"'+(S.c.indexOf(a)>-1?" checked":"")+'> '+a+"</label>"}).join("");
-  $("chk").onchange=function(){S.c=[].map.call($("chk").querySelectorAll("input:checked"),function(x){return x.value});upd()}}
+    // 3. INITIALISATION
+    window.addEventListener('DOMContentLoaded', () => {
+      loadStateFromStorage();
+      applyTheme(state.theme || "dark");
+      renderPracticesList();
+      renderSafetyCheckboxes();
+      updateCounters();
+      bindFormEvents();
+      checkUrlHashForIncomingProfile();
+    });
 
-function name(){return $("pseudo").value.trim()||"Moi"}
-function by(v,vals){return ALL.filter(function(n,i){return vals.indexOf(val(i))>-1&&(v===1?true:S.v[i]>-1)})}
-function lists(){var g={4:[],3:[],1:[],0:[]};ALL.forEach(function(n,i){if(S.v[i]>-1&&g[S.v[i]])g[S.v[i]].push(n)});return g}
-function chips(a,c){return a.length?'<div class="chips">'+a.map(function(n){return '<span class="chip" style="--c:'+c+'">'+n+"</span>"}).join("")+"</div>":'<p class="note">Aucune</p>'}
+    // 4. GESTION DU MODE CLAIR / SOMBRE
+    function toggleTheme() {
+      const next = state.theme === "dark" ? "light" : "dark";
+      applyTheme(next);
+      state.theme = next;
+      saveStateToStorage();
+    }
 
-function payload(){return{n:name(),l:$("lieu").value,a:ALL.map(function(n,i){return val(i)}).join(""),sw:[$("sw1").value,$("sw2").value,$("sw3").value],nv:$("nv").value,c:S.c,nt:$("nt").value}}
-function enc(o){var b=new TextEncoder().encode(JSON.stringify(o)),s="";b.forEach(function(x){s+=String.fromCharCode(x)});return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")}
-function dec(t){t=t.replace(/-/g,"+").replace(/_/g,"/");while(t.length%4)t+="=";var s=atob(t),b=new Uint8Array(s.length);for(var i=0;i<s.length;i++)b[i]=s.charCodeAt(i);return JSON.parse(new TextDecoder().decode(b))}
-function link(){var c=enc(payload());try{if(window.self===window.top)return location.href.split("#")[0]+"#"+c}catch(e){}return c}
-function summary(){var g=lists(),f=function(a){return a.join(", ")||"—"};
-  return "💞 KinkSync — profil de "+name()+($("lieu").value?" ("+$("lieu").value+")":"")+"\n\n🟢 Très intéressé(e) : "+f(g[4])+"\n🟡 Curieux(se) : "+f(g[3])+"\n🟠 Peu intéressé(e) : "+f(g[1])+"\n🔴 Limites : "+f(g[0])+"\n\n🛡️ Mots d’arrêt : "+[$("sw1").value,$("sw2").value,$("sw3").value].join(" / ")+(S.c.length?"\n⚠️ Santé : "+S.c.join(", "):"")+($("nt").value?"\n📝 "+$("nt").value:"")+"\n\nCode à coller dans KinkSync (onglet Comparer) :\n"+link()}
+    function applyTheme(themeName) {
+      document.documentElement.setAttribute('data-theme', themeName);
+      const btn = document.getElementById('btn-theme');
+      if (btn) btn.textContent = themeName === "dark" ? "☀️" : "🌙";
+    }
 
-function upd(){var n=S.v.filter(function(x){return x>-1}).length,g=lists();
-  $("pb").style.width=(n/ALL.length*100)+"%";$("pm").textContent=n+" / "+ALL.length+" pratiques renseignées";
-  $("stats").innerHTML=[[4,g[4]],[3,g[3]],[1,g[1]],[0,g[0]]].map(function(x){return "<div><b>"+x[1].length+"</b><span>"+LV[x[0]][2]+" "+["Limite","Peu","","Curieux","Très"][x[0]]+"</span></div>"}).join("");
-  $("mine").innerHTML='<div class="gh">🟢 Très intéressé(e)</div>'+chips(g[4],"var(--l4)")+'<div class="gh">🟡 Curieux(se)</div>'+chips(g[3],"var(--l3)")+'<div class="gh">🔴 Limites</div>'+chips(g[0],"var(--l0)");
-  $("code").textContent=enc(payload());save()}
+    // 5. AFFICHAGE DES PRATIQUES (5 NIVEAUX)
+    function renderPracticesList() {
+      const root = document.getElementById('categories-root');
+      root.innerHTML = "";
 
-function share(text){if(navigator.share){navigator.share({title:"KinkSync",text:text}).catch(function(){})}else copy(text)}
-function copy(t){var ok=function(){toast("Copié ✓")},ko=function(){var a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy");ok()}catch(e){toast("Copie impossible")}a.remove()};
-  navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(t).then(ok,ko):ko()}
+      KINK_CATEGORIES.forEach(cat => {
+        const isCollapsed = !!collapsedCats[cat.id];
+        const card = document.createElement('div');
+        card.className = 'cat-block';
 
-var full=false,lastTxt="";
-function compare(){var raw=$("pcode").value.trim();if(!raw)return toast("Colle d’abord le code du partenaire");
-  var P;try{P=dec(raw.indexOf("#")>-1?raw.split("#").pop():raw);if(!P.a||P.a.length!==ALL.length)throw 0}catch(e){return toast("Code invalide ou incomplet")}
-  var M=payload(),yes=[],cur=[],talk=[],lim=[];
-  ALL.forEach(function(n,i){var a=+M.a[i],b=+P.a[i];
-    if(a==4&&b==4)yes.push(n);else if(a>=3&&b>=3)cur.push(n);
-    else if((a>=3&&b==2)||(b>=3&&a==2))talk.push(n);
-    if((b<=1&&a>=3)||(a<=1&&b>=3))lim.push([n,b<=1?P.n:M.n]);
-  });
-  var tot=yes.length+cur.length,h='<div class="card"><div class="big"><b>'+tot+'</b>pratique'+(tot>1?"s":"")+" en commun avec "+P.n+(P.l?" ("+P.l+")":"")+"</div>";
-  h+='<div class="gh">🟢 Très intéressés tous les deux ('+yes.length+")</div>"+chips(yes,"var(--l4)");
-  h+='<div class="gh">🟡 À explorer ensemble ('+cur.length+")</div>"+chips(cur,"var(--l3)");
-  if(talk.length)h+='<div class="gh">💬 À en discuter ('+talk.length+")</div>"+chips(talk,"var(--l2)");
-  h+="</div>";
-  var extra="";
-  if(full){extra+='<div class="card"><div class="gh" style="margin-top:0">🚧 À respecter</div>'+(lim.length?'<div class="chips">'+lim.map(function(x){return '<span class="chip" style="--c:var(--l0)">'+x[0]+" · limite de "+x[1]+"</span>"}).join("")+"</div>":'<p class="note">Aucun désaccord.</p>')+
-    '<div class="gh">🛡️ Sécurité de '+P.n+'</div><p class="note">Mots d’arrêt : '+P.sw.join(" / ")+"<br>Signal non verbal : "+(P.nv||"—")+"<br>Santé : "+((P.c||[]).join(", ")||"RAS")+"<br>Notes : "+(P.nt||"—")+"</p></div>"}
-  h='<div class="seg"><button data-m="0"'+(full?"":' class="on"')+'>Duo (points communs)</button><button data-m="1"'+(full?' class="on"':"")+'>Complet (limites + santé)</button></div>'+h+extra+
-    '<button class="btn" id="shRes">📤 Envoyer ce résumé</button>';
-  $("res").innerHTML=h;
-  lastTxt="💞 KinkSync — "+M.n+" & "+P.n+"\n\n🟢 Très intéressés tous les deux : "+(yes.join(", ")||"—")+"\n🟡 À explorer : "+(cur.join(", ")||"—")+(talk.length?"\n💬 À en discuter : "+talk.join(", "):"");
-  $("shRes").onclick=function(){share(lastTxt)};
-  [].forEach.call($("res").querySelectorAll(".seg button"),function(b){b.onclick=function(){full=b.dataset.m=="1";compare()}})}
+        const header = document.createElement('div');
+        header.className = 'cat-header';
+        header.onclick = () => {
+          collapsedCats[cat.id] = !collapsedCats[cat.id];
+          renderPracticesList();
+        };
+        header.innerHTML = `
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="color:var(--accent); font-size:0.75rem;">${isCollapsed ? '▶' : '▼'}</span>
+            <span class="cat-title">${cat.title}</span>
+          </div>
+          <span class="cat-badge">${cat.items.length}</span>
+        `;
+        card.appendChild(header);
 
-function tab(t){[].forEach.call(document.querySelectorAll(".sec"),function(s,i){s.classList.toggle("on",i==t)});
-  [].forEach.call(document.querySelectorAll("nav button"),function(b){b.classList.toggle("on",b.dataset.t==t)});window.scrollTo(0,0)}
-[].forEach.call(document.querySelectorAll("nav button"),function(b){b.onclick=function(){tab(b.dataset.t)}});
-["pseudo","lieu","sw1","sw2","sw3","nv","nt"].forEach(function(i){$(i).addEventListener("input",upd)});
-$("shareBtn").onclick=function(){share(summary())};
-$("copyTxt").onclick=function(){copy(summary())};
-$("copyCode").onclick=function(){copy(link())};
-$("cmp").onclick=compare;
-$("thm").onclick=function(){var r=document.documentElement,d=r.dataset.theme?r.dataset.theme=="dark":matchMedia("(prefers-color-scheme:dark)").matches;r.dataset.theme=d?"light":"dark"};
+        if (!isCollapsed) {
+          const listWrap = document.createElement('div');
+          cat.items.forEach(item => {
+            const val = state.ratings[item.id] || 'discuss';
+            const row = document.createElement('div');
+            row.className = 'practice-item';
 
-load();build();upd();
-if(location.hash.length>20){$("pcode").value=location.hash.substring(1);tab(3);compare()}
-</script>
+            row.innerHTML = `
+              <span class="practice-title">${item.label}</span>
+              <div class="rating-group">
+                <button class="rate-btn ${val === 'yes' ? 'active-yes' : ''}" onclick="setRating('${item.id}', 'yes')">Oui</button>
+                <button class="rate-btn ${val === 'curious' ? 'active-curious' : ''}" onclick="setRating('${item.id}', 'curious')">Curieux</button>
+                <button class="rate-btn ${val === 'discuss' ? 'active-discuss' : ''}" onclick="setRating('${item.id}', 'discuss')">À discuter</button>
+                <button class="rate-btn ${val === 'low' ? 'active-low' : ''}" onclick="setRating('${item.id}', 'low')">Peu intéressé</button>
+                <button class="rate-btn ${val === 'limit' ? 'active-limit' : ''}" onclick="setRating('${item.id}', 'limit')">Limite</button>
+              </div>
+            `;
+            listWrap.appendChild(row);
+          });
+          card.appendChild(listWrap);
+        }
+
+        root.appendChild(card);
+      });
+    }
+
+    function setRating(itemId, ratingValue) {
+      state.ratings[itemId] = ratingValue;
+      saveStateToStorage();
+      renderPracticesList();
+      updateCounters();
+    }
+
+    function toggleAllCategories() {
+      const anyOpen = KINK_CATEGORIES.some(c => !collapsedCats[c.id]);
+      KINK_CATEGORIES.forEach(c => { collapsedCats[c.id] = anyOpen; });
+      renderPracticesList();
+    }
+
+    function updateCounters() {
+      let yes = 0, curious = 0, discuss = 0, low = 0, limit = 0;
+      KINK_CATEGORIES.forEach(cat => {
+        cat.items.forEach(item => {
+          const r = state.ratings[item.id] || 'discuss';
+          if (r === 'yes') yes++;
+          else if (r === 'curious') curious++;
+          else if (r === 'low') low++;
+          else if (r === 'limit') limit++;
+          else discuss++;
+        });
+      });
+      document.getElementById('stat-yes').textContent = yes;
+      document.getElementById('stat-curious').textContent = curious;
+      document.getElementById('stat-discuss').textContent = discuss;
+      document.getElementById('stat-low').textContent = low;
+      document.getElementById('stat-limit').textContent = limit;
+    }
+
+    // 6. SANTÉ & SÉCURITÉ
+    function renderSafetyCheckboxes() {
+      const buildGrid = (rootId, list, key) => {
+        const container = document.getElementById(rootId);
+        container.innerHTML = list.map(label => {
+          const checked = state.safety[key].includes(label) ? 'checked' : '';
+          return `
+            <label class="lux-checkbox">
+              <input type="checkbox" ${checked} onchange="toggleSafetyArray('${key}', '${label.replace(/'/g, "\\'")}')">
+              <span>${label}</span>
+            </label>
+          `;
+        }).join('');
+      };
+      buildGrid('allergies-root', ALLERGIES_OPTIONS, 'allergies');
+      buildGrid('medical-root', MEDICAL_OPTIONS, 'medical');
+      buildGrid('aftercare-root', AFTERCARE_OPTIONS, 'aftercare');
+    }
+
+    function toggleSafetyArray(key, val) {
+      const arr = state.safety[key];
+      const idx = arr.indexOf(val);
+      if (idx > -1) arr.splice(idx, 1);
+      else arr.push(val);
+      saveStateToStorage();
+    }
+
+    // 7. NAVIGATION & SAUVEGARDE LOCALE
+    function switchTab(tabName) {
+      ['practices', 'safety', 'compare'].forEach(t => {
+        document.getElementById(`view-${t}`).classList.toggle('active', t === tabName);
+        document.getElementById(`tab-btn-${t}`).classList.toggle('active', t === tabName);
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function bindFormEvents() {
+      const bindInput = (id, callback) => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', e => { callback(e.target.value); saveStateToStorage(); });
+      };
+      bindInput('user-pseudo', v => state.pseudo = v);
+      bindInput('user-role', v => state.role = v);
+      bindInput('safe-green', v => state.safety.safeGreen = v);
+      bindInput('safe-orange', v => state.safety.safeOrange = v);
+      bindInput('safe-red', v => state.safety.safeRed = v);
+      bindInput('safe-nonverbal', v => state.safety.nonVerbal = v);
+      bindInput('free-observations', v => state.safety.notes = v);
+    }
+
+    function saveStateToStorage() {
+      try {
+        localStorage.setItem('kinksync_v3_simple', JSON.stringify(state));
+      } catch (e) {}
+    }
+
+    function loadStateFromStorage() {
+      try {
+        const raw = localStorage.getItem('kinksync_v3_simple');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          state = Object.assign({}, state, parsed);
+          state.safety = Object.assign({}, state.safety, parsed.safety || {});
+        }
+      } catch (e) {}
+
+      document.getElementById('user-pseudo').value = state.pseudo || "";
+      document.getElementById('user-role').value = state.role || "Switch";
+      document.getElementById('safe-green').value = state.safety.safeGreen || "Vert";
+      document.getElementById('safe-orange').value = state.safety.safeOrange || "Orange";
+      document.getElementById('safe-red').value = state.safety.safeRed || "Rouge";
+      document.getElementById('safe-nonverbal').value = state.safety.nonVerbal || "";
+      document.getElementById('free-observations').value = state.safety.notes || "";
+    }
+
+    // 8. PARTAGE ANONYME PAR LIEN / CODE
+    function openShareModal() {
+      const exportPayload = {
+        pseudo: state.pseudo || "Anonyme",
+        role: state.role,
+        ratings: state.ratings,
+        safety: state.safety
+      };
+
+      const encoded = btoa(encodeURIComponent(JSON.stringify(exportPayload)));
+      lastRawShareCode = encoded;
+      const fullUrl = `${window.location.origin}${window.location.pathname}#sync=${encoded}`;
+
+      document.getElementById('share-link-box').value = fullUrl;
+      document.getElementById('share-modal').classList.add('open');
+    }
+
+    function closeShareModal() {
+      document.getElementById('share-modal').classList.remove('open');
+    }
+
+    function copySharePayload(type) {
+      const textToCopy = type === 'link' ? document.getElementById('share-link-box').value : lastRawShareCode;
+      navigator.clipboard?.writeText(textToCopy).catch(() => {
+        const tempInput = document.createElement('textarea');
+        tempInput.value = textToCopy;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+      });
+
+      const btnId = type === 'link' ? 'btn-copy-link' : 'btn-copy-raw';
+      const btn = document.getElementById(btnId);
+      const originalText = btn.textContent;
+      btn.textContent = "✓ Copié !";
+      setTimeout(() => { btn.textContent = originalText; }, 1800);
+    }
+
+    function checkUrlHashForIncomingProfile() {
+      if (window.location.hash.startsWith('#sync=')) {
+        const rawCode = window.location.hash.replace('#sync=', '');
+        document.getElementById('partner-code-input').value = rawCode;
+        switchTab('compare');
+        runComparison();
+      }
+    }
+
+    // 9. COMPARATEUR ADAPTÉ AUX 5 NIVEAUX
+    function setComparisonMode(mode) {
+      comparisonMode = mode;
+      document.getElementById('mode-btn-duo').classList.toggle('active', mode === 'duo');
+      document.getElementById('mode-btn-ds').classList.toggle('active', mode === 'ds');
+      if (document.getElementById('partner-code-input').value.trim()) {
+        runComparison();
+      }
+    }
+
+    function runComparison() {
+      const rawInput = document.getElementById('partner-code-input').value.trim();
+      const output = document.getElementById('comparison-output');
+      if (!rawInput) return;
+
+      let partner = null;
+      try {
+        const cleaned = rawInput.includes('#sync=') ? rawInput.split('#sync=')[1] : rawInput;
+        partner = JSON.parse(decodeURIComponent(atob(cleaned)));
+      } catch (err) {
+        output.style.display = 'block';
+        output.innerHTML = `<div class="card" style="border-color:var(--limit-color); color:var(--limit-text);">Ce code ou lien est incomplet. Vérifie que tout le texte a bien été copié.</div>`;
+        return;
+      }
+
+      let perfectMatches = [];
+      let exploreMatches = [];
+      let discussMatches = [];
+      let partnerLow = [];
+      let partnerLimits = [];
+      let catScores = [];
+
+      let totalEvaluated = 0;
+      let totalCompatiblePoints = 0;
+
+      KINK_CATEGORIES.forEach(cat => {
+        let catMax = 0;
+        let catPoints = 0;
+
+        cat.items.forEach(item => {
+          const myVal = state.ratings[item.id] || 'discuss';
+          const pVal = (partner.ratings && partner.ratings[item.id]) || 'discuss';
+
+          if (myVal !== 'discuss' || pVal !== 'discuss') {
+            catMax += 2;
+            totalEvaluated += 2;
+          }
+
+          if (myVal === 'yes' && pVal === 'yes') {
+            perfectMatches.push(item.label);
+            catPoints += 2;
+            totalCompatiblePoints += 2;
+          } else if (
+            (myVal === 'yes' && pVal === 'curious') ||
+            (myVal === 'curious' && pVal === 'yes') ||
+            (myVal === 'curious' && pVal === 'curious')
+          ) {
+            exploreMatches.push(item.label);
+            catPoints += 1.5;
+            totalCompatiblePoints += 1.5;
+          } else if (
+            (myVal === 'discuss' && (pVal === 'yes' || pVal === 'curious')) ||
+            (pVal === 'discuss' && (myVal === 'yes' || myVal === 'curious'))
+          ) {
+            discussMatches.push(item.label);
+            catPoints += 0.75;
+            totalCompatiblePoints += 0.75;
+          }
+
+          if (pVal === 'low') partnerLow.push(item.label);
+          if (pVal === 'limit' || pVal === 'no') partnerLimits.push(item.label);
+        });
+
+        const pct = catMax > 0 ? Math.min(100, Math.round((catPoints / catMax) * 100)) : 0;
+        catScores.push({ title: cat.title, pct });
+      });
+
+      const globalCompatibility = totalEvaluated > 0
+        ? Math.min(100, Math.round((totalCompatiblePoints / totalEvaluated) * 100))
+        : 0;
+
+      const myName = state.pseudo || "Moi";
+      const pName = partner.pseudo || "Partenaire";
+
+      let html = `
+        <div class="card">
+          <div class="score-hero">
+            <div>
+              <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:1px; color:var(--accent);">Compatibilité</div>
+              <div style="font-family:var(--font-serif); font-size:1.35rem; font-weight:700;">
+                ${myName} (${state.role}) ✕ ${pName} (${partner.role || 'Switch'})
+              </div>
+              <div style="font-size:0.74rem; color:var(--text-muted);">
+                ${perfectMatches.length} Oui communs • ${exploreMatches.length} curiosités partagées
+              </div>
+            </div>
+            <div class="score-circle">${globalCompatibility}%</div>
+          </div>
+
+          <div style="margin-bottom:16px;">
+            ${catScores.map(c => `
+              <div class="cat-bar-row">
+                <div class="cat-bar-top"><span>${c.title}</span><span>${c.pct}%</span></div>
+                <div class="cat-bar-track"><div class="cat-bar-fill" style="width:${c.pct}%"></div></div>
+              </div>
+            `).join('')}
+          </div>
+
+          <div style="margin-bottom:14px;">
+            <div style="font-size:0.82rem; font-weight:700; color:var(--yes-text); margin-bottom:5px;">
+              Oui partagés (${perfectMatches.length})
+            </div>
+            ${perfectMatches.length > 0
+              ? `<div>${perfectMatches.map(m => `<span class="badge-chip chip-yes">${m}</span>`).join('')}</div>`
+              : `<p style="font-size:0.75rem; color:var(--text-muted);">Aucun « Oui + Oui » direct.</p>`
+            }
+          </div>
+
+          <div style="margin-bottom:14px;">
+            <div style="font-size:0.82rem; font-weight:700; color:var(--curious-text); margin-bottom:5px;">
+              Curiosités & Découvertes (${exploreMatches.length})
+            </div>
+            ${exploreMatches.length > 0
+              ? `<div>${exploreMatches.map(m => `<span class="badge-chip chip-curious">${m}</span>`).join('')}</div>`
+              : `<p style="font-size:0.75rem; color:var(--text-muted);">Aucune curiosité croisée.</p>`
+            }
+          </div>
+
+          <div style="margin-bottom:14px;">
+            <div style="font-size:0.82rem; font-weight:700; color:var(--discuss-text); margin-bottom:5px;">
+              À discuter ensemble (${discussMatches.length})
+            </div>
+            ${discussMatches.length > 0
+              ? `<div>${discussMatches.map(m => `<span class="badge-chip chip-discuss">${m}</span>`).join('')}</div>`
+              : `<p style="font-size:0.75rem; color:var(--text-muted);">Aucun point en attente de discussion.</p>`
+            }
+          </div>
+      `;
+
+      if (comparisonMode === 'ds') {
+        const ps = partner.safety || {};
+        html += `
+          <div style="border-top:1px solid var(--border-subtle); padding-top:14px; margin-top:12px;">
+            <div style="font-size:0.82rem; font-weight:700; color:var(--low-text); margin-bottom:5px;">
+              Peu intéressé chez ${pName} (${partnerLow.length})
+            </div>
+            ${partnerLow.length > 0
+              ? `<div style="margin-bottom:12px;">${partnerLow.map(m => `<span class="badge-chip chip-low">${m}</span>`).join('')}</div>`
+              : `<p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:12px;">Aucune pratique marquée « Peu intéressé ».</p>`
+            }
+
+            <div style="font-size:0.82rem; font-weight:700; color:var(--limit-text); margin-bottom:5px;">
+              Limites strictes de ${pName} (${partnerLimits.length})
+            </div>
+            ${partnerLimits.length > 0
+              ? `<div style="margin-bottom:14px;">${partnerLimits.map(m => `<span class="badge-chip chip-limit">${m}</span>`).join('')}</div>`
+              : `<p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:14px;">Aucune limite cochée.</p>`
+            }
+
+            <div style="background:var(--bg-input); border:1px solid var(--border-strong); border-radius:var(--radius-sm); padding:12px; font-size:0.78rem; line-height:1.6;">
+              <div style="font-family:var(--font-serif); font-size:1.1rem; font-weight:700; color:var(--accent-light); margin-bottom:6px;">
+                Sécurité & Safewords — ${pName}
+              </div>
+              <div><strong>Safewords :</strong> Vert : ${ps.safeGreen || 'Vert'} | Orange : ${ps.safeOrange || 'Orange'} | Rouge : ${ps.safeRed || 'Rouge'}</div>
+              <div><strong>Signal non-verbal :</strong> ${ps.nonVerbal || 'Non précisé'}</div>
+              <div><strong>Allergies :</strong> ${(ps.allergies && ps.allergies.length) ? ps.allergies.join(', ') : 'Aucune'}</div>
+              <div><strong>Fragilités :</strong> ${(ps.medical && ps.medical.length) ? ps.medical.join(', ') : 'Aucune'}</div>
+              <div><strong>Aftercare :</strong> ${(ps.aftercare && ps.aftercare.length) ? ps.aftercare.join(', ') : 'Non précisé'}</div>
+              ${ps.notes ? `<div style="margin-top:6px; font-style:italic; color:var(--text-secondary);">« ${ps.notes} »</div>` : ''}
+            </div>
+          </div>
+        `;
+      }
+
+      html += `</div>`;
+      output.style.display = 'block';
+      output.innerHTML = html;
+    }
+
+    // 10. RESET
+    function openResetConfirm() {
+      document.getElementById('reset-modal').classList.add('open');
+    }
+    function closeResetModal() {
+      document.getElementById('reset-modal').classList.remove('open');
+    }
+    function confirmResetAll() {
+      localStorage.removeItem('kinksync_v3_simple');
+      window.location.hash = "";
+      window.location.reload();
+    }
+  </script>
 </body>
 </html>
