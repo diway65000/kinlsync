@@ -3,68 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#070609">
+  <meta name="theme-color" content="#FAF7F5">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>KinkSync — Accords, Désirs & Limites</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-obsidian: #070609;
-      --bg-velvet: #110d16;
-      --bg-card: #16121e;
-      --bg-input: #0c0910;
-      --border-subtle: #282034;
-      --border-gold: rgba(212, 175, 55, 0.35);
-      --gold: #d4af37;
-      --gold-light: #f3e5ab;
-      --crimson: #9f1239;
-      --crimson-bright: #e11d48;
-      --text-main: #f5f3f7;
-      --text-muted: #9e93ad;
-      --yes: #10b981;
-      --curious: #f59e0b;
-      --neutral: #64748b;
-      --no: #e11d48;
+      --bg-page: #FAF7F5;
+      --bg-card: #FFFFFF;
+      --bg-soft: #F3ECE7;
+      --bg-input: #F9F6F4;
+      --border-light: #E6DCD5;
+      --border-accent: #D5C3B8;
+      --burgundy: #7A1C32;
+      --burgundy-soft: #9E2A45;
+      --gold: #B08A45;
+      --text-main: #231B20;
+      --text-muted: #73656C;
+      --yes: #0D9488;
+      --curious: #D97706;
+      --neutral: #94A3B8;
+      --no: #E11D48;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
     body {
-      background-color: var(--bg-obsidian);
-      background-image: 
-        radial-gradient(circle at 15% 0%, rgba(159, 18, 57, 0.14) 0%, transparent 45%),
-        radial-gradient(circle at 85% 100%, rgba(212, 175, 55, 0.08) 0%, transparent 45%);
+      background-color: var(--bg-page);
       color: var(--text-main);
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       min-height: 100vh;
-      padding-bottom: 90px;
+      padding-bottom: 80px;
       line-height: 1.5;
     }
 
-    h1, h2, h3, .serif-title {
+    h1, h2, h3 {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.01em;
     }
 
-    /* En-tête Luxe */
+    /* En-tête épuré et lumineux */
     header {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-light);
+      padding: 14px 16px 12px;
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(11, 9, 15, 0.88);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border-subtle);
-      padding: 10px 16px;
     }
     .header-inner {
-      max-width: 760px;
+      max-width: 680px;
       margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 10px;
     }
     .brand {
       display: flex;
@@ -72,43 +68,42 @@
       gap: 12px;
     }
     .brand-logo {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: linear-gradient(145deg, #1a111e, #0d0811);
-      border: 1px solid var(--border-gold);
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(145deg, var(--burgundy), #4E0E1E);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.12);
+      box-shadow: 0 4px 12px rgba(122, 28, 50, 0.18);
+      flex-shrink: 0;
     }
     .brand-text h1 {
-      font-size: 1.45rem;
+      font-size: 1.55rem;
       font-weight: 700;
-      background: linear-gradient(90deg, var(--gold-light), var(--gold), #e899ac);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      line-height: 1.1;
+      color: var(--burgundy);
+      line-height: 1.05;
     }
     .brand-text span {
       display: block;
       font-size: 0.65rem;
       text-transform: uppercase;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.14em;
       color: var(--text-muted);
+      margin-top: 2px;
     }
 
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
 
     .btn {
       border: 1px solid transparent;
-      border-radius: 8px;
-      padding: 7px 12px;
-      font-size: 0.75rem;
+      border-radius: 10px;
+      padding: 9px 14px;
+      font-size: 0.78rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -117,225 +112,227 @@
       gap: 6px;
       font-family: inherit;
     }
-    .btn-gold {
-      background: linear-gradient(135deg, #d4af37, #aa8010);
-      color: #09070b;
-      box-shadow: 0 2px 12px rgba(212, 175, 55, 0.25);
+    .btn-primary {
+      background: var(--burgundy);
+      color: #FFFFFF;
+      box-shadow: 0 3px 10px rgba(122, 28, 50, 0.2);
     }
-    .btn-gold:hover { filter: brightness(1.1); }
+    .btn-primary:active { transform: scale(0.97); }
     .btn-ghost {
-      background: rgba(255, 255, 255, 0.03);
-      border-color: var(--border-subtle);
+      background: var(--bg-soft);
+      border-color: var(--border-light);
       color: var(--text-muted);
-    }
-    .btn-ghost:hover {
-      color: var(--text-main);
-      border-color: var(--gold);
-    }
-    .btn-panic {
-      background: rgba(225, 29, 72, 0.12);
-      border-color: rgba(225, 29, 72, 0.35);
-      color: #fda4af;
-      padding: 7px 9px;
+      padding: 9px 11px;
     }
 
-    /* Navigation Onglets */
-    nav {
-      position: sticky;
-      top: 59px;
-      z-index: 40;
-      background: rgba(7, 6, 9, 0.94);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border-subtle);
+    /* Barre de 3 Onglets ultra-visible (Segmented Control) */
+    .tabs-wrapper {
+      max-width: 680px;
+      margin: 14px auto 0;
+      padding: 0 14px;
     }
-    .nav-inner {
-      max-width: 760px;
-      margin: 0 auto;
-      display: flex;
-      padding: 0 12px;
-      overflow-x: auto;
+    .tabs-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: var(--bg-soft);
+      padding: 4px;
+      border-radius: 12px;
+      border: 1px solid var(--border-light);
+      gap: 4px;
     }
     .tab-btn {
       background: transparent;
       border: none;
       color: var(--text-muted);
-      padding: 13px 16px;
-      font-size: 0.82rem;
+      padding: 10px 4px;
+      font-size: 0.78rem;
       font-weight: 600;
+      border-radius: 9px;
       cursor: pointer;
-      border-bottom: 2px solid transparent;
-      white-space: nowrap;
+      text-align: center;
+      transition: all 0.2s ease;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 6px;
-      transition: all 0.2s;
+      justify-content: center;
+      gap: 2px;
+    }
+    .tab-btn .tab-step {
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.75;
     }
     .tab-btn.active {
-      color: var(--gold-light);
-      border-bottom-color: var(--gold);
+      background: var(--bg-card);
+      color: var(--burgundy);
+      box-shadow: 0 2px 8px rgba(35, 27, 32, 0.08);
+      font-weight: 700;
     }
 
     /* Conteneur Principal */
     main {
-      max-width: 760px;
-      margin: 18px auto 0;
+      max-width: 680px;
+      margin: 16px auto 0;
       padding: 0 14px;
     }
     .view-section { display: none; }
     .view-section.active { display: block; }
 
     .card {
-      background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-velvet) 100%);
-      border: 1px solid var(--border-subtle);
-      border-radius: 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
       padding: 16px;
       margin-bottom: 16px;
-      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 4px 20px rgba(35, 27, 32, 0.04);
     }
 
-    /* Profil et filtres */
+    /* Profil épuré (50% / 50%) */
     .profile-grid {
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin-bottom: 10px;
+    }
+    .field-label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
     input[type="text"], select, textarea {
       background: var(--bg-input);
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--border-light);
       color: var(--text-main);
       padding: 10px 12px;
-      border-radius: 9px;
+      border-radius: 10px;
       font-size: 0.85rem;
       width: 100%;
       outline: none;
       font-family: inherit;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, background 0.2s;
     }
     input:focus, select:focus, textarea:focus {
-      border-color: var(--gold);
+      border-color: var(--burgundy);
+      background: #FFFFFF;
     }
 
-    .role-default-hint {
-      font-size: 0.72rem;
-      color: var(--gold-light);
-      background: rgba(212, 175, 55, 0.08);
-      border: 1px solid rgba(212, 175, 55, 0.25);
-      padding: 7px 11px;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
-    /* Barre Statistiques */
+    /* Filtres rapides par statut (compact et aéré) */
     .stats-bar {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 8px;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
     .stat-pill {
-      padding: 8px 6px;
-      border-radius: 10px;
+      padding: 8px 4px;
+      border-radius: 11px;
       text-align: center;
       font-size: 0.72rem;
       font-weight: 600;
-      border: 1px solid transparent;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      color: var(--text-main);
       cursor: pointer;
-      transition: transform 0.15s;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+      transition: all 0.15s;
     }
-    .stat-pill:active { transform: scale(0.97); }
-    .stat-yes { background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.35); color: #6ee7b7; }
-    .stat-curious { background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.35); color: #fcd34d; }
-    .stat-neutral { background: rgba(100, 116, 139, 0.12); border-color: rgba(100, 116, 139, 0.3); color: #cbd5e1; }
-    .stat-no { background: rgba(225, 29, 72, 0.12); border-color: rgba(225, 29, 72, 0.35); color: #fda4af; }
+    .stat-pill.active-filter {
+      border-color: var(--burgundy);
+      background: #FDF8F9;
+      transform: translateY(-1px);
+    }
+    .stat-pill span {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-top: 2px;
+    }
 
-    /* Catégories & Pratiques */
+    /* Catégories & Lignes de pratiques aérées */
     .cat-card {
       background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 14px;
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
       overflow: hidden;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 18px rgba(35, 27, 32, 0.03);
     }
     .cat-header {
-      background: linear-gradient(90deg, rgba(159, 18, 57, 0.22), rgba(212, 175, 55, 0.06));
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--border-subtle);
+      background: linear-gradient(90deg, #F7EFEA 0%, #FFFFFF 100%);
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-light);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 10px;
     }
     .cat-header h3 {
-      font-size: 1.12rem;
-      color: var(--gold-light);
+      font-size: 1.18rem;
+      color: var(--burgundy);
       font-weight: 700;
+      line-height: 1.25;
     }
     .cat-badge {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       color: var(--text-muted);
-      background: rgba(0, 0, 0, 0.35);
-      padding: 2px 8px;
+      background: var(--bg-card);
+      padding: 3px 9px;
       border-radius: 99px;
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--border-light);
+      white-space: nowrap;
+      font-weight: 600;
     }
 
     .practice-row {
-      padding: 11px 14px;
-      border-bottom: 1px solid rgba(40, 32, 52, 0.65);
-      transition: background 0.15s;
+      padding: 14px 16px;
+      border-bottom: 1px solid #F1EAE4;
     }
     .practice-row:last-child { border-bottom: none; }
     .practice-main {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
-    }
-    .practice-title-wrap {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex: 1;
+      gap: 12px;
     }
     .practice-label {
-      font-size: 0.84rem;
+      font-size: 0.88rem;
       font-weight: 500;
       color: var(--text-main);
+      line-height: 1.35;
     }
     .rating-group {
       display: flex;
-      gap: 5px;
+      gap: 6px;
       flex-shrink: 0;
     }
     .rate-btn {
       width: 34px;
-      height: 30px;
-      border-radius: 7px;
-      border: 1px solid var(--border-subtle);
+      height: 34px;
+      border-radius: 9px;
+      border: 1px solid var(--border-light);
       background: var(--bg-input);
       cursor: pointer;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.15s;
-      opacity: 0.55;
+      transition: all 0.15s ease;
+      opacity: 0.45;
     }
-    .rate-btn:hover { opacity: 0.9; }
-    .rate-btn.active-yes { background: rgba(16, 185, 129, 0.28); border-color: var(--yes); opacity: 1; transform: scale(1.05); }
-    .rate-btn.active-curious { background: rgba(245, 158, 11, 0.28); border-color: var(--curious); opacity: 1; transform: scale(1.05); }
-    .rate-btn.active-neutral { background: rgba(100, 116, 139, 0.35); border-color: #94a3b8; opacity: 1; }
-    .rate-btn.active-no { background: rgba(225, 29, 72, 0.32); border-color: var(--no); opacity: 1; transform: scale(1.05); }
+    .rate-btn.active-yes { background: #E6F7F5; border-color: var(--yes); opacity: 1; transform: scale(1.06); }
+    .rate-btn.active-curious { background: #FEF3C7; border-color: var(--curious); opacity: 1; transform: scale(1.06); }
+    .rate-btn.active-neutral { background: #F1F5F9; border-color: #64748B; opacity: 1; }
+    .rate-btn.active-no { background: #FFE4E6; border-color: var(--no); opacity: 1; transform: scale(1.06); }
 
-    /* Sous-sélection Donneur / Receveur / Switch */
+    /* Sous-sélection Donneur / Receveur / Switch (Discrète et élégante) */
     .practice-nuance {
-      margin-top: 8px;
-      padding-top: 7px;
-      border-top: 1px dashed rgba(212, 175, 55, 0.18);
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border-light);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -343,58 +340,36 @@
       gap: 6px;
     }
     .nuance-label {
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .nuance-badge-auto {
-      font-size: 0.62rem;
-      color: var(--gold);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      padding: 1px 5px;
-      border-radius: 4px;
+      font-weight: 500;
     }
     .nuance-pills {
       display: flex;
-      gap: 4px;
-      align-items: center;
+      gap: 5px;
     }
     .nuance-btn {
-      font-size: 0.68rem;
-      padding: 3px 8px;
-      border-radius: 6px;
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      border-radius: 7px;
       background: var(--bg-input);
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--border-light);
       color: var(--text-muted);
       cursor: pointer;
+      font-weight: 500;
     }
     .nuance-btn.active {
-      background: rgba(212, 175, 55, 0.18);
-      border-color: var(--gold);
-      color: var(--gold-light);
+      background: var(--burgundy);
+      border-color: var(--burgundy);
+      color: #FFFFFF;
       font-weight: 600;
     }
-    .nuance-reset-btn {
-      font-size: 0.65rem;
-      padding: 2px 6px;
-      border-radius: 5px;
-      background: transparent;
-      border: 1px dashed var(--border-subtle);
-      color: var(--text-muted);
-      cursor: pointer;
-    }
-    .nuance-reset-btn:hover {
-      color: var(--gold-light);
-      border-color: var(--gold);
-    }
 
-    /* Grilles Santé & Sécurité */
+    /* Santé & Sécurité */
     .section-title {
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       font-weight: 700;
-      color: var(--gold-light);
+      color: var(--burgundy);
       margin-bottom: 6px;
       display: flex;
       align-items: center;
@@ -402,35 +377,34 @@
     }
     .check-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
       gap: 8px;
-      margin-top: 8px;
+      margin-top: 10px;
     }
     .check-item {
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 9px 11px;
+      padding: 10px 12px;
       background: var(--bg-input);
-      border: 1px solid var(--border-subtle);
-      border-radius: 9px;
-      font-size: 0.78rem;
+      border: 1px solid var(--border-light);
+      border-radius: 10px;
+      font-size: 0.8rem;
       cursor: pointer;
-      transition: border-color 0.2s;
     }
-    .check-item input { accent-color: var(--gold); }
+    .check-item input { accent-color: var(--burgundy); width: 16px; height: 16px; }
 
-    /* Comparateur & Jauges */
+    /* Comparateur */
     .mode-switch {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
-      margin: 10px 0;
+      margin: 12px 0;
     }
     .mode-btn {
-      padding: 10px;
-      border-radius: 9px;
-      border: 1px solid var(--border-subtle);
+      padding: 11px 8px;
+      border-radius: 10px;
+      border: 1px solid var(--border-light);
       background: var(--bg-input);
       color: var(--text-muted);
       font-size: 0.78rem;
@@ -439,26 +413,26 @@
       text-align: center;
     }
     .mode-btn.active {
-      border-color: var(--gold);
-      background: rgba(212, 175, 55, 0.14);
-      color: var(--gold-light);
+      border-color: var(--burgundy);
+      background: #FDF4F6;
+      color: var(--burgundy);
     }
 
     .score-banner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: linear-gradient(135deg, rgba(159, 18, 57, 0.25), rgba(212, 175, 55, 0.12));
-      border: 1px solid var(--border-gold);
+      background: linear-gradient(135deg, #FDF6F7, #F9EFEA);
+      border: 1px solid var(--border-accent);
       padding: 16px;
-      border-radius: 12px;
-      margin-bottom: 14px;
+      border-radius: 14px;
+      margin-bottom: 16px;
     }
     .score-circle {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2.2rem;
+      font-size: 2.3rem;
       font-weight: 700;
-      color: var(--gold-light);
+      color: var(--burgundy);
     }
 
     .tag-list {
@@ -468,44 +442,43 @@
       margin-top: 8px;
     }
     .tag {
-      font-size: 0.74rem;
-      padding: 5px 10px;
-      border-radius: 7px;
-      font-weight: 500;
+      font-size: 0.75rem;
+      padding: 5px 11px;
+      border-radius: 8px;
+      font-weight: 600;
     }
-    .tag-yes { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #a7f3d0; }
-    .tag-curious { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); color: #fde68a; }
-    .tag-no { background: rgba(225, 29, 72, 0.18); border: 1px solid rgba(225, 29, 72, 0.45); color: #fecdd3; }
-    .tag-synergy { background: rgba(212, 175, 55, 0.18); border: 1px solid var(--gold); color: var(--gold-light); }
+    .tag-yes { background: #E6F7F5; border: 1px solid #99E6DC; color: #0F766E; }
+    .tag-curious { background: #FEF3C7; border: 1px solid #FCD34D; color: #92400E; }
+    .tag-no { background: #FFE4E6; border: 1px solid #FDA4AF; color: #9F1239; }
+    .tag-synergy { background: #FDF4F6; border: 1px solid var(--burgundy); color: var(--burgundy); }
 
-    .cat-bar-row {
-      margin-bottom: 8px;
-    }
+    .cat-bar-row { margin-bottom: 9px; }
     .cat-bar-label {
       display: flex;
       justify-content: space-between;
-      font-size: 0.73rem;
-      margin-bottom: 3px;
+      font-size: 0.75rem;
+      margin-bottom: 4px;
       color: var(--text-muted);
+      font-weight: 500;
     }
     .cat-bar-track {
-      height: 6px;
-      background: var(--bg-input);
+      height: 7px;
+      background: var(--bg-soft);
       border-radius: 99px;
       overflow: hidden;
     }
     .cat-bar-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--crimson-bright), var(--gold));
+      background: linear-gradient(90deg, var(--burgundy), var(--gold));
       border-radius: 99px;
     }
 
-    /* Modal & Mode Discret (Panic Mode) */
+    /* Modal de Partage */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.82);
-      backdrop-filter: blur(6px);
+      background: rgba(35, 27, 32, 0.55);
+      backdrop-filter: blur(4px);
       display: none;
       align-items: center;
       justify-content: center;
@@ -515,69 +488,33 @@
     .modal-backdrop.open { display: flex; }
     .modal-box {
       background: var(--bg-card);
-      border: 1px solid var(--border-gold);
-      border-radius: 16px;
-      max-width: 440px;
+      border: 1px solid var(--border-light);
+      border-radius: 18px;
+      max-width: 420px;
       width: 100%;
-      padding: 20px;
+      padding: 22px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
     }
-
-    /* Écran Camouflage (Liste de courses / Notes) */
-    #camouflage-screen {
-      position: fixed;
-      inset: 0;
-      background: #f8fafc;
-      color: #1e293b;
-      z-index: 9999;
-      display: none;
-      padding: 24px 18px;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-    #camouflage-screen.active { display: block; }
 
     @media print {
-      header, nav, .no-print { display: none !important; }
-      body { background: #fff; color: #000; }
-      .card { border: 1px solid #ccc; box-shadow: none; background: #fff; color: #000; }
+      header, .tabs-wrapper, .no-print { display: none !important; }
+      body { background: #fff; }
+      .card { box-shadow: none; border: 1px solid #ccc; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ÉCRAN DE CAMOUFLAGE (PANIC BUTTON) -->
-  <div id="camouflage-screen">
-    <div style="max-width: 520px; margin: 0 auto;">
-      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:12px; margin-bottom:16px;">
-        <h2 style="font-family:sans-serif; font-size:1.2rem; color:#0f172a;">📝 Mes Notes & Courses</h2>
-        <span style="font-size:0.75rem; color:#64748b;">Synchronisé</span>
-      </div>
-      <div style="background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px; margin-bottom:14px;">
-        <p style="font-weight:600; font-size:0.9rem; margin-bottom:8px;">Liste magasin :</p>
-        <ul style="font-size:0.85rem; color:#334155; padding-left:18px; line-height:1.8;">
-          <li>Café en grains / Filtres</li>
-          <li>Huile d'olive & gros sel</li>
-          <li>Légumes grillés (courgettes, poivrons)</li>
-          <li>Piles AA & ampoules LED</li>
-          <li>Pain complet</li>
-        </ul>
-      </div>
-      <p style="font-size:0.75rem; color:#94a3b8; text-align:center; margin-top:40px; cursor:pointer;" onclick="togglePanicMode()">
-        Double-cliquez ici pour fermer l'aide-mémoire
-      </p>
-    </div>
-  </div>
-
-  <!-- EN-TÊTE -->
+  <!-- EN-TÊTE ÉPURÉ -->
   <header>
     <div class="header-inner">
       <div class="brand">
-        <!-- Logo Vectoriel KinkSync : Nœud Shibari & Serrure Dorée -->
         <div class="brand-logo" title="KinkSync">
-          <svg width="26" height="26" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M18 3L31 16L18 29L5 16L18 3Z" stroke="#d4af37" stroke-width="2" stroke-linejoin="round"/>
-            <path d="M11 10L25 24M25 10L11 24" stroke="#9f1239" stroke-width="1.8" stroke-linecap="round"/>
-            <circle cx="18" cy="15" r="3.2" fill="#d4af37"/>
-            <path d="M16.5 17.5L15.5 23H20.5L19.5 17.5" fill="#d4af37"/>
+          <svg width="24" height="24" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 3L31 16L18 29L5 16L18 3Z" stroke="#F3E5AB" stroke-width="2.2" stroke-linejoin="round"/>
+            <path d="M11 10L25 24M25 10L11 24" stroke="#D4AF37" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="18" cy="15" r="3" fill="#F3E5AB"/>
+            <path d="M16.5 17.5L15.5 23H20.5L19.5 17.5" fill="#F3E5AB"/>
           </svg>
         </div>
         <div class="brand-text">
@@ -587,33 +524,33 @@
       </div>
 
       <div class="header-actions">
-        <button class="btn btn-panic" onclick="togglePanicMode()" title="Mode Discret Immédiat (Touche Échap)">
-          👁️ Discret
-        </button>
-        <button class="btn btn-ghost" onclick="resetAll()" title="Effacer mes réponses">
+        <button class="btn btn-ghost" onclick="resetAll()" title="Réinitialiser mes réponses">
           ↺
         </button>
-        <button class="btn btn-gold" onclick="openShareModal()">
+        <button class="btn btn-primary" onclick="openShareModal()">
           ✦ Partager
         </button>
       </div>
     </div>
   </header>
 
-  <!-- NAVIGATION -->
-  <nav>
-    <div class="nav-inner">
+  <!-- NAVIGATION À 3 ONGLETS TOUJOURS VISIBLES -->
+  <div class="tabs-wrapper">
+    <nav class="tabs-bar">
       <button class="tab-btn active" id="tab-practices" onclick="switchTab('practices')">
-        ❖ Matrice des Pratiques (46)
+        <span class="tab-step">Étape 1</span>
+        <span>❖ Pratiques</span>
       </button>
       <button class="tab-btn" id="tab-safety" onclick="switchTab('safety')">
-        ⚕️ Santé, Safewords & Cadre
+        <span class="tab-step">Étape 2</span>
+        <span>⚕️ Sécurité</span>
       </button>
       <button class="tab-btn" id="tab-compare" onclick="switchTab('compare')">
-        ⚡ Comparateur & Contrat
+        <span class="tab-step">Étape 3</span>
+        <span>⚡ Comparer</span>
       </button>
-    </div>
-  </nav>
+    </nav>
+  </div>
 
   <!-- CONTENU PRINCIPAL -->
   <main>
@@ -622,42 +559,36 @@
     <section id="view-practices" class="view-section active">
       <div class="card">
         <div class="profile-grid">
-          <input type="text" id="user-pseudo" placeholder="Pseudonyme ou initiale (ex: S.)" oninput="updateProfile()">
-          <select id="user-role" onchange="handleRoleChange()">
-            <option value="Dominant(e)">Dominant(e) / Maître(sse)</option>
-            <option value="Soumis(e)">Soumis(e) / Sub</option>
-            <option value="Switch" selected>Switch</option>
-            <option value="Curieux(se)">En exploration</option>
-          </select>
-        </div>
-
-        <!-- Indicateur d'orientation automatique liée au rôle -->
-        <div class="role-default-hint">
-          <span id="role-orientation-summary">
-            Orientation par défaut des pratiques : <strong>🔄 Switch</strong> (modifiable sur chaque pratique)
-          </span>
-          <button class="btn btn-ghost" style="padding:3px 8px; font-size:0.68rem;" onclick="applyRoleOrientationToAll()">
-            Tout aligner sur mon rôle
-          </button>
-        </div>
-
-        <div style="display:flex; gap:8px; align-items:center;">
-          <input type="text" id="search-input" placeholder="Filtrer une pratique (ex: shibari, uro, fisting, cage...)" oninput="renderPractices()">
-          <button class="btn btn-ghost" id="btn-filter-selected" onclick="toggleCustomQuestionnaireMode()" title="Mode sélection Dominant : choisir uniquement certaines pratiques à envoyer">
-            🎯 Cibler
-          </button>
-        </div>
-        <div id="custom-mode-banner" style="display:none; margin-top:10px; padding:8px 12px; background:rgba(212,175,55,0.1); border:1px solid var(--border-gold); border-radius:8px; font-size:0.76rem; color:var(--gold-light);">
-          <strong>Mode Questionnaire Ciblé activé :</strong> Coche les cases à gauche des pratiques que tu souhaites soumettre à ton/ta partenaire. (<span id="selected-count">0</span> sélectionnées)
+          <div>
+            <label class="field-label" for="user-pseudo">Mon Pseudo</label>
+            <input type="text" id="user-pseudo" placeholder="Ex: S." oninput="updateProfile()">
+          </div>
+          <div>
+            <label class="field-label" for="user-role">Mon Rôle</label>
+            <select id="user-role" onchange="handleRoleChange()">
+              <option value="Dominant(e)">Dominant(e)</option>
+              <option value="Soumis(e)">Soumis(e)</option>
+              <option value="Switch" selected>Switch</option>
+              <option value="Curieux(se)">En exploration</option>
+            </select>
+          </div>
         </div>
       </div>
 
-      <!-- Compteurs & Légende -->
+      <!-- Compteurs & Légende cliquable -->
       <div class="stats-bar">
-        <div class="stat-pill stat-yes" onclick="filterByRating('yes')">🟢 Oui (<span id="count-yes">0</span>)</div>
-        <div class="stat-pill stat-curious" onclick="filterByRating('curious')">🟡 Curieux (<span id="count-curious">0</span>)</div>
-        <div class="stat-pill stat-neutral" onclick="filterByRating('neutral')">⚪ Neutre (<span id="count-neutral">0</span>)</div>
-        <div class="stat-pill stat-no" onclick="filterByRating('no')">🔴 Hard Limit (<span id="count-no">0</span>)</div>
+        <div class="stat-pill" id="pill-yes" onclick="filterByRating('yes')">
+          🟢 Oui <span id="count-yes">0</span>
+        </div>
+        <div class="stat-pill" id="pill-curious" onclick="filterByRating('curious')">
+          🟡 Curieux <span id="count-curious">0</span>
+        </div>
+        <div class="stat-pill" id="pill-neutral" onclick="filterByRating('neutral')">
+          ⚪ Neutre <span id="count-neutral">0</span>
+        </div>
+        <div class="stat-pill" id="pill-no" onclick="filterByRating('no')">
+          🔴 Limit <span id="count-no">0</span>
+        </div>
       </div>
 
       <div id="categories-container"></div>
@@ -666,81 +597,79 @@
     <!-- ONGLET 2 : SANTÉ & SÉCURITÉ -->
     <section id="view-safety" class="view-section">
       <div class="card">
-        <div class="section-title">🚦 Safewords (Mots de sécurité)</div>
-        <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:12px;">
-          Le respect immédiat du Safeword est la règle absolue de toute séance.
+        <div class="section-title">🚦 Safewords (Mots d'arrêt)</div>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">
+          Signaux convenus pour moduler ou interrompre immédiatement une séance.
         </p>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:10px; margin-bottom:12px;">
+        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; margin-bottom:12px;">
           <div>
-            <label style="font-size:0.72rem; color:#6ee7b7; font-weight:600;">Feu Vert (Continuer)</label>
+            <label class="field-label" style="color:var(--yes);">Vert</label>
             <input type="text" id="safe-green" value="Vert" oninput="saveSafety()">
           </div>
           <div>
-            <label style="font-size:0.72rem; color:#fcd34d; font-weight:600;">Feu Orange (Ralentir / Pause)</label>
+            <label class="field-label" style="color:var(--curious);">Orange</label>
             <input type="text" id="safe-orange" value="Orange" oninput="saveSafety()">
           </div>
           <div>
-            <label style="font-size:0.72rem; color:#fda4af; font-weight:600;">Feu Rouge (Arrêt Immédiat)</label>
+            <label class="field-label" style="color:var(--no);">Rouge</label>
             <input type="text" id="safe-red" value="Rouge" oninput="saveSafety()">
           </div>
         </div>
         <div>
-          <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:4px;">
-            🔔 Signal Non-Verbal (obligatoire si bâillon, masque ou bouche entravée)
-          </label>
-          <input type="text" id="safe-nonverbal" placeholder="Ex: Lâcher une clochette tenue en main, taper 3 fois de suite..." oninput="saveSafety()">
+          <label class="field-label">🔔 Signal Non-Verbal (si bâillonné)</label>
+          <input type="text" id="safe-nonverbal" placeholder="Ex: Lâcher un objet, taper 3 fois..." oninput="saveSafety()">
         </div>
       </div>
 
       <div class="card">
-        <div class="section-title">⚠️ Allergies & Intolérances Matérielles</div>
+        <div class="section-title">⚠️ Allergies & Intolérances</div>
         <div id="allergies-grid" class="check-grid"></div>
       </div>
 
       <div class="card">
-        <div class="section-title">🩺 Fragilités Physiques & Points de Vigilance</div>
+        <div class="section-title">🩺 Fragilités Physiques</div>
         <div id="medical-grid" class="check-grid"></div>
       </div>
 
       <div class="card">
-        <div class="section-title">🕯️ Besoins d'Aftercare (Retour au calme après séance)</div>
+        <div class="section-title">🕯️ Besoins d'Aftercare</div>
         <div id="aftercare-grid" class="check-grid"></div>
       </div>
 
       <div class="card">
-        <div class="section-title">🖋️ Observations, Triggers & Limites Spécifiques</div>
-        <textarea id="safety-notes" rows="3" placeholder="Précise ici toute phobie, zone du corps intouchable, passif ou besoin particulier..." oninput="saveSafety()"></textarea>
+        <div class="section-title">🖋️ Notes & Limites Spécifiques</div>
+        <textarea id="safety-notes" rows="3" placeholder="Précise ici toute phobie, zone intouchable ou condition particulière..." oninput="saveSafety()"></textarea>
       </div>
     </section>
 
     <!-- ONGLET 3 : COMPARATEUR -->
     <section id="view-compare" class="view-section">
       <div class="card no-print">
-        <div class="section-title">⚡ Croiser deux profils</div>
-        <p style="font-size:0.78rem; color:var(--text-muted);">
-          Choisis la nature de votre échange puis colle le lien ou code transmis par ton/ta partenaire.
+        <div class="section-title">⚡ Comparer deux profils</div>
+        <p style="font-size:0.8rem; color:var(--text-muted);">
+          Choisis le mode de lecture puis colle le lien ou le code envoyé par ton/ta partenaire.
         </p>
 
         <div class="mode-switch">
           <button class="mode-btn active" id="btn-mode-duo" onclick="setCompareMode('duo')">
-            🥂 Mode Duo (Double Aveugle)
+            🥂 Duo (Points communs)
           </button>
           <button class="mode-btn" id="btn-mode-ds" onclick="setCompareMode('ds')">
-            ⛓️ Mode Protocole D/s (Complet)
+            ⛓️ Protocole D/s (Complet)
           </button>
         </div>
-        <p id="mode-desc" style="font-size:0.73rem; color:var(--gold-light); margin-bottom:12px; font-style:italic;">
-          En mode Duo, seules vos envies communes (Oui & Curieux) sont révélées. Les refus restent strictement secrets.
+        <p id="mode-desc" style="font-size:0.75rem; color:var(--text-muted); margin-bottom:12px; font-style:italic;">
+          Seules vos affinités mutuelles (Oui & Curieux) sont affichées. Les refus restent secrets.
         </p>
 
-        <textarea id="partner-code-input" rows="2" placeholder="Colle ici le lien ou code KinkSync de ton/ta partenaire..." style="font-family:monospace; font-size:0.75rem; margin-bottom:10px;"></textarea>
+        <textarea id="partner-code-input" rows="2" placeholder="Colle ici le lien ou code reçu..." style="font-family:monospace; font-size:0.76rem; margin-bottom:10px;"></textarea>
         
         <div style="display:flex; gap:8px; flex-wrap:wrap;">
-          <button class="btn btn-gold" style="flex:1; justify-content:center;" onclick="runComparison()">
-            Analyser les affinités
+          <button class="btn btn-primary" style="flex:1; justify-content:center;" onclick="runComparison()">
+            Voir les affinités
           </button>
           <button class="btn btn-ghost" onclick="loadDemoPartner()">
-            Charger un profil test
+            Essai démo
           </button>
         </div>
       </div>
@@ -754,32 +683,30 @@
   <div class="modal-backdrop" id="share-modal">
     <div class="modal-box">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-        <h3 style="font-size:1.3rem; color:var(--gold-light);">Partager mon profil</h3>
+        <h3 style="font-size:1.35rem; color:var(--burgundy);">Partager mes réponses</h3>
         <button class="btn btn-ghost" onclick="closeShareModal()">✕</button>
       </div>
-      <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:12px;">
-        Aucune donnée n'est envoyée sur un serveur : tout est chiffré dans ce lien unique. Envoie-le à la personne de ton choix.
+      <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">
+        Envoie ce lien à ton/ta partenaire. En cliquant dessus, votre comparaison s'affichera directement.
       </p>
       <input type="text" id="share-url-output" readonly style="font-family:monospace; font-size:0.74rem; margin-bottom:12px;">
       <div style="display:flex; gap:8px;">
-        <button class="btn btn-gold" style="flex:1; justify-content:center;" id="btn-copy-link" onclick="copyShareLink()">
-          Copier le lien complet
+        <button class="btn btn-primary" style="flex:1; justify-content:center;" id="btn-copy-link" onclick="copyShareLink()">
+          Copier le lien
         </button>
         <button class="btn btn-ghost" onclick="copyRawCode()">
-          Copier code seul
+          Code seul
         </button>
       </div>
     </div>
   </div>
 
   <script>
-    // =========================================================================
-    // 1. RÉFÉRENTIEL COMPLET DES 46 PRATIQUES (7 CATÉGORIES)
-    // =========================================================================
+    // 1. LISTE DES 46 PRATIQUES
     const KINK_CATEGORIES = [
       {
         id: "cat_ds",
-        title: "1. Dynamiques Relationnelles & Contrôle Mental",
+        title: "1. Dynamiques & Contrôle Mental",
         items: [
           { id: "collier_laisse", label: "Collier et laisse" },
           { id: "discipline", label: "Discipline & Règles strictes" },
@@ -797,17 +724,17 @@
           { id: "bondage", label: "Bondage (menottes, sangles, liens)" },
           { id: "shibari", label: "Shibari (cordes japonaises)" },
           { id: "ties_denial", label: "Ties and denial (attaché(e) & privé(e))" },
-          { id: "privations_sensorielles", label: "Privations sensorielles (yeux bandés, casque...)" },
+          { id: "privations_sensorielles", label: "Privations sensorielles (yeux bandés...)" },
           { id: "enfermement", label: "Enfermement (cage, pièce, sac)" }
         ]
       },
       {
         id: "cat_sex_control",
-        title: "3. Contrôle Sexuel, Pénétration & Sextoys",
+        title: "3. Contrôle Sexuel & Sextoys",
         items: [
           { id: "chastete", label: "Chasteté imposée (cage / ceinture)" },
-          { id: "privation_orgasme", label: "Privation d'orgasme ( Denial )" },
-          { id: "controle_orgasme", label: "Contrôle de l'orgasme / Edging sous ordre" },
+          { id: "privation_orgasme", label: "Privation d'orgasme" },
+          { id: "controle_orgasme", label: "Contrôle de l'orgasme / Edging" },
           { id: "sextoys_vaginal", label: "Godes / Sextoys (Vaginal)" },
           { id: "sextoys_anal", label: "Godes / Sextoys (Anal)" },
           { id: "dilatation_vaginale", label: "Dilatation (Vaginale)" },
@@ -823,27 +750,27 @@
           { id: "fessees", label: "Fessées (Spanking)" },
           { id: "fouet_cravache", label: "Fouet, cravache, martinet" },
           { id: "chatiments", label: "Châtiments corporels marqués" },
-          { id: "bougies", label: "Bougies / Cire chaude basse température" },
+          { id: "bougies", label: "Bougies / Cire chaude" },
           { id: "electro", label: "Électro-stimulation" },
-          { id: "torture_seins", label: "Tortures des seins (pinces, serrage...)" },
-          { id: "torture_genitales", label: "Tortures des parties génitales (CBT / BBT)" }
+          { id: "torture_seins", label: "Tortures des seins (pinces...)" },
+          { id: "torture_genitales", label: "Tortures des parties génitales" }
         ]
       },
       {
         id: "cat_oral_fluids",
-        title: "5. Domination Orale, Visage & Fluides",
+        title: "5. Domination Orale & Fluides",
         items: [
           { id: "facesitting", label: "Facesitting (assise sur le visage)" },
-          { id: "face_fuck", label: "Face fucking / Gorge profonde imposée" },
-          { id: "manger_sperme", label: "Manger sperme / Avaler (Cum eating)" },
+          { id: "face_fuck", label: "Face fucking / Gorge profonde" },
+          { id: "manger_sperme", label: "Manger sperme / Avaler" },
           { id: "crachat", label: "Crachat" },
-          { id: "uro", label: "Uro (Ondinisme / Douche dorée)" },
+          { id: "uro", label: "Uro (Douche dorée)" },
           { id: "scato", label: "Scato" }
         ]
       },
       {
         id: "cat_roles_fetish",
-        title: "6. Jeux de Rôles, Esthétique & Fétichismes",
+        title: "6. Jeux de Rôles & Fétichismes",
         items: [
           { id: "jeux_de_roles", label: "Jeux de Rôles" },
           { id: "mises_en_scene", label: "Mises en scène scénarisées" },
@@ -858,11 +785,11 @@
       },
       {
         id: "cat_taboo_group",
-        title: "7. Humiliation, Tabous, Médical & Groupe",
+        title: "7. Humiliation, Médical & Groupe",
         items: [
-          { id: "humiliations", label: "Humiliations verbales ou psychologiques" },
-          { id: "jeux_medicaux", label: "Jeux médicaux (examen, spéculum, lavement...)" },
-          { id: "marquage_temp", label: "Marquage ou perçage temporaire (aiguilles...)" },
+          { id: "humiliations", label: "Humiliations verbales / postures" },
+          { id: "jeux_medicaux", label: "Jeux médicaux" },
+          { id: "marquage_temp", label: "Marquage ou perçage temporaire" },
           { id: "marquage_perm", label: "Marquage ou perçage permanent" },
           { id: "photo_video", label: "Être photographié(e) / Filmé(e)" },
           { id: "exhibition", label: "Exhibition" },
@@ -873,33 +800,23 @@
       }
     ];
 
-    const ALLERGIES_LIST = ["Latex", "Silicone", "Cuir / Tannins", "Nickel / Métaux", "Cire / Parfums", "Huiles d'amande/arachide"];
-    const MEDICAL_LIST = ["Épaules sensibles", "Poignets / Canal carpien", "Genoux fragiles", "Lombaires / Dos", "Asthme / Souffle", "Troubles circulatoires", "Peau marquant très vite", "Claustrophobie"];
-    const AFTERCARE_LIST = ["Câlins & contact peau", "Couverture chaude", "Eau / Boisson sucrée", "Silence & calme", "Mots rassurants (Praise)", "Débriefing à froid"];
+    const ALLERGIES_LIST = ["Latex", "Silicone", "Cuir / Tannins", "Nickel / Métaux", "Cire / Parfums", "Huiles de massage"];
+    const MEDICAL_LIST = ["Épaules sensibles", "Poignets fragiles", "Genoux fragiles", "Lombaires / Dos", "Asthme / Souffle", "Peau marquant vite", "Claustrophobie"];
+    const AFTERCARE_LIST = ["Câlins & contact", "Couverture chaude", "Boisson sucrée / Eau", "Silence & calme", "Mots rassurants", "Débriefing vocal"];
 
-    // =========================================================================
-    // 2. ÉTAT DE L'APPLICATION & ORIENTATION PAR RÔLE
-    // =========================================================================
-    // Mapping entre le rôle général du profil et l'orientation par défaut des pratiques
+    // 2. GESTION DU RÔLE ET DE L'ORIENTATION PAR DÉFAUT (Silencieuse)
     function getDefaultDirectionForRole(role) {
-      if (role === "Dominant(e)") return "give";    // 👑 Donneur / Dom
-      if (role === "Soumis(e)") return "receive";   // ⛓️ Receveur / Sub
-      return "switch";                              // 🔄 Switch (pour Switch et En exploration)
-    }
-
-    function getDirectionLabel(dir) {
-      if (dir === "give") return "👑 Donneur / Dom";
-      if (dir === "receive") return "⛓️ Receveur / Sub";
-      return "🔄 Switch";
+      if (role === "Dominant(e)") return "give";
+      if (role === "Soumis(e)") return "receive";
+      return "switch";
     }
 
     let state = {
       pseudo: "",
       role: "Switch",
-      ratings: {},          // { id: 'yes' | 'curious' | 'neutral' | 'no' }
-      directions: {},       // { id: 'give' | 'receive' | 'switch' }
-      customDirections: {}, // { id: true } -> Indique si l'utilisateur a forcé manuellement une autre orientation que son rôle
-      selectedSubset: [],   // Pour le mode Questionnaire Ciblé
+      ratings: {},
+      directions: {},
+      customDirections: {},
       safety: {
         green: "Vert",
         orange: "Orange",
@@ -913,32 +830,15 @@
     };
 
     let activeRatingFilter = null;
-    let customQuestionnaireMode = false;
     let compareMode = "duo";
 
-    // =========================================================================
-    // 3. INITIALISATION
-    // =========================================================================
     window.addEventListener("DOMContentLoaded", () => {
       loadState();
-      updateRoleHintBanner();
       renderPractices();
       renderSafetyGrids();
       checkHashImport();
-
-      // Double Échap pour activer le Panic Mode au clavier
-      let lastEsc = 0;
-      window.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-          const now = Date.now();
-          if (now - lastEsc < 500) togglePanicMode();
-          lastEsc = now;
-        }
-      });
     });
 
-    // Quand l'utilisateur change son rôle général en haut de la page :
-    // Toutes les pratiques qui n'ont pas été verrouillées manuellement suivent le nouveau rôle
     function handleRoleChange() {
       const newRole = document.getElementById("user-role").value;
       state.role = newRole;
@@ -952,38 +852,13 @@
         });
       });
 
-      updateRoleHintBanner();
       saveState();
       renderPractices();
     }
 
-    // Bouton "Tout aligner sur mon rôle" : réinitialise toutes les exceptions manuelles
-    function applyRoleOrientationToAll() {
-      const defaultDir = getDefaultDirectionForRole(state.role);
-      state.customDirections = {};
-      KINK_CATEGORIES.forEach(cat => {
-        cat.items.forEach(item => {
-          state.directions[item.id] = defaultDir;
-        });
-      });
-      saveState();
-      renderPractices();
-    }
-
-    function updateRoleHintBanner() {
-      const defaultDir = getDefaultDirectionForRole(state.role);
-      const summaryEl = document.getElementById("role-orientation-summary");
-      if (summaryEl) {
-        summaryEl.innerHTML = `Orientation par défaut (${state.role}) : <strong>${getDirectionLabel(defaultDir)}</strong>`;
-      }
-    }
-
-    // =========================================================================
-    // 4. RENDU DE LA MATRICE DES PRATIQUES
-    // =========================================================================
+    // 3. RENDU DES PRATIQUES
     function renderPractices() {
       const container = document.getElementById("categories-container");
-      const query = (document.getElementById("search-input")?.value || "").toLowerCase().trim();
       container.innerHTML = "";
 
       let counts = { yes: 0, curious: 0, neutral: 0, no: 0 };
@@ -996,10 +871,8 @@
         });
 
         const visibleItems = cat.items.filter(item => {
-          const matchesSearch = item.label.toLowerCase().includes(query);
           const r = state.ratings[item.id] || "neutral";
-          const matchesFilter = !activeRatingFilter || r === activeRatingFilter;
-          return matchesSearch && matchesFilter;
+          return !activeRatingFilter || r === activeRatingFilter;
         });
 
         if (visibleItems.length === 0) return;
@@ -1009,38 +882,26 @@
 
         const rowsHtml = visibleItems.map(item => {
           const r = state.ratings[item.id] || "neutral";
-          // Si aucune direction enregistrée, on prend automatiquement celle correspondant au rôle du profil
           const dir = state.directions[item.id] || defaultRoleDir;
-          const isCustom = !!state.customDirections[item.id];
-          const isChecked = state.selectedSubset.includes(item.id);
 
           return `
             <div class="practice-row">
               <div class="practice-main">
-                <div class="practice-title-wrap">
-                  ${customQuestionnaireMode ? `
-                    <input type="checkbox" ${isChecked ? "checked" : ""} onchange="toggleSubsetItem('${item.id}')" style="accent-color:var(--gold); width:16px; height:16px; cursor:pointer;">
-                  ` : ""}
-                  <span class="practice-label">${item.label}</span>
-                </div>
+                <span class="practice-label">${item.label}</span>
                 <div class="rating-group">
-                  <button class="rate-btn ${r === 'yes' ? 'active-yes' : ''}" onclick="setRating('${item.id}', 'yes')" title="Oui / J'aime">🟢</button>
-                  <button class="rate-btn ${r === 'curious' ? 'active-curious' : ''}" onclick="setRating('${item.id}', 'curious')" title="Curieux / À découvrir">🟡</button>
-                  <button class="rate-btn ${r === 'neutral' ? 'active-neutral' : ''}" onclick="setRating('${item.id}', 'neutral')" title="Neutre / À discuter">⚪</button>
-                  <button class="rate-btn ${r === 'no' ? 'active-no' : ''}" onclick="setRating('${item.id}', 'no')" title="Non / Hard Limit">🔴</button>
+                  <button class="rate-btn ${r === 'yes' ? 'active-yes' : ''}" onclick="setRating('${item.id}', 'yes')" title="Oui">🟢</button>
+                  <button class="rate-btn ${r === 'curious' ? 'active-curious' : ''}" onclick="setRating('${item.id}', 'curious')" title="Curieux">🟡</button>
+                  <button class="rate-btn ${r === 'neutral' ? 'active-neutral' : ''}" onclick="setRating('${item.id}', 'neutral')" title="Neutre">⚪</button>
+                  <button class="rate-btn ${r === 'no' ? 'active-no' : ''}" onclick="setRating('${item.id}', 'no')" title="Hard Limit">🔴</button>
                 </div>
               </div>
               ${(r === "yes" || r === "curious") ? `
                 <div class="practice-nuance">
-                  <span class="nuance-label">
-                    Orientation :
-                    ${!isCustom ? `<span class="nuance-badge-auto">Auto (${state.role})</span>` : `<span class="nuance-badge-auto" style="color:#fda4af; border-color:rgba(253,164,175,0.4);">Personnalisé</span>`}
-                  </span>
+                  <span class="nuance-label">Position :</span>
                   <div class="nuance-pills">
-                    <button class="nuance-btn ${dir === 'give' ? 'active' : ''}" onclick="setDirection('${item.id}', 'give')">👑 Donneur / Dom</button>
-                    <button class="nuance-btn ${dir === 'receive' ? 'active' : ''}" onclick="setDirection('${item.id}', 'receive')">⛓️ Receveur / Sub</button>
+                    <button class="nuance-btn ${dir === 'give' ? 'active' : ''}" onclick="setDirection('${item.id}', 'give')">👑 Donneur</button>
+                    <button class="nuance-btn ${dir === 'receive' ? 'active' : ''}" onclick="setDirection('${item.id}', 'receive')">⛓️ Receveur</button>
                     <button class="nuance-btn ${dir === 'switch' ? 'active' : ''}" onclick="setDirection('${item.id}', 'switch')">🔄 Switch</button>
-                    ${isCustom ? `<button class="nuance-reset-btn" onclick="resetDirectionToRole('${item.id}')" title="Revenir au rôle du profil">↺ Auto</button>` : ""}
                   </div>
                 </div>
               ` : ""}
@@ -1051,7 +912,7 @@
         card.innerHTML = `
           <div class="cat-header">
             <h3>${cat.title}</h3>
-            <span class="cat-badge">${visibleItems.length} pratiques</span>
+            <span class="cat-badge">${visibleItems.length}</span>
           </div>
           <div>${rowsHtml}</div>
         `;
@@ -1062,12 +923,14 @@
       document.getElementById("count-curious").textContent = counts.curious;
       document.getElementById("count-neutral").textContent = counts.neutral;
       document.getElementById("count-no").textContent = counts.no;
-      document.getElementById("selected-count").textContent = state.selectedSubset.length;
+
+      ["yes", "curious", "neutral", "no"].forEach(k => {
+        document.getElementById(`pill-${k}`).classList.toggle("active-filter", activeRatingFilter === k);
+      });
     }
 
     function setRating(itemId, rating) {
       state.ratings[itemId] = rating;
-      // Si l'utilisateur coche Oui ou Curieux et qu'il n'avait pas personnalisé l'orientation, on applique celle du rôle
       if ((rating === "yes" || rating === "curious") && !state.customDirections[itemId]) {
         state.directions[itemId] = getDefaultDirectionForRole(state.role);
       }
@@ -1078,7 +941,6 @@
     function setDirection(itemId, dir) {
       state.directions[itemId] = dir;
       const defaultDir = getDefaultDirectionForRole(state.role);
-      // Si la direction choisie diffère du rôle par défaut, on marque l'exception manuelle
       if (dir !== defaultDir) {
         state.customDirections[itemId] = true;
       } else {
@@ -1088,35 +950,12 @@
       renderPractices();
     }
 
-    function resetDirectionToRole(itemId) {
-      delete state.customDirections[itemId];
-      state.directions[itemId] = getDefaultDirectionForRole(state.role);
-      saveState();
-      renderPractices();
-    }
-
     function filterByRating(rating) {
       activeRatingFilter = (activeRatingFilter === rating) ? null : rating;
       renderPractices();
     }
 
-    function toggleCustomQuestionnaireMode() {
-      customQuestionnaireMode = !customQuestionnaireMode;
-      document.getElementById("custom-mode-banner").style.display = customQuestionnaireMode ? "block" : "none";
-      renderPractices();
-    }
-
-    function toggleSubsetItem(id) {
-      const idx = state.selectedSubset.indexOf(id);
-      if (idx > -1) state.selectedSubset.splice(idx, 1);
-      else state.selectedSubset.push(id);
-      saveState();
-      document.getElementById("selected-count").textContent = state.selectedSubset.length;
-    }
-
-    // =========================================================================
-    // 5. SANTÉ, SÉCURITÉ & AFTERCARE
-    // =========================================================================
+    // 4. SANTÉ & SÉCURITÉ
     function renderSafetyGrids() {
       const makeGrid = (elId, list, key) => {
         const el = document.getElementById(elId);
@@ -1157,28 +996,26 @@
       saveState();
     }
 
-    // =========================================================================
-    // 6. COMPARATEUR AVANCÉ & SYNERGIES D/S
-    // =========================================================================
+    // 5. COMPARATEUR
     function setCompareMode(mode) {
       compareMode = mode;
       document.getElementById("btn-mode-duo").classList.toggle("active", mode === "duo");
       document.getElementById("btn-mode-ds").classList.toggle("active", mode === "ds");
       document.getElementById("mode-desc").textContent = mode === "duo"
-        ? "En mode Duo, seules vos envies communes (Oui & Curieux) sont révélées. Les refus restent strictement secrets."
-        : "En mode Protocole D/s, la fiche intégrale du/de la partenaire (incluant ses Hard Limits et sa santé) est affichée pour préparer la séance en sécurité.";
+        ? "Seules vos affinités mutuelles (Oui & Curieux) sont affichées. Les refus restent secrets."
+        : "Affiche l'intégralité du profil partenaire (incluant ses Hard Limits et sa fiche sécurité) pour préparer la séance.";
     }
 
     function runComparison() {
       const rawInput = document.getElementById("partner-code-input").value.trim();
-      if (!rawInput) return alert("Colle d'abord le lien ou le code de ton/ta partenaire.");
+      if (!rawInput) return alert("Colle d'abord le lien ou le code reçu.");
 
       let partner = null;
       try {
         const clean = rawInput.includes("#profile=") ? rawInput.split("#profile=")[1] : rawInput;
         partner = JSON.parse(decodeURIComponent(atob(clean)));
       } catch (e) {
-        return alert("Ce code ou lien est invalide ou incomplet.");
+        return alert("Ce lien ou code est invalide.");
       }
 
       const myName = state.pseudo || "Moi";
@@ -1231,7 +1068,6 @@
         catScores.push({ title: cat.title.replace(/^\d+\.\s*/, ""), pct });
       });
 
-      // Synergie spéciale Exhibition / Voyeurisme
       const uEx = state.ratings["exhibition"], pVoy = partner.ratings?.["voyeurisme"];
       const pEx = partner.ratings?.["exhibition"], uVoy = state.ratings["voyeurisme"];
       if ((uEx === "yes" || uEx === "curious") && (pVoy === "yes" || pVoy === "curious")) {
@@ -1248,63 +1084,56 @@
         <div class="card">
           <div class="score-banner">
             <div>
-              <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--gold);">Indice d'Harmonie KinkSync</div>
-              <div style="font-size:1.15rem; font-weight:700; margin-top:2px;">${myName} (${state.role}) ✦ ${pName} (${partner.role || 'Switch'})</div>
-              <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Mode : ${compareMode === 'duo' ? 'Duo (Double Aveugle)' : 'Protocole D/s (Complet)'}</div>
+              <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--burgundy); font-weight:700;">Compatibilité</div>
+              <div style="font-size:1.1rem; font-weight:700; margin-top:2px;">${myName} (${state.role}) ✦ ${pName} (${partner.role || 'Switch'})</div>
             </div>
             <div class="score-circle">${globalScore}%</div>
           </div>
 
-          <!-- Radar par catégorie -->
           <div style="margin-bottom:16px;">
-            <div style="font-size:0.8rem; font-weight:600; color:var(--gold-light); margin-bottom:8px;">Affinités par Sphère :</div>
             ${catScores.map(c => `
               <div class="cat-bar-row">
                 <div class="cat-bar-label"><span>${c.title}</span><span>${c.pct}%</span></div>
-                <div class="cat-bar-track"><div class="cat-bar-fill" style="width:${c.pct}%"></div></div>
+                <div class="cat-bar-track"><div class="cat-bar-fill" style="width:\${c.pct}%"></div></div>
               </div>
             `).join("")}
           </div>
 
-          <!-- Matchs Parfaits -->
           <div style="margin-bottom:14px;">
-            <div style="font-size:0.85rem; font-weight:700; color:#6ee7b7;">🟢 Pratiques Validées à Deux (${mutualYes.length})</div>
-            ${mutualYes.length ? `<div class="tag-list">${mutualYes.map(t => `<span class="tag tag-yes">${t}</span>`).join("")}</div>` : `<p style="font-size:0.76rem; color:var(--text-muted); margin-top:4px;">Aucun "Oui" mutuel pour l'instant.</p>`}
+            <div style="font-size:0.85rem; font-weight:700; color:var(--yes);">🟢 Pratiques Aimées en Commun (${mutualYes.length})</div>
+            ${mutualYes.length ? `<div class="tag-list">\${mutualYes.map(t => `<span class="tag tag-yes">${t}</span>`).join("")}</div>` : `<p style="font-size:0.78rem; color:var(--text-muted); margin-top:4px;">Aucun "Oui" mutuel pour l'instant.</p>`}
           </div>
 
-          <!-- Synergies Dom/Sub -->
           ${synergies.length ? `
             <div style="margin-bottom:14px;">
-              <div style="font-size:0.85rem; font-weight:700; color:var(--gold-light);">⚡ Complémentarités Donneur / Receveur (${synergies.length})</div>
-              <div class="tag-list">${synergies.map(s => `<span class="tag tag-synergy">${s}</span>`).join("")}</div>
+              <div style="font-size:0.85rem; font-weight:700; color:var(--burgundy);">⚡ Complémentarités Donneur / Receveur (\${synergies.length})</div>
+              <div class="tag-list">\${synergies.map(s => `<span class="tag tag-synergy">${s}</span>`).join("")}</div>
             </div>
           ` : ""}
 
-          <!-- Terrains d'exploration -->
           <div style="margin-bottom:14px;">
-            <div style="font-size:0.85rem; font-weight:700; color:#fcd34d;">🟡 Terrains de Curiosité Partagée (${mutualExplore.length})</div>
-            ${mutualExplore.length ? `<div class="tag-list">${mutualExplore.map(t => `<span class="tag tag-curious">${t}</span>`).join("")}</div>` : `<p style="font-size:0.76rem; color:var(--text-muted); margin-top:4px;">Aucune pratique en exploration croisée.</p>`}
+            <div style="font-size:0.85rem; font-weight:700; color:var(--curious);">🟡 À Explorer Ensemble (${mutualExplore.length})</div>
+            ${mutualExplore.length ? `<div class="tag-list">\${mutualExplore.map(t => `<span class="tag tag-curious">${t}</span>`).join("")}</div>` : `<p style="font-size:0.78rem; color:var(--text-muted); margin-top:4px;">Aucune pratique en curiosité croisée.</p>`}
           </div>
 
           ${compareMode === "ds" ? `
-            <hr style="border:none; border-top:1px solid var(--border-subtle); margin:16px 0;">
+            <hr style="border:none; border-top:1px solid var(--border-light); margin:16px 0;">
             <div style="margin-bottom:14px;">
-              <div style="font-size:0.85rem; font-weight:700; color:#fda4af;">🔴 Hard Limits Absolues de ${pName} (${pHardLimits.length})</div>
-              ${pHardLimits.length ? `<div class="tag-list">${pHardLimits.map(t => `<span class="tag tag-no">${t}</span>`).join("")}</div>` : `<p style="font-size:0.76rem; color:var(--text-muted); margin-top:4px;">Aucune Hard Limit cochée.</p>`}
+              <div style="font-size:0.85rem; font-weight:700; color:var(--no);">🔴 Hard Limits de \${pName} (${pHardLimits.length})</div>${pHardLimits.length ? `<div class="tag-list">${pHardLimits.map(t => `<span class="tag tag-no">\${t}</span>`).join("")}</div>` : `<p style="font-size:0.78rem; color:var(--text-muted); margin-top:4px;">Aucune Hard Limit cochée.</p>`}
             </div>
 
-            <div style="background:var(--bg-input); border:1px solid var(--border-subtle); border-radius:10px; padding:12px; font-size:0.78rem; line-height:1.7;">
-              <div style="font-weight:700; color:var(--gold-light); margin-bottom:4px;">📋 Fiche Sécurité & Santé de ${pName}</div>
+            <div style="background:var(--bg-input); border:1px solid var(--border-light); border-radius:12px; padding:14px; font-size:0.8rem; line-height:1.7;">
+              <div style="font-weight:700; color:var(--burgundy); margin-bottom:4px;">📋 Fiche Sécurité & Santé de ${pName}</div>
               <div><strong>Safewords :</strong> Vert = "${partner.safety?.green || 'Vert'}" | Orange = "${partner.safety?.orange || 'Orange'}" | Rouge = "${partner.safety?.red || 'Rouge'}"</div>
               <div><strong>Signal Non-Verbal :</strong> ${partner.safety?.nonverbal || 'Non précisé'}</div>
               <div><strong>Allergies :</strong> ${(partner.safety?.allergies || []).join(", ") || 'Aucune signalée'}</div>
-              <div><strong>Vigilances Physiques :</strong> ${(partner.safety?.medical || []).join(", ") || 'Aucune signalée'}</div>
-              <div><strong>Aftercare souhaité :</strong> ${(partner.safety?.aftercare || []).join(", ") || 'Non précisé'}</div>
-              ${partner.safety?.notes ? `<div style="margin-top:6px; font-style:italic; color:var(--gold-light);">" ${partner.safety.notes} "</div>` : ""}
+              <div><strong>Fragilités :</strong> ${(partner.safety?.medical || []).join(", ") || 'Aucune signalée'}</div>
+              <div><strong>Aftercare :</strong> ${(partner.safety?.aftercare || []).join(", ") || 'Non précisé'}</div>
+              ${partner.safety?.notes ? `<div style="margin-top:6px; font-style:italic; color:var(--burgundy);">" ${partner.safety.notes} "</div>` : ""}
             </div>
 
             <div style="margin-top:14px; text-align:right;" class="no-print">
-              <button class="btn btn-ghost" onclick="window.print()">🖨️ Imprimer / Exporter le Protocole PDF</button>
+              <button class="btn btn-ghost" onclick="window.print()">🖨️ Imprimer / PDF</button>
             </div>
           ` : ""}
         </div>
@@ -1328,10 +1157,10 @@
         },
         safety: {
           green: "Vert", orange: "Orange", red: "Rouge",
-          nonverbal: "Lâcher la balle ou taper 3 fois de la main",
+          nonverbal: "Lâcher l'objet en main ou taper 3 fois",
           allergies: ["Latex"],
-          medical: ["Poignets / Canal carpien"],
-          aftercare: ["Câlins & contact peau", "Couverture chaude", "Eau / Boisson sucrée"],
+          medical: ["Poignets fragiles"],
+          aftercare: ["Câlins & contact", "Couverture chaude", "Boisson sucrée / Eau"],
           notes: "Attention aux attaches trop serrées sur le poignet gauche."
         }
       };
@@ -1340,14 +1169,13 @@
       runComparison();
     }
 
-    // =========================================================================
-    // 7. PARTAGE, STOCKAGE & PANIC MODE
-    // =========================================================================
+    // 6. NAVIGATION & PARTAGE
     function switchTab(tab) {
       document.querySelectorAll(".view-section").forEach(s => s.classList.remove("active"));
       document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
       document.getElementById(`view-${tab}`).classList.add("active");
       document.getElementById(`tab-${tab}`).classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function openShareModal() {
@@ -1367,13 +1195,13 @@
       navigator.clipboard.writeText(input.value);
       const btn = document.getElementById("btn-copy-link");
       btn.textContent = "✓ Lien copié !";
-      setTimeout(() => btn.textContent = "Copier le lien complet", 2000);
+      setTimeout(() => btn.textContent = "Copier le lien", 2000);
     }
 
     function copyRawCode() {
       const payload = btoa(encodeURIComponent(JSON.stringify(state)));
       navigator.clipboard.writeText(payload);
-      alert("Code brut copié dans le presse-papier !");
+      alert("Code copié !");
     }
 
     function checkHashImport() {
@@ -1383,12 +1211,6 @@
         switchTab("compare");
         runComparison();
       }
-    }
-
-    function togglePanicMode() {
-      const cam = document.getElementById("camouflage-screen");
-      cam.classList.toggle("active");
-      document.title = cam.classList.contains("active") ? "Mes Notes & Courses" : "KinkSync — Accords, Désirs & Limites";
     }
 
     function saveState() {
