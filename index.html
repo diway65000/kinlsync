@@ -1,1247 +1,222 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#FAF7F5">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <title>KinkSync — Accords, Désirs & Limites</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-page: #FAF7F5;
-      --bg-card: #FFFFFF;
-      --bg-soft: #F3ECE7;
-      --bg-input: #F9F6F4;
-      --border-light: #E6DCD5;
-      --border-accent: #D5C3B8;
-      --burgundy: #7A1C32;
-      --burgundy-soft: #9E2A45;
-      --gold: #B08A45;
-      --text-main: #231B20;
-      --text-muted: #73656C;
-      --yes: #0D9488;
-      --curious: #D97706;
-      --neutral: #94A3B8;
-      --no: #E11D48;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
-    body {
-      background-color: var(--bg-page);
-      color: var(--text-main);
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      min-height: 100vh;
-      padding-bottom: 80px;
-      line-height: 1.5;
-    }
-
-    h1, h2, h3 {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      letter-spacing: 0.01em;
-    }
-
-    /* En-tête épuré et lumineux */
-    header {
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-light);
-      padding: 14px 16px 12px;
-      position: sticky;
-      top: 0;
-      z-index: 50;
-    }
-    .header-inner {
-      max-width: 680px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .brand-logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      background: linear-gradient(145deg, var(--burgundy), #4E0E1E);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(122, 28, 50, 0.18);
-      flex-shrink: 0;
-    }
-    .brand-text h1 {
-      font-size: 1.55rem;
-      font-weight: 700;
-      color: var(--burgundy);
-      line-height: 1.05;
-    }
-    .brand-text span {
-      display: block;
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn {
-      border: 1px solid transparent;
-      border-radius: 10px;
-      padding: 9px 14px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-family: inherit;
-    }
-    .btn-primary {
-      background: var(--burgundy);
-      color: #FFFFFF;
-      box-shadow: 0 3px 10px rgba(122, 28, 50, 0.2);
-    }
-    .btn-primary:active { transform: scale(0.97); }
-    .btn-ghost {
-      background: var(--bg-soft);
-      border-color: var(--border-light);
-      color: var(--text-muted);
-      padding: 9px 11px;
-    }
-
-    /* Barre de 3 Onglets ultra-visible (Segmented Control) */
-    .tabs-wrapper {
-      max-width: 680px;
-      margin: 14px auto 0;
-      padding: 0 14px;
-    }
-    .tabs-bar {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      background: var(--bg-soft);
-      padding: 4px;
-      border-radius: 12px;
-      border: 1px solid var(--border-light);
-      gap: 4px;
-    }
-    .tab-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      padding: 10px 4px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      border-radius: 9px;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.2s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 2px;
-    }
-    .tab-btn .tab-step {
-      font-size: 0.62rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      opacity: 0.75;
-    }
-    .tab-btn.active {
-      background: var(--bg-card);
-      color: var(--burgundy);
-      box-shadow: 0 2px 8px rgba(35, 27, 32, 0.08);
-      font-weight: 700;
-    }
-
-    /* Conteneur Principal */
-    main {
-      max-width: 680px;
-      margin: 16px auto 0;
-      padding: 0 14px;
-    }
-    .view-section { display: none; }
-    .view-section.active { display: block; }
-
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-light);
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 16px;
-      box-shadow: 0 4px 20px rgba(35, 27, 32, 0.04);
-    }
-
-    /* Profil épuré (50% / 50%) */
-    .profile-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    .field-label {
-      display: block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    input[type="text"], select, textarea {
-      background: var(--bg-input);
-      border: 1px solid var(--border-light);
-      color: var(--text-main);
-      padding: 10px 12px;
-      border-radius: 10px;
-      font-size: 0.85rem;
-      width: 100%;
-      outline: none;
-      font-family: inherit;
-      transition: border-color 0.2s, background 0.2s;
-    }
-    input:focus, select:focus, textarea:focus {
-      border-color: var(--burgundy);
-      background: #FFFFFF;
-    }
-
-    /* Filtres rapides par statut (compact et aéré) */
-    .stats-bar {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin-bottom: 18px;
-    }
-    .stat-pill {
-      padding: 8px 4px;
-      border-radius: 11px;
-      text-align: center;
-      font-size: 0.72rem;
-      font-weight: 600;
-      background: var(--bg-card);
-      border: 1px solid var(--border-light);
-      color: var(--text-main);
-      cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
-      transition: all 0.15s;
-    }
-    .stat-pill.active-filter {
-      border-color: var(--burgundy);
-      background: #FDF8F9;
-      transform: translateY(-1px);
-    }
-    .stat-pill span {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 700;
-      margin-top: 2px;
-    }
-
-    /* Catégories & Lignes de pratiques aérées */
-    .cat-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-light);
-      border-radius: 16px;
-      overflow: hidden;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 18px rgba(35, 27, 32, 0.03);
-    }
-    .cat-header {
-      background: linear-gradient(90deg, #F7EFEA 0%, #FFFFFF 100%);
-      padding: 14px 16px;
-      border-bottom: 1px solid var(--border-light);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
-    .cat-header h3 {
-      font-size: 1.18rem;
-      color: var(--burgundy);
-      font-weight: 700;
-      line-height: 1.25;
-    }
-    .cat-badge {
-      font-size: 0.68rem;
-      color: var(--text-muted);
-      background: var(--bg-card);
-      padding: 3px 9px;
-      border-radius: 99px;
-      border: 1px solid var(--border-light);
-      white-space: nowrap;
-      font-weight: 600;
-    }
-
-    .practice-row {
-      padding: 14px 16px;
-      border-bottom: 1px solid #F1EAE4;
-    }
-    .practice-row:last-child { border-bottom: none; }
-    .practice-main {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-    .practice-label {
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: var(--text-main);
-      line-height: 1.35;
-    }
-    .rating-group {
-      display: flex;
-      gap: 6px;
-      flex-shrink: 0;
-    }
-    .rate-btn {
-      width: 34px;
-      height: 34px;
-      border-radius: 9px;
-      border: 1px solid var(--border-light);
-      background: var(--bg-input);
-      cursor: pointer;
-      font-size: 0.82rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.15s ease;
-      opacity: 0.45;
-    }
-    .rate-btn.active-yes { background: #E6F7F5; border-color: var(--yes); opacity: 1; transform: scale(1.06); }
-    .rate-btn.active-curious { background: #FEF3C7; border-color: var(--curious); opacity: 1; transform: scale(1.06); }
-    .rate-btn.active-neutral { background: #F1F5F9; border-color: #64748B; opacity: 1; }
-    .rate-btn.active-no { background: #FFE4E6; border-color: var(--no); opacity: 1; transform: scale(1.06); }
-
-    /* Sous-sélection Donneur / Receveur / Switch (Discrète et élégante) */
-    .practice-nuance {
-      margin-top: 10px;
-      padding-top: 8px;
-      border-top: 1px dashed var(--border-light);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-    .nuance-label {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-    .nuance-pills {
-      display: flex;
-      gap: 5px;
-    }
-    .nuance-btn {
-      font-size: 0.7rem;
-      padding: 4px 10px;
-      border-radius: 7px;
-      background: var(--bg-input);
-      border: 1px solid var(--border-light);
-      color: var(--text-muted);
-      cursor: pointer;
-      font-weight: 500;
-    }
-    .nuance-btn.active {
-      background: var(--burgundy);
-      border-color: var(--burgundy);
-      color: #FFFFFF;
-      font-weight: 600;
-    }
-
-    /* Santé & Sécurité */
-    .section-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--burgundy);
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .check-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
-      gap: 8px;
-      margin-top: 10px;
-    }
-    .check-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 12px;
-      background: var(--bg-input);
-      border: 1px solid var(--border-light);
-      border-radius: 10px;
-      font-size: 0.8rem;
-      cursor: pointer;
-    }
-    .check-item input { accent-color: var(--burgundy); width: 16px; height: 16px; }
-
-    /* Comparateur */
-    .mode-switch {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin: 12px 0;
-    }
-    .mode-btn {
-      padding: 11px 8px;
-      border-radius: 10px;
-      border: 1px solid var(--border-light);
-      background: var(--bg-input);
-      color: var(--text-muted);
-      font-size: 0.78rem;
-      font-weight: 600;
-      cursor: pointer;
-      text-align: center;
-    }
-    .mode-btn.active {
-      border-color: var(--burgundy);
-      background: #FDF4F6;
-      color: var(--burgundy);
-    }
-
-    .score-banner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: linear-gradient(135deg, #FDF6F7, #F9EFEA);
-      border: 1px solid var(--border-accent);
-      padding: 16px;
-      border-radius: 14px;
-      margin-bottom: 16px;
-    }
-    .score-circle {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.3rem;
-      font-weight: 700;
-      color: var(--burgundy);
-    }
-
-    .tag-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 8px;
-    }
-    .tag {
-      font-size: 0.75rem;
-      padding: 5px 11px;
-      border-radius: 8px;
-      font-weight: 600;
-    }
-    .tag-yes { background: #E6F7F5; border: 1px solid #99E6DC; color: #0F766E; }
-    .tag-curious { background: #FEF3C7; border: 1px solid #FCD34D; color: #92400E; }
-    .tag-no { background: #FFE4E6; border: 1px solid #FDA4AF; color: #9F1239; }
-    .tag-synergy { background: #FDF4F6; border: 1px solid var(--burgundy); color: var(--burgundy); }
-
-    .cat-bar-row { margin-bottom: 9px; }
-    .cat-bar-label {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.75rem;
-      margin-bottom: 4px;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-    .cat-bar-track {
-      height: 7px;
-      background: var(--bg-soft);
-      border-radius: 99px;
-      overflow: hidden;
-    }
-    .cat-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--burgundy), var(--gold));
-      border-radius: 99px;
-    }
-
-    /* Modal de Partage */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(35, 27, 32, 0.55);
-      backdrop-filter: blur(4px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      z-index: 100;
-    }
-    .modal-backdrop.open { display: flex; }
-    .modal-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border-light);
-      border-radius: 18px;
-      max-width: 420px;
-      width: 100%;
-      padding: 22px;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
-    }
-
-    @media print {
-      header, .tabs-wrapper, .no-print { display: none !important; }
-      body { background: #fff; }
-      .card { box-shadow: none; border: 1px solid #ccc; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>KinkSync</title>
+<style>
+:root{--bg:#FAF7F5;--card:#FFF;--soft:#F3ECE7;--inp:#F9F6F4;--bdr:#E6DCD5;--burg:#7A1C32;--txt:#231B20;--mut:#73656C;--yes:#0D9488;--cur:#D97706;--no:#E11D48}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding-bottom:60px}
+header{background:#FFF;border-bottom:1px solid var(--bdr);padding:12px 16px;position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center}
+h1{font-size:1.35rem;color:var(--burg);font-weight:800;letter-spacing:-0.02em}
+.sub{font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--mut);display:block}
+.btn{border:1px solid transparent;border-radius:9px;padding:8px 12px;font-size:0.76rem;font-weight:600;cursor:pointer;background:var(--burg);color:#FFF}
+.btn-g{background:var(--soft);border-color:var(--bdr);color:var(--txt)}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);background:var(--soft);padding:4px;border-radius:11px;border:1px solid var(--bdr);margin:12px 14px;gap:4px}
+.tbtn{background:transparent;border:none;color:var(--mut);padding:9px 2px;font-size:0.75rem;font-weight:600;border-radius:8px;cursor:pointer}
+.tbtn.act{background:#FFF;color:var(--burg);box-shadow:0 2px 5px rgba(0,0,0,0.06);font-weight:700}
+main{max-width:600px;margin:0 auto;padding:0 14px}
+.sec{display:none}.sec.act{display:block}
+.card{background:#FFF;border:1px solid var(--bdr);border-radius:14px;padding:14px;margin-bottom:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label.lbl{display:block;font-size:0.68rem;font-weight:700;color:var(--mut);margin-bottom:4px;text-transform:uppercase}
+input[type=text],select,textarea{background:var(--inp);border:1px solid var(--bdr);color:var(--txt);padding:9px;border-radius:8px;font-size:0.84rem;width:100%}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px;text-align:center}
+.sp{background:#FFF;border:1px solid var(--bdr);border-radius:10px;padding:7px 2px;font-size:0.7rem;font-weight:600;cursor:pointer}
+.sp b{display:block;font-size:0.88rem;margin-top:2px}
+.cat{background:#FFF;border:1px solid var(--bdr);border-radius:14px;overflow:hidden;margin-bottom:14px}
+.cat-h{background:#F7EFEA;padding:11px 14px;border-bottom:1px solid var(--bdr);font-weight:700;color:var(--burg);font-size:0.95rem}
+.row{padding:11px 14px;border-bottom:1px solid #F1EAE4}
+.row:last-child{border-bottom:none}
+.rmain{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.rname{font-size:0.84rem;font-weight:500}
+.rbtns{display:flex;gap:4px;flex-shrink:0}
+.rb{width:32px;height:32px;border-radius:8px;border:1px solid var(--bdr);background:var(--inp);cursor:pointer;font-size:0.78rem;opacity:0.35}
+.rb.on-yes{background:#E6F7F5;border-color:var(--yes);opacity:1}
+.rb.on-cur{background:#FEF3C7;border-color:var(--cur);opacity:1}
+.rb.on-neu{background:#F1F5F9;border-color:#64748B;opacity:1}
+.rb.on-no{background:#FFE4E6;border-color:var(--no);opacity:1}
+.pos{margin-top:8px;padding-top:6px;border-top:1px dashed var(--bdr);display:none;justify-content:space-between;align-items:center;font-size:0.7rem;color:var(--mut)}
+.pos.show{display:flex}
+.pb{font-size:0.68rem;padding:3px 8px;border-radius:6px;border:1px solid var(--bdr);background:var(--inp);color:var(--mut);cursor:pointer;margin-left:3px}
+.pb.on{background:var(--burg);color:#FFF;border-color:var(--burg);font-weight:600}
+.chk-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+.chk{display:flex;align-items:center;gap:6px;padding:8px;background:var(--inp);border:1px solid var(--bdr);border-radius:8px;font-size:0.76rem}
+.tag{display:inline-block;font-size:0.73rem;padding:4px 8px;border-radius:6px;margin:2px;font-weight:600}
+.t-yes{background:#E6F7F5;color:#0F766E}.t-cur{background:#FEF3C7;color:#92400E}.t-no{background:#FFE4E6;color:#9F1239}.t-syn{background:#FDF4F6;border:1px solid var(--burg);color:var(--burg)}
+</style>
 </head>
 <body>
-
-  <!-- EN-TÊTE ÉPURÉ -->
-  <header>
-    <div class="header-inner">
-      <div class="brand">
-        <div class="brand-logo" title="KinkSync">
-          <svg width="24" height="24" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M18 3L31 16L18 29L5 16L18 3Z" stroke="#F3E5AB" stroke-width="2.2" stroke-linejoin="round"/>
-            <path d="M11 10L25 24M25 10L11 24" stroke="#D4AF37" stroke-width="1.8" stroke-linecap="round"/>
-            <circle cx="18" cy="15" r="3" fill="#F3E5AB"/>
-            <path d="M16.5 17.5L15.5 23H20.5L19.5 17.5" fill="#F3E5AB"/>
-          </svg>
-        </div>
-        <div class="brand-text">
-          <h1>KinkSync</h1>
-          <span>Accords, Désirs & Limites</span>
-        </div>
-      </div>
-
-      <div class="header-actions">
-        <button class="btn btn-ghost" onclick="resetAll()" title="Réinitialiser mes réponses">
-          ↺
-        </button>
-        <button class="btn btn-primary" onclick="openShareModal()">
-          ✦ Partager
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- NAVIGATION À 3 ONGLETS TOUJOURS VISIBLES -->
-  <div class="tabs-wrapper">
-    <nav class="tabs-bar">
-      <button class="tab-btn active" id="tab-practices" onclick="switchTab('practices')">
-        <span class="tab-step">Étape 1</span>
-        <span>❖ Pratiques</span>
-      </button>
-      <button class="tab-btn" id="tab-safety" onclick="switchTab('safety')">
-        <span class="tab-step">Étape 2</span>
-        <span>⚕️ Sécurité</span>
-      </button>
-      <button class="tab-btn" id="tab-compare" onclick="switchTab('compare')">
-        <span class="tab-step">Étape 3</span>
-        <span>⚡ Comparer</span>
-      </button>
-    </nav>
+<header>
+  <div><h1>KinkSync</h1><span class="sub">Accords, Désirs & Limites</span></div>
+  <div style="display:flex;gap:6px">
+    <button class="btn btn-g" onclick="resetApp()">↺</button>
+    <button class="btn" onclick="shareApp()">Partager</button>
   </div>
-
-  <!-- CONTENU PRINCIPAL -->
-  <main>
-
-    <!-- ONGLET 1 : PRATIQUES -->
-    <section id="view-practices" class="view-section active">
-      <div class="card">
-        <div class="profile-grid">
-          <div>
-            <label class="field-label" for="user-pseudo">Mon Pseudo</label>
-            <input type="text" id="user-pseudo" placeholder="Ex: S." oninput="updateProfile()">
-          </div>
-          <div>
-            <label class="field-label" for="user-role">Mon Rôle</label>
-            <select id="user-role" onchange="handleRoleChange()">
-              <option value="Dominant(e)">Dominant(e)</option>
-              <option value="Soumis(e)">Soumis(e)</option>
-              <option value="Switch" selected>Switch</option>
-              <option value="Curieux(se)">En exploration</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <!-- Compteurs & Légende cliquable -->
-      <div class="stats-bar">
-        <div class="stat-pill" id="pill-yes" onclick="filterByRating('yes')">
-          🟢 Oui <span id="count-yes">0</span>
-        </div>
-        <div class="stat-pill" id="pill-curious" onclick="filterByRating('curious')">
-          🟡 Curieux <span id="count-curious">0</span>
-        </div>
-        <div class="stat-pill" id="pill-neutral" onclick="filterByRating('neutral')">
-          ⚪ Neutre <span id="count-neutral">0</span>
-        </div>
-        <div class="stat-pill" id="pill-no" onclick="filterByRating('no')">
-          🔴 Limit <span id="count-no">0</span>
-        </div>
-      </div>
-
-      <div id="categories-container"></div>
-    </section>
-
-    <!-- ONGLET 2 : SANTÉ & SÉCURITÉ -->
-    <section id="view-safety" class="view-section">
-      <div class="card">
-        <div class="section-title">🚦 Safewords (Mots d'arrêt)</div>
-        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">
-          Signaux convenus pour moduler ou interrompre immédiatement une séance.
-        </p>
-        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; margin-bottom:12px;">
-          <div>
-            <label class="field-label" style="color:var(--yes);">Vert</label>
-            <input type="text" id="safe-green" value="Vert" oninput="saveSafety()">
-          </div>
-          <div>
-            <label class="field-label" style="color:var(--curious);">Orange</label>
-            <input type="text" id="safe-orange" value="Orange" oninput="saveSafety()">
-          </div>
-          <div>
-            <label class="field-label" style="color:var(--no);">Rouge</label>
-            <input type="text" id="safe-red" value="Rouge" oninput="saveSafety()">
-          </div>
-        </div>
+</header>
+<div class="tabs">
+  <button class="tbtn act" id="tb-1" onclick="goTab(1)">1. Pratiques</button>
+  <button class="tbtn" id="tb-2" onclick="goTab(2)">2. Sécurité</button>
+  <button class="tbtn" id="tb-3" onclick="goTab(3)">3. Comparer</button>
+</div>
+<main>
+  <div id="sec-1" class="sec act">
+    <div class="card">
+      <div class="grid2">
+        <div><label class="lbl">Mon Pseudo</label><input type="text" id="pseudo" placeholder="Ex: S." oninput="save()"></div>
         <div>
-          <label class="field-label">🔔 Signal Non-Verbal (si bâillonné)</label>
-          <input type="text" id="safe-nonverbal" placeholder="Ex: Lâcher un objet, taper 3 fois..." oninput="saveSafety()">
+          <label class="lbl">Mon Rôle</label>
+          <select id="role" onchange="changeRole()">
+            <option value="Dominant(e)">Dominant(e)</option>
+            <option value="Soumis(e)">Soumis(e)</option>
+            <option value="Switch" selected>Switch</option>
+            <option value="Exploration">En exploration</option>
+          </select>
         </div>
-      </div>
-
-      <div class="card">
-        <div class="section-title">⚠️ Allergies & Intolérances</div>
-        <div id="allergies-grid" class="check-grid"></div>
-      </div>
-
-      <div class="card">
-        <div class="section-title">🩺 Fragilités Physiques</div>
-        <div id="medical-grid" class="check-grid"></div>
-      </div>
-
-      <div class="card">
-        <div class="section-title">🕯️ Besoins d'Aftercare</div>
-        <div id="aftercare-grid" class="check-grid"></div>
-      </div>
-
-      <div class="card">
-        <div class="section-title">🖋️ Notes & Limites Spécifiques</div>
-        <textarea id="safety-notes" rows="3" placeholder="Précise ici toute phobie, zone intouchable ou condition particulière..." oninput="saveSafety()"></textarea>
-      </div>
-    </section>
-
-    <!-- ONGLET 3 : COMPARATEUR -->
-    <section id="view-compare" class="view-section">
-      <div class="card no-print">
-        <div class="section-title">⚡ Comparer deux profils</div>
-        <p style="font-size:0.8rem; color:var(--text-muted);">
-          Choisis le mode de lecture puis colle le lien ou le code envoyé par ton/ta partenaire.
-        </p>
-
-        <div class="mode-switch">
-          <button class="mode-btn active" id="btn-mode-duo" onclick="setCompareMode('duo')">
-            🥂 Duo (Points communs)
-          </button>
-          <button class="mode-btn" id="btn-mode-ds" onclick="setCompareMode('ds')">
-            ⛓️ Protocole D/s (Complet)
-          </button>
-        </div>
-        <p id="mode-desc" style="font-size:0.75rem; color:var(--text-muted); margin-bottom:12px; font-style:italic;">
-          Seules vos affinités mutuelles (Oui & Curieux) sont affichées. Les refus restent secrets.
-        </p>
-
-        <textarea id="partner-code-input" rows="2" placeholder="Colle ici le lien ou code reçu..." style="font-family:monospace; font-size:0.76rem; margin-bottom:10px;"></textarea>
-        
-        <div style="display:flex; gap:8px; flex-wrap:wrap;">
-          <button class="btn btn-primary" style="flex:1; justify-content:center;" onclick="runComparison()">
-            Voir les affinités
-          </button>
-          <button class="btn btn-ghost" onclick="loadDemoPartner()">
-            Essai démo
-          </button>
-        </div>
-      </div>
-
-      <div id="comparison-output"></div>
-    </section>
-
-  </main>
-
-  <!-- MODAL DE PARTAGE -->
-  <div class="modal-backdrop" id="share-modal">
-    <div class="modal-box">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-        <h3 style="font-size:1.35rem; color:var(--burgundy);">Partager mes réponses</h3>
-        <button class="btn btn-ghost" onclick="closeShareModal()">✕</button>
-      </div>
-      <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">
-        Envoie ce lien à ton/ta partenaire. En cliquant dessus, votre comparaison s'affichera directement.
-      </p>
-      <input type="text" id="share-url-output" readonly style="font-family:monospace; font-size:0.74rem; margin-bottom:12px;">
-      <div style="display:flex; gap:8px;">
-        <button class="btn btn-primary" style="flex:1; justify-content:center;" id="btn-copy-link" onclick="copyShareLink()">
-          Copier le lien
-        </button>
-        <button class="btn btn-ghost" onclick="copyRawCode()">
-          Code seul
-        </button>
       </div>
     </div>
+    <div class="stats">
+      <div class="sp" onclick="flt('yes')">🟢 Oui <b id="c-yes">0</b></div>
+      <div class="sp" onclick="flt('cur')">🟡 Curieux <b id="c-cur">0</b></div>
+      <div class="sp" onclick="flt('neu')">⚪ Neutre <b id="c-neu">46</b></div>
+      <div class="sp" onclick="flt('no')">🔴 Limit <b id="c-no">0</b></div>
+    </div>
+    <div id="list-box"></div>
   </div>
-
-  <script>
-    // 1. LISTE DES 46 PRATIQUES
-    const KINK_CATEGORIES = [
-      {
-        id: "cat_ds",
-        title: "1. Dynamiques & Contrôle Mental",
-        items: [
-          { id: "collier_laisse", label: "Collier et laisse" },
-          { id: "discipline", label: "Discipline & Règles strictes" },
-          { id: "postures", label: "Positions et attitudes imposées" },
-          { id: "esclave", label: "Dynamique Maître(sse) / Esclave" },
-          { id: "frustration", label: "Frustration sexuelle" },
-          { id: "cocufication", label: "Cocufication (Cuckolding / Cuckquean)" },
-          { id: "gay_impose", label: "Gay imposé / Initiation bi guidée" }
-        ]
-      },
-      {
-        id: "cat_bondage",
-        title: "2. Entraves, Attaches & Privation",
-        items: [
-          { id: "bondage", label: "Bondage (menottes, sangles, liens)" },
-          { id: "shibari", label: "Shibari (cordes japonaises)" },
-          { id: "ties_denial", label: "Ties and denial (attaché(e) & privé(e))" },
-          { id: "privations_sensorielles", label: "Privations sensorielles (yeux bandés...)" },
-          { id: "enfermement", label: "Enfermement (cage, pièce, sac)" }
-        ]
-      },
-      {
-        id: "cat_sex_control",
-        title: "3. Contrôle Sexuel & Sextoys",
-        items: [
-          { id: "chastete", label: "Chasteté imposée (cage / ceinture)" },
-          { id: "privation_orgasme", label: "Privation d'orgasme" },
-          { id: "controle_orgasme", label: "Contrôle de l'orgasme / Edging" },
-          { id: "sextoys_vaginal", label: "Godes / Sextoys (Vaginal)" },
-          { id: "sextoys_anal", label: "Godes / Sextoys (Anal)" },
-          { id: "dilatation_vaginale", label: "Dilatation (Vaginale)" },
-          { id: "dilatation_anale", label: "Dilatation (Anale)" },
-          { id: "fisting_vaginal", label: "Fisting (Vaginal)" },
-          { id: "fisting_anal", label: "Fisting (Anal)" }
-        ]
-      },
-      {
-        id: "cat_impact",
-        title: "4. Sensations, Impact & Supplices",
-        items: [
-          { id: "fessees", label: "Fessées (Spanking)" },
-          { id: "fouet_cravache", label: "Fouet, cravache, martinet" },
-          { id: "chatiments", label: "Châtiments corporels marqués" },
-          { id: "bougies", label: "Bougies / Cire chaude" },
-          { id: "electro", label: "Électro-stimulation" },
-          { id: "torture_seins", label: "Tortures des seins (pinces...)" },
-          { id: "torture_genitales", label: "Tortures des parties génitales" }
-        ]
-      },
-      {
-        id: "cat_oral_fluids",
-        title: "5. Domination Orale & Fluides",
-        items: [
-          { id: "facesitting", label: "Facesitting (assise sur le visage)" },
-          { id: "face_fuck", label: "Face fucking / Gorge profonde" },
-          { id: "manger_sperme", label: "Manger sperme / Avaler" },
-          { id: "crachat", label: "Crachat" },
-          { id: "uro", label: "Uro (Douche dorée)" },
-          { id: "scato", label: "Scato" }
-        ]
-      },
-      {
-        id: "cat_roles_fetish",
-        title: "6. Jeux de Rôles & Fétichismes",
-        items: [
-          { id: "jeux_de_roles", label: "Jeux de Rôles" },
-          { id: "mises_en_scene", label: "Mises en scène scénarisées" },
-          { id: "tenues_imposees", label: "Tenues imposées" },
-          { id: "cuir_latex", label: "Cuir, latex & vinyle" },
-          { id: "uniformes", label: "Uniformes" },
-          { id: "pony_play", label: "Pony-play" },
-          { id: "puppy_play", label: "Puppy-play / Pet-play" },
-          { id: "travestissement", label: "Travestissement / Féminisation" },
-          { id: "fetichisme", label: "Fétichisme (pieds, bottes, lingerie...)" }
-        ]
-      },
-      {
-        id: "cat_taboo_group",
-        title: "7. Humiliation, Médical & Groupe",
-        items: [
-          { id: "humiliations", label: "Humiliations verbales / postures" },
-          { id: "jeux_medicaux", label: "Jeux médicaux" },
-          { id: "marquage_temp", label: "Marquage ou perçage temporaire" },
-          { id: "marquage_perm", label: "Marquage ou perçage permanent" },
-          { id: "photo_video", label: "Être photographié(e) / Filmé(e)" },
-          { id: "exhibition", label: "Exhibition" },
-          { id: "voyeurisme", label: "Voyeurisme (regarder / observer)" },
-          { id: "echangisme", label: "Échangisme" },
-          { id: "sexe_groupe", label: "Sexualité de groupe ou orgie" }
-        ]
-      }
-    ];
-
-    const ALLERGIES_LIST = ["Latex", "Silicone", "Cuir / Tannins", "Nickel / Métaux", "Cire / Parfums", "Huiles de massage"];
-    const MEDICAL_LIST = ["Épaules sensibles", "Poignets fragiles", "Genoux fragiles", "Lombaires / Dos", "Asthme / Souffle", "Peau marquant vite", "Claustrophobie"];
-    const AFTERCARE_LIST = ["Câlins & contact", "Couverture chaude", "Boisson sucrée / Eau", "Silence & calme", "Mots rassurants", "Débriefing vocal"];
-
-    // 2. GESTION DU RÔLE ET DE L'ORIENTATION PAR DÉFAUT (Silencieuse)
-    function getDefaultDirectionForRole(role) {
-      if (role === "Dominant(e)") return "give";
-      if (role === "Soumis(e)") return "receive";
-      return "switch";
-    }
-
-    let state = {
-      pseudo: "",
-      role: "Switch",
-      ratings: {},
-      directions: {},
-      customDirections: {},
-      safety: {
-        green: "Vert",
-        orange: "Orange",
-        red: "Rouge",
-        nonverbal: "",
-        allergies: [],
-        medical: [],
-        aftercare: [],
-        notes: ""
-      }
-    };
-
-    let activeRatingFilter = null;
-    let compareMode = "duo";
-
-    window.addEventListener("DOMContentLoaded", () => {
-      loadState();
-      renderPractices();
-      renderSafetyGrids();
-      checkHashImport();
+  <div id="sec-2" class="sec">
+    <div class="card">
+      <div style="font-weight:700;color:var(--burg);margin-bottom:8px">Safewords (Mots d'arrêt)</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px">
+        <div><label class="lbl">Vert</label><input type="text" id="sw-g" value="Vert" oninput="save()"></div>
+        <div><label class="lbl">Orange</label><input type="text" id="sw-o" value="Orange" oninput="save()"></div>
+        <div><label class="lbl">Rouge</label><input type="text" id="sw-r" value="Rouge" oninput="save()"></div>
+      </div>
+      <label class="lbl">Signal Non-Verbal (si bâillon)</label>
+      <input type="text" id="sw-nv" placeholder="Ex: Lâcher un objet, taper 3 fois..." oninput="save()">
+    </div>
+    <div class="card"><div style="font-weight:700;color:var(--burg)">Allergies</div><div id="g-all" class="chk-grid"></div></div>
+    <div class="card"><div style="font-weight:700;color:var(--burg)">Fragilités Physiques</div><div id="g-med" class="chk-grid"></div></div>
+    <div class="card"><div style="font-weight:700;color:var(--burg)">Aftercare souhaité</div><div id="g-aft" class="chk-grid"></div></div>
+    <div class="card"><div style="font-weight:700;color:var(--burg);margin-bottom:6px">Observations & Limites</div><textarea id="notes" rows="3" placeholder="Précisions, phobies, santé..." oninput="save()"></textarea></div>
+  </div>
+  <div id="sec-3" class="sec">
+    <div class="card">
+      <div style="font-weight:700;color:var(--burg);margin-bottom:8px">Mode de comparaison</div>
+      <div class="grid2" style="margin-bottom:10px">
+        <button class="tbtn act" id="m-duo" style="border:1px solid var(--bdr)" onclick="setM('duo')">Duo (Affinités)</button>
+        <button class="tbtn" id="m-ds" style="border:1px solid var(--bdr)" onclick="setM('ds')">Protocole D/s (Tout)</button>
+      </div>
+      <textarea id="p-code" rows="2" placeholder="Colle ici le lien ou code reçu du partenaire..." style="margin-bottom:10px;font-family:monospace;font-size:0.75rem"></textarea>
+      <div style="display:flex;gap:8px">
+        <button class="btn" style="flex:1" onclick="compare()">Comparer</button>
+        <button class="btn btn-g" onclick="demo()">Test Démo</button>
+      </div>
+    </div>
+    <div id="comp-res"></div>
+  </div>
+</main>
+<script>
+const CATS=[
+  ["1. Dynamiques & Contrôle Mental",["Collier et laisse","Discipline & Règles strictes","Positions et attitudes imposées","Dynamique Maître(sse) / Esclave","Frustration sexuelle","Cocufication (Cuckolding)","Gay imposé / Initiation bi"]],
+  ["2. Entraves, Attaches & Privation",["Bondage (menottes, sangles, liens)","Shibari (cordes japonaises)","Ties and denial (attaché & privé)","Privations sensorielles","Enfermement (cage, pièce)"]],
+  ["3. Contrôle Sexuel & Sextoys",["Chasteté imposée (cage)","Privation d'orgasme","Contrôle de l'orgasme / Edging","Godes / Sextoys (Vaginal)","Godes / Sextoys (Anal)","Dilatation (Vaginale)","Dilatation (Anale)","Fisting (Vaginal)","Fisting (Anal)"]],
+  ["4. Sensations, Impact & Supplices",["Fessées (Spanking)","Fouet, cravache, martinet","Châtiments corporels","Bougies / Cire chaude","Électro-stimulation","Tortures des seins","Tortures des parties génitales"]],
+  ["5. Domination Orale & Fluides",["Facesitting","Face fucking / Gorge profonde","Manger sperme / Avaler","Crachat","Uro (Douche dorée)","Scato"]],
+  ["6. Jeux de Rôles & Fétichismes",["Jeux de Rôles","Mises en scène","Tenues imposées","Cuir, latex & vinyle","Uniformes","Pony-play","Puppy-play / Pet-play","Travestissement","Fétichisme (pieds, lingerie...)"]],
+  ["7. Humiliation, Médical & Groupe",["Humiliations","Jeux médicaux","Marquage / perçage temporaire","Marquage / perçage permanent","Être photographié(e) / Filmé(e)","Exhibition","Voyeurisme (regarder)","Échangisme","Sexualité de groupe ou orgie"]]
+];
+const ALL=["Latex","Silicone","Cuir","Nickel / Métaux","Cire / Parfums","Huiles"];
+const MED=["Épaules sensibles","Poignets fragiles","Genoux fragiles","Dos / Lombaires","Asthme","Peau sensible","Claustrophobie"];
+const AFT=["Câlins & contact","Couverture chaude","Boisson sucrée","Silence & calme","Mots rassurants","Débriefing"];
+let S={p:"",r:"Switch",ans:{},dir:{},cdir:{},sw:["Vert","Orange","Rouge",""],all:[],med:[],aft:[],n:""};
+let curFlt=null,mode="duo";
+function defDir(r){return r==="Dominant(e)"?"Dom":r==="Soumis(e)"?"Sub":"Switch";}
+function goTab(n){[1,2,3].forEach(i=>{document.getElementById("sec-"+i).className=i===n?"sec act":"sec";document.getElementById("tb-"+i).className=i===n?"tbtn act":"tbtn";});}
+function changeRole(){S.r=document.getElementById("role").value;const d=defDir(S.r);CATS.forEach((c,ci)=>c[1].forEach((_,ii)=>{const k=ci+"_"+ii;if(!S.cdir[k])S.dir[k]=d;}));save();draw();}
+function setAns(k,v){S.ans[k]=v;if((v==="yes"||v==="cur")&&!S.cdir[k])S.dir[k]=defDir(S.r);save();draw();}
+function setPos(k,p){S.dir[k]=p;if(p!==defDir(S.r))S.cdir[k]=1;else delete S.cdir[k];save();draw();}
+function flt(f){curFlt=curFlt===f?null:f;draw();}
+function draw(){
+  let cnt={yes:0,cur:0,neu:0,no:0},html="",dDef=defDir(S.r);
+  CATS.forEach((c,ci)=>{
+    let rows="";
+    c[1].forEach((name,ii)=>{
+      const k=ci+"_"+ii,v=S.ans[k]||"neu",d=S.dir[k]||dDef;
+      cnt[v]++;
+      if(curFlt&&v!==curFlt)return;
+      const showPos=(v==="yes"||v==="cur")?"pos show":"pos";
+      rows+=`<div class="row"><div class="rmain"><span class="rname">${name}</span><div class="rbtns"><button class="rb ${v==='yes'?'on-yes':''}" onclick="setAns('${k}','yes')">🟢</button><button class="rb ${v==='cur'?'on-cur':''}" onclick="setAns('${k}','cur')">🟡</button><button class="rb ${v==='neu'?'on-neu':''}" onclick="setAns('${k}','neu')">⚪</button><button class="rb ${v==='no'?'on-no':''}" onclick="setAns('${k}','no')">🔴</button></div></div><div class="${showPos}"><span>Position :</span><div><button class="pb ${d==='Dom'?'on':''}" onclick="setPos('${k}','Dom')">Donneur</button><button class="pb ${d==='Sub'?'on':''}" onclick="setPos('${k}','Sub')">Receveur</button><button class="pb ${d==='Switch'?'on':''}" onclick="setPos('${k}','Switch')">Switch</button></div></div></div>`;
     });
-
-    function handleRoleChange() {
-      const newRole = document.getElementById("user-role").value;
-      state.role = newRole;
-      const defaultDir = getDefaultDirectionForRole(newRole);
-
-      KINK_CATEGORIES.forEach(cat => {
-        cat.items.forEach(item => {
-          if (!state.customDirections[item.id]) {
-            state.directions[item.id] = defaultDir;
-          }
-        });
-      });
-
-      saveState();
-      renderPractices();
+    if(rows)html+=`<div class="cat"><div class="cat-h">${c[0]}</div>${rows}</div>`;
+  });
+  document.getElementById("list-box").innerHTML=html||"<div class='card'>Aucune pratique dans ce filtre.</div>";
+  ["yes","cur","neu","no"].forEach(x=>document.getElementById("c-"+x).textContent=cnt[x]);
+}
+function drawChecks(){
+  const mk=(id,arr,key)=>{document.getElementById(id).innerHTML=arr.map(x=>`<label class="chk"><input type="checkbox" ${S[key].includes(x)?"checked":""} onchange="tgChk('${key}','${x}')"><span>${x}</span></label>`).join("");};
+  mk("g-all",ALL,"all");mk("g-med",MED,"med");mk("g-aft",AFT,"aft");
+}
+function tgChk(key,val){const i=S[key].indexOf(val);if(i>-1)S[key].splice(i,1);else S[key].push(val);save();}
+function save(){
+  S.p=document.getElementById("pseudo").value;
+  S.sw=[document.getElementById("sw-g").value,document.getElementById("sw-o").value,document.getElementById("sw-r").value,document.getElementById("sw-nv").value];
+  S.n=document.getElementById("notes").value;
+  localStorage.setItem("ks_v6",JSON.stringify(S));
+}
+function load(){
+  try{
+    const r=localStorage.getItem("ks_v6");
+    if(r){
+      S=Object.assign(S,JSON.parse(r));
+      document.getElementById("pseudo").value=S.p||"";
+      document.getElementById("role").value=S.r||"Switch";
+      document.getElementById("sw-g").value=S.sw[0]||"Vert";
+      document.getElementById("sw-o").value=S.sw[1]||"Orange";
+      document.getElementById("sw-r").value=S.sw[2]||"Rouge";
+      document.getElementById("sw-nv").value=S.sw[3]||"";
+      document.getElementById("notes").value=S.n||"";
     }
-
-    // 3. RENDU DES PRATIQUES
-    function renderPractices() {
-      const container = document.getElementById("categories-container");
-      container.innerHTML = "";
-
-      let counts = { yes: 0, curious: 0, neutral: 0, no: 0 };
-      const defaultRoleDir = getDefaultDirectionForRole(state.role);
-
-      KINK_CATEGORIES.forEach(cat => {
-        cat.items.forEach(item => {
-          const r = state.ratings[item.id] || "neutral";
-          counts[r]++;
-        });
-
-        const visibleItems = cat.items.filter(item => {
-          const r = state.ratings[item.id] || "neutral";
-          return !activeRatingFilter || r === activeRatingFilter;
-        });
-
-        if (visibleItems.length === 0) return;
-
-        const card = document.createElement("div");
-        card.className = "cat-card";
-
-        const rowsHtml = visibleItems.map(item => {
-          const r = state.ratings[item.id] || "neutral";
-          const dir = state.directions[item.id] || defaultRoleDir;
-
-          return `
-            <div class="practice-row">
-              <div class="practice-main">
-                <span class="practice-label">${item.label}</span>
-                <div class="rating-group">
-                  <button class="rate-btn ${r === 'yes' ? 'active-yes' : ''}" onclick="setRating('${item.id}', 'yes')" title="Oui">🟢</button>
-                  <button class="rate-btn ${r === 'curious' ? 'active-curious' : ''}" onclick="setRating('${item.id}', 'curious')" title="Curieux">🟡</button>
-                  <button class="rate-btn ${r === 'neutral' ? 'active-neutral' : ''}" onclick="setRating('${item.id}', 'neutral')" title="Neutre">⚪</button>
-                  <button class="rate-btn ${r === 'no' ? 'active-no' : ''}" onclick="setRating('${item.id}', 'no')" title="Hard Limit">🔴</button>
-                </div>
-              </div>
-              ${(r === "yes" || r === "curious") ? `
-                <div class="practice-nuance">
-                  <span class="nuance-label">Position :</span>
-                  <div class="nuance-pills">
-                    <button class="nuance-btn ${dir === 'give' ? 'active' : ''}" onclick="setDirection('${item.id}', 'give')">👑 Donneur</button>
-                    <button class="nuance-btn ${dir === 'receive' ? 'active' : ''}" onclick="setDirection('${item.id}', 'receive')">⛓️ Receveur</button>
-                    <button class="nuance-btn ${dir === 'switch' ? 'active' : ''}" onclick="setDirection('${item.id}', 'switch')">🔄 Switch</button>
-                  </div>
-                </div>
-              ` : ""}
-            </div>
-          `;
-        }).join("");
-
-        card.innerHTML = `
-          <div class="cat-header">
-            <h3>${cat.title}</h3>
-            <span class="cat-badge">${visibleItems.length}</span>
-          </div>
-          <div>${rowsHtml}</div>
-        `;
-        container.appendChild(card);
-      });
-
-      document.getElementById("count-yes").textContent = counts.yes;
-      document.getElementById("count-curious").textContent = counts.curious;
-      document.getElementById("count-neutral").textContent = counts.neutral;
-      document.getElementById("count-no").textContent = counts.no;
-
-      ["yes", "curious", "neutral", "no"].forEach(k => {
-        document.getElementById(`pill-${k}`).classList.toggle("active-filter", activeRatingFilter === k);
-      });
-    }
-
-    function setRating(itemId, rating) {
-      state.ratings[itemId] = rating;
-      if ((rating === "yes" || rating === "curious") && !state.customDirections[itemId]) {
-        state.directions[itemId] = getDefaultDirectionForRole(state.role);
-      }
-      saveState();
-      renderPractices();
-    }
-
-    function setDirection(itemId, dir) {
-      state.directions[itemId] = dir;
-      const defaultDir = getDefaultDirectionForRole(state.role);
-      if (dir !== defaultDir) {
-        state.customDirections[itemId] = true;
-      } else {
-        delete state.customDirections[itemId];
-      }
-      saveState();
-      renderPractices();
-    }
-
-    function filterByRating(rating) {
-      activeRatingFilter = (activeRatingFilter === rating) ? null : rating;
-      renderPractices();
-    }
-
-    // 4. SANTÉ & SÉCURITÉ
-    function renderSafetyGrids() {
-      const makeGrid = (elId, list, key) => {
-        const el = document.getElementById(elId);
-        el.innerHTML = list.map(item => {
-          const checked = state.safety[key].includes(item) ? "checked" : "";
-          return `
-            <label class="check-item">
-              <input type="checkbox" ${checked} onchange="toggleSafetyArray('${key}', '${item}')">
-              <span>${item}</span>
-            </label>
-          `;
-        }).join("");
-      };
-      makeGrid("allergies-grid", ALLERGIES_LIST, "allergies");
-      makeGrid("medical-grid", MEDICAL_LIST, "medical");
-      makeGrid("aftercare-grid", AFTERCARE_LIST, "aftercare");
-    }
-
-    function toggleSafetyArray(key, val) {
-      const arr = state.safety[key];
-      const idx = arr.indexOf(val);
-      if (idx > -1) arr.splice(idx, 1);
-      else arr.push(val);
-      saveState();
-    }
-
-    function updateProfile() {
-      state.pseudo = document.getElementById("user-pseudo").value;
-      saveState();
-    }
-
-    function saveSafety() {
-      state.safety.green = document.getElementById("safe-green").value;
-      state.safety.orange = document.getElementById("safe-orange").value;
-      state.safety.red = document.getElementById("safe-red").value;
-      state.safety.nonverbal = document.getElementById("safe-nonverbal").value;
-      state.safety.notes = document.getElementById("safety-notes").value;
-      saveState();
-    }
-
-    // 5. COMPARATEUR
-    function setCompareMode(mode) {
-      compareMode = mode;
-      document.getElementById("btn-mode-duo").classList.toggle("active", mode === "duo");
-      document.getElementById("btn-mode-ds").classList.toggle("active", mode === "ds");
-      document.getElementById("mode-desc").textContent = mode === "duo"
-        ? "Seules vos affinités mutuelles (Oui & Curieux) sont affichées. Les refus restent secrets."
-        : "Affiche l'intégralité du profil partenaire (incluant ses Hard Limits et sa fiche sécurité) pour préparer la séance.";
-    }
-
-    function runComparison() {
-      const rawInput = document.getElementById("partner-code-input").value.trim();
-      if (!rawInput) return alert("Colle d'abord le lien ou le code reçu.");
-
-      let partner = null;
-      try {
-        const clean = rawInput.includes("#profile=") ? rawInput.split("#profile=")[1] : rawInput;
-        partner = JSON.parse(decodeURIComponent(atob(clean)));
-      } catch (e) {
-        return alert("Ce lien ou code est invalide.");
-      }
-
-      const myName = state.pseudo || "Moi";
-      const pName = partner.pseudo || "Partenaire";
-      const myDefaultDir = getDefaultDirectionForRole(state.role);
-      const pDefaultDir = getDefaultDirectionForRole(partner.role || "Switch");
-
-      let mutualYes = [];
-      let mutualExplore = [];
-      let synergies = [];
-      let pHardLimits = [];
-      let catScores = [];
-      let totalEvaluated = 0;
-      let totalCompatible = 0;
-
-      KINK_CATEGORIES.forEach(cat => {
-        let catCompat = 0;
-        let catActive = 0;
-
-        cat.items.forEach(item => {
-          const uR = state.ratings[item.id] || "neutral";
-          const pR = (partner.ratings && partner.ratings[item.id]) || "neutral";
-          const uD = (state.directions && state.directions[item.id]) || myDefaultDir;
-          const pD = (partner.directions && partner.directions[item.id]) || pDefaultDir;
-
-          if (uR !== "neutral" || pR !== "neutral") {
-            totalEvaluated++;
-            catActive++;
-          }
-
-          if (uR === "yes" && pR === "yes") {
-            mutualYes.push(item.label);
-            totalCompatible++;
-            catCompat++;
-            if ((uD === "give" && pD === "receive") || (uD === "receive" && pD === "give")) {
-              synergies.push(`${item.label} (${uD === 'give' ? myName + ' Dom ➔ ' + pName + ' Sub' : pName + ' Dom ➔ ' + myName + ' Sub'})`);
-            }
-          } else if ((uR === "yes" || uR === "curious") && (pR === "yes" || pR === "curious")) {
-            mutualExplore.push(item.label);
-            totalCompatible += 0.75;
-            catCompat += 0.75;
-          }
-
-          if (pR === "no") {
-            pHardLimits.push(item.label);
-          }
-        });
-
-        const pct = catActive > 0 ? Math.round((catCompat / catActive) * 100) : 0;
-        catScores.push({ title: cat.title.replace(/^\d+\.\s*/, ""), pct });
-      });
-
-      const uEx = state.ratings["exhibition"], pVoy = partner.ratings?.["voyeurisme"];
-      const pEx = partner.ratings?.["exhibition"], uVoy = state.ratings["voyeurisme"];
-      if ((uEx === "yes" || uEx === "curious") && (pVoy === "yes" || pVoy === "curious")) {
-        synergies.push(`Exhibition (${myName}) ✦ Voyeurisme (${pName})`);
-      }
-      if ((pEx === "yes" || pEx === "curious") && (uVoy === "yes" || uVoy === "curious")) {
-        synergies.push(`Exhibition (${pName}) ✦ Voyeurisme (${myName})`);
-      }
-
-      const globalScore = totalEvaluated > 0 ? Math.min(100, Math.round((totalCompatible / totalEvaluated) * 100)) : 0;
-
-      const out = document.getElementById("comparison-output");
-      out.innerHTML = `
-        <div class="card">
-          <div class="score-banner">
-            <div>
-              <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--burgundy); font-weight:700;">Compatibilité</div>
-              <div style="font-size:1.1rem; font-weight:700; margin-top:2px;">${myName} (${state.role}) ✦ ${pName} (${partner.role || 'Switch'})</div>
-            </div>
-            <div class="score-circle">${globalScore}%</div>
-          </div>
-
-          <div style="margin-bottom:16px;">
-            ${catScores.map(c => `
-              <div class="cat-bar-row">
-                <div class="cat-bar-label"><span>${c.title}</span><span>${c.pct}%</span></div>
-                <div class="cat-bar-track"><div class="cat-bar-fill" style="width:\${c.pct}%"></div></div>
-              </div>
-            `).join("")}
-          </div>
-
-          <div style="margin-bottom:14px;">
-            <div style="font-size:0.85rem; font-weight:700; color:var(--yes);">🟢 Pratiques Aimées en Commun (${mutualYes.length})</div>
-            ${mutualYes.length ? `<div class="tag-list">\${mutualYes.map(t => `<span class="tag tag-yes">${t}</span>`).join("")}</div>` : `<p style="font-size:0.78rem; color:var(--text-muted); margin-top:4px;">Aucun "Oui" mutuel pour l'instant.</p>`}
-          </div>
-
-          ${synergies.length ? `
-            <div style="margin-bottom:14px;">
-              <div style="font-size:0.85rem; font-weight:700; color:var(--burgundy);">⚡ Complémentarités Donneur / Receveur (\${synergies.length})</div>
-              <div class="tag-list">\${synergies.map(s => `<span class="tag tag-synergy">${s}</span>`).join("")}</div>
-            </div>
-          ` : ""}
-
-          <div style="margin-bottom:14px;">
-            <div style="font-size:0.85rem; font-weight:700; color:var(--curious);">🟡 À Explorer Ensemble (${mutualExplore.length})</div>
-            ${mutualExplore.length ? `<div class="tag-list">\${mutualExplore.map(t => `<span class="tag tag-curious">${t}</span>`).join("")}</div>` : `<p style="font-size:0.78rem; color:var(--text-muted); margin-top:4px;">Aucune pratique en curiosité croisée.</p>`}
-          </div>
-
-          ${compareMode === "ds" ? `
-            <hr style="border:none; border-top:1px solid var(--border-light); margin:16px 0;">
-            <div style="margin-bottom:14px;">
-              <div style="font-size:0.85rem; font-weight:700; color:var(--no);">🔴 Hard Limits de \${pName} (${pHardLimits.length})</div>${pHardLimits.length ? `<div class="tag-list">${pHardLimits.map(t => `<span class="tag tag-no">\${t}</span>`).join("")}</div>` : `<p style="font-size:0.78rem; color:var(--text-muted); margin-top:4px;">Aucune Hard Limit cochée.</p>`}
-            </div>
-
-            <div style="background:var(--bg-input); border:1px solid var(--border-light); border-radius:12px; padding:14px; font-size:0.8rem; line-height:1.7;">
-              <div style="font-weight:700; color:var(--burgundy); margin-bottom:4px;">📋 Fiche Sécurité & Santé de ${pName}</div>
-              <div><strong>Safewords :</strong> Vert = "${partner.safety?.green || 'Vert'}" | Orange = "${partner.safety?.orange || 'Orange'}" | Rouge = "${partner.safety?.red || 'Rouge'}"</div>
-              <div><strong>Signal Non-Verbal :</strong> ${partner.safety?.nonverbal || 'Non précisé'}</div>
-              <div><strong>Allergies :</strong> ${(partner.safety?.allergies || []).join(", ") || 'Aucune signalée'}</div>
-              <div><strong>Fragilités :</strong> ${(partner.safety?.medical || []).join(", ") || 'Aucune signalée'}</div>
-              <div><strong>Aftercare :</strong> ${(partner.safety?.aftercare || []).join(", ") || 'Non précisé'}</div>
-              ${partner.safety?.notes ? `<div style="margin-top:6px; font-style:italic; color:var(--burgundy);">" ${partner.safety.notes} "</div>` : ""}
-            </div>
-
-            <div style="margin-top:14px; text-align:right;" class="no-print">
-              <button class="btn btn-ghost" onclick="window.print()">🖨️ Imprimer / PDF</button>
-            </div>
-          ` : ""}
-        </div>
-      `;
-    }
-
-    function loadDemoPartner() {
-      const demo = {
-        pseudo: "Elena",
-        role: "Soumis(e)",
-        ratings: {
-          collier_laisse: "yes", discipline: "yes", postures: "yes", privation_orgasme: "curious",
-          bondage: "yes", shibari: "yes", ties_denial: "curious", privations_sensorielles: "yes",
-          chastete: "curious", controle_orgasme: "yes", sextoys_vaginal: "yes", sextoys_anal: "curious",
-          fessees: "yes", fouet_cravache: "yes", bougies: "yes", facesitting: "curious",
-          manger_sperme: "yes", tenues_imposees: "yes", cuir_latex: "yes", exhibition: "curious",
-          scato: "no", marquage_perm: "no", fisting_anal: "no"
-        },
-        directions: {
-          collier_laisse: "receive", bondage: "receive", shibari: "receive", fessees: "receive", controle_orgasme: "receive"
-        },
-        safety: {
-          green: "Vert", orange: "Orange", red: "Rouge",
-          nonverbal: "Lâcher l'objet en main ou taper 3 fois",
-          allergies: ["Latex"],
-          medical: ["Poignets fragiles"],
-          aftercare: ["Câlins & contact", "Couverture chaude", "Boisson sucrée / Eau"],
-          notes: "Attention aux attaches trop serrées sur le poignet gauche."
-        }
-      };
-      const encoded = btoa(encodeURIComponent(JSON.stringify(demo)));
-      document.getElementById("partner-code-input").value = encoded;
-      runComparison();
-    }
-
-    // 6. NAVIGATION & PARTAGE
-    function switchTab(tab) {
-      document.querySelectorAll(".view-section").forEach(s => s.classList.remove("active"));
-      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-      document.getElementById(`view-${tab}`).classList.add("active");
-      document.getElementById(`tab-${tab}`).classList.add("active");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    function openShareModal() {
-      const payload = btoa(encodeURIComponent(JSON.stringify(state)));
-      const url = `${window.location.origin}${window.location.pathname}#profile=${payload}`;
-      document.getElementById("share-url-output").value = url;
-      document.getElementById("share-modal").classList.add("open");
-    }
-
-    function closeShareModal() {
-      document.getElementById("share-modal").classList.remove("open");
-    }
-
-    function copyShareLink() {
-      const input = document.getElementById("share-url-output");
-      input.select();
-      navigator.clipboard.writeText(input.value);
-      const btn = document.getElementById("btn-copy-link");
-      btn.textContent = "✓ Lien copié !";
-      setTimeout(() => btn.textContent = "Copier le lien", 2000);
-    }
-
-    function copyRawCode() {
-      const payload = btoa(encodeURIComponent(JSON.stringify(state)));
-      navigator.clipboard.writeText(payload);
-      alert("Code copié !");
-    }
-
-    function checkHashImport() {
-      if (window.location.hash.startsWith("#profile=")) {
-        const code = window.location.hash.replace("#profile=", "");
-        document.getElementById("partner-code-input").value = code;
-        switchTab("compare");
-        runComparison();
-      }
-    }
-
-    function saveState() {
-      localStorage.setItem("kinksync_boudoir_v3", JSON.stringify(state));
-    }
-
-    function loadState() {
-      const raw = localStorage.getItem("kinksync_boudoir_v3");
-      if (raw) {
-        try {
-          const parsed = JSON.parse(raw);
-          state = Object.assign(state, parsed);
-          state.customDirections = state.customDirections || {};
-          document.getElementById("user-pseudo").value = state.pseudo || "";
-          document.getElementById("user-role").value = state.role || "Switch";
-          document.getElementById("safe-green").value = state.safety?.green || "Vert";
-          document.getElementById("safe-orange").value = state.safety?.orange || "Orange";
-          document.getElementById("safe-red").value = state.safety?.red || "Rouge";
-          document.getElementById("safe-nonverbal").value = state.safety?.nonverbal || "";
-          document.getElementById("safety-notes").value = state.safety?.notes || "";
-        } catch (e) { console.error(e); }
-      }
-    }
-
-    function resetAll() {
-      if (confirm("Effacer toutes tes réponses enregistrées sur cet appareil ?")) {
-        localStorage.removeItem("kinksync_boudoir_v3");
-        window.location.hash = "";
-        location.reload();
-      }
-    }
-  </script>
+  }catch(e){}
+}
+function shareApp(){
+  const code=btoa(encodeURIComponent(JSON.stringify(S)));
+  const url=location.origin+location.pathname+"#p="+code;
+  if(navigator.clipboard)navigator.clipboard.writeText(url);
+  prompt("Copie ce lien de partage pour ton/ta partenaire :",url);
+}
+function setM(m){
+  mode=m;
+  document.getElementById("m-duo").className=m==="duo"?"tbtn act":"tbtn";
+  document.getElementById("m-ds").className=m==="ds"?"tbtn act":"tbtn";
+}
+function compare(){
+  const raw=document.getElementById("p-code").value.trim();
+  if(!raw)return alert("Colle d'abord le lien ou code reçu.");
+  let P;
+  try{P=JSON.parse(decodeURIComponent(atob(raw.includes("#p=")?raw.split("#p=")[1]:raw)));}
+  catch(e){return alert("Lien ou code invalide.");}
+  let yes=[],cur=[],syn=[],no=[];
+  const myN=S.p||"Moi",pN=P.p||"Partenaire",myD=defDir(S.r),pD=defDir(P.r||"Switch");
+  CATS.forEach((c,ci)=>c[1].forEach((name,ii)=>{
+    const k=ci+"_"+ii,uV=S.ans[k]||"neu",pV=(P.ans&&P.ans[k])||"neu";
+    const uP=S.dir[k]||myD,pP=(P.dir&&P.dir[k])||pD;
+    if(uV==="yes"&&pV==="yes"){
+      yes.push(name);
+      if((uP==="Dom"&&pP==="Sub")||(uP==="Sub"&&pP==="Dom"))syn.push(name+" ("+(uP==="Dom"?myN+" Dom":pN+" Dom")+")");
+    }else if((uV==="yes"||uV==="cur")&&(pV==="yes"||pV==="cur"))cur.push(name);
+    if(pV==="no")no.push(name);
+  }));
+  document.getElementById("comp-res").innerHTML=`<div class="card"><div style="font-weight:800;color:var(--burg);margin-bottom:10px">${myN} (${S.r}) ✦ ${pN} (${P.r||'Switch'})</div><div style="margin-bottom:10px"><div style="font-size:0.8rem;font-weight:700;color:var(--yes)">🟢 Oui en commun (${yes.length})</div><div>${yes.map(x=>`<span class="tag t-yes">\${x}</span>`).join("")||"Aucun"}</div></div>${syn.length?`<div style="margin-bottom:10px"><div style="font-size:0.8rem;font-weight:700;color:var(--burg)">⚡ Synergies Donneur/Receveur (${syn.length})</div><div>${syn.map(x=>`<span class="tag t-syn">${x}</span>`).join("")}</div></div>`:""}<div style="margin-bottom:10px"><div style="font-size:0.8rem;font-weight:700;color:var(--cur)">🟡 À explorer ensemble (${cur.length})</div><div>${cur.map(x=>`<span class="tag t-cur">\${x}</span>`).join("")||"Aucun"}</div></div>${mode==="ds"?`<hr style="margin:12px 0;border:none;border-top:1px solid var(--bdr)"><div style="margin-bottom:10px"><div style="font-size:0.8rem;font-weight:700;color:var(--no)">🔴 Hard Limits de \${pN} (${no.length})</div><div>${no.map(x=>`<span class="tag t-no">${x}</span>`).join("")||"Aucune"}</div></div><div style="font-size:0.78rem;background:var(--inp);padding:10px;border-radius:8px;line-height:1.6"><b>Safewords :</b> ${(P.sw\vert{}\vert{}[]).slice(0,3).join(" / ")}<br><b>Non-Verbal :</b> ${(P.sw&&P.sw[3])||"Non précisé"}<br><b>Allergies :</b> ${(P.all\vert{}\vert{}[]).join(", ")\vert{}\vert{}"Aucune"}<br><b>Fragilités :</b> ${(P.med||[]).join(", ")||"Aucune"}<br><b>Aftercare :</b> ${(P.aft\vert{}\vert{}[]).join(", ")\vert{}\vert{}"Non précisé"}<br>${P.n?`<i>"${P.n}"</i>`:""}</div>`:""}</div>`;
+}
+function demo(){
+  const d={p:"Elena",r:"Soumis(e)",ans:{"0_0":"yes","0_1":"yes","1_0":"yes","1_1":"yes","3_0":"yes","3_3":"cur","4_5":"no"},dir:{"0_0":"Sub","1_0":"Sub"},sw:["Vert","Orange","Rouge","Taper 3 fois"],all:["Latex"],med:["Poignets fragiles"],aft:["Câlins & contact"],n:"Attention poignet gauche"};
+  document.getElementById("p-code").value=btoa(encodeURIComponent(JSON.stringify(d)));
+  compare();
+}
+function resetApp(){if(confirm("Tout effacer ?")){localStorage.removeItem("ks_v6");location.hash="";location.reload();}}
+load();draw();drawChecks();
+if(location.hash.startsWith("#p=")){document.getElementById("p-code").value=location.hash.replace("#p=","");goTab(3);compare();}
+</script>
 </body>
 </html>
