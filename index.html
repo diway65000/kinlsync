@@ -7,6 +7,11 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>KinkSync — Accords, Désirs & Limites</title>
+  
+  <!-- LIAISONS PWA -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -695,7 +700,7 @@
       <!-- Profil Minimaliste -->
       <div class="card">
         <div class="profile-grid">
-          <input type="text" id="user-pseudo" class="input-field" placeholder="Pseudo / Ville ">
+          <input type="text" id="user-pseudo" class="input-field" placeholder="Prénom ou Pseudo (facultatif)">
           <select id="user-role" class="input-field">
             <option value="Switch">Rôle : Switch</option>
             <option value="Dominant(e)">Rôle : Dominant(e) / Maître(sse)</option>
@@ -1333,6 +1338,17 @@
       localStorage.removeItem('kinksync_v3_simple');
       window.location.hash = "";
       window.location.reload();
+    }
+  </script>
+
+  <!-- ENREGISTREMENT DU SERVICE WORKER (POUR LA PWA) -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then(reg => console.log('Service Worker enregistré avec succès.', reg))
+          .catch(err => console.error('Erreur lors de l\'enregistrement du Service Worker.', err));
+      });
     }
   </script>
 </body>
